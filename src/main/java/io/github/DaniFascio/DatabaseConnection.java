@@ -1,9 +1,6 @@
 package io.github.DaniFascio;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseConnection {
 
@@ -34,5 +31,20 @@ public class DatabaseConnection {
 
         }
 
+    }
+
+
+
+
+    public void SelectAuto() throws SQLException {
+
+        ResultSet rs;
+        Statement stmt = conn.createStatement();
+
+        rs = stmt.executeQuery("select * from agenzie");
+
+        while(rs.next()) {
+            System.out.println(rs.getInt("id_") + " - " + rs.getString("nome") + " - " + rs.getString("indirizzo") + " - " + rs.getString("cap"));
+        }
     }
 }

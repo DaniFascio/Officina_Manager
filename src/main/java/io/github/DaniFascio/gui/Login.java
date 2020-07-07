@@ -1,9 +1,15 @@
 package io.github.DaniFascio.gui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class Login extends JFrame {
+
+	JFrame master;
 
 	private JTextField userField;
 	private JPanel rootPanel;
@@ -13,14 +19,29 @@ public class Login extends JFrame {
 	private JLabel userLabel;
 	private JPasswordField passField;
 	private JPanel formPanel;
+	private JSeparator rightSeparator;
+	private JSeparator leftSeparator;
 
 	public Login() {
+
+		master = this;
 
 		titleLabel.setFont(new Font("Comic Sans MS", Font.ITALIC, 48));
 
 //		userField.setBorder(BorderFactory.createCompoundBorder(userField.getBorder(), BorderFactory.createEmptyBorder(3, 3, 5, 3)));
 //		passField.setBorder(BorderFactory.createCompoundBorder(passField.getBorder(), BorderFactory.createEmptyBorder(3, 3, 5, 3)));
 
+		TitledBorder titledBorder = BorderFactory.createTitledBorder("Login");
+		titledBorder.setTitleFont(new Font("Lucida Calligraphy", Font.BOLD, 12));
+		Border compoundBorder = BorderFactory.createCompoundBorder(titledBorder, BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		formPanel.setBorder(compoundBorder);
+
+		leftSeparator.setBounds(leftSeparator.getX(), leftSeparator.getY(), leftSeparator.getWidth(), 10);
+
+		ActionListener closeListener = actionEvent -> master.dispatchEvent(new WindowEvent(master, WindowEvent.WINDOW_CLOSING));
+		loginButton.addActionListener(closeListener);
+		userField.addActionListener(closeListener);
+		passField.addActionListener(closeListener);
 
 		add(rootPanel);
 		setSize(1280, 720);

@@ -1,15 +1,7 @@
 package io.github.DaniFascio.gui;
 
-import javafx.scene.layout.StackPane;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class Manager extends JFrame {
 

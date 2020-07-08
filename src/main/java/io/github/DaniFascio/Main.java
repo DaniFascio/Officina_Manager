@@ -10,6 +10,7 @@ public class Main {
         dbconn.connect();
         dbconn.SelectAuto();
 
+        AutoDao autoDao = new AutoDao();
 
 
     }

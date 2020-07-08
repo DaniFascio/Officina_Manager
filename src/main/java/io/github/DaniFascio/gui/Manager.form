@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="io.github.DaniFascio.gui.Manager">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="true" same-size-vertically="true" hgap="0" vgap="0">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="627" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-2434342"/>
+      <foreground color="-9079435"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <scrollpane id="849ae">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="31"/>
+          <verticalScrollBarPolicy value="20"/>
+        </properties>
+        <border type="none" title="Elenco Auto">
+          <font name="Cooper Black" size="16"/>
+        </border>
+        <children>
+          <grid id="65c2e" binding="leftPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="8ffb5" binding="leftPaneControls" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="0">
+                <constraints border-constraint="South"/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+      <scrollpane id="48c0e">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="31"/>
+        </properties>
+        <border type="none" title="Lavorazioni Auto">
+          <font name="Cooper Black" size="16"/>
+        </border>
+        <children/>
+      </scrollpane>
+      <grid id="d9773" binding="centerPane" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="3">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Info Auto">
+          <font name="Cooper Black" size="16"/>
+        </border>
+        <children>
+          <grid id="6ac13" binding="gridBagPanel" layout-manager="GridBagLayout">
+            <constraints/>
+            <properties>
+              <enabled value="true"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

@@ -33,10 +33,12 @@ public class Login extends JFrame {
 
 		TitledBorder titledBorder = BorderFactory.createTitledBorder("Login");
 		titledBorder.setTitleFont(new Font("Lucida Calligraphy", Font.BOLD, 12));
-		Border compoundBorder = BorderFactory.createCompoundBorder(titledBorder, BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		Border compoundBorder = BorderFactory.createCompoundBorder(titledBorder, BorderFactory
+				.createEmptyBorder(6, 6, 6, 6));
 		formPanel.setBorder(compoundBorder);
 
-		leftSeparator.setBounds(leftSeparator.getX(), leftSeparator.getY(), leftSeparator.getWidth(), 10);
+		leftSeparator.setBounds(leftSeparator.getX(), leftSeparator.getY(), leftSeparator
+				.getWidth(), 10);
 
 		ActionListener closeListener = actionEvent -> master.dispatchEvent(new WindowEvent(master, WindowEvent.WINDOW_CLOSING));
 		loginButton.addActionListener(closeListener);

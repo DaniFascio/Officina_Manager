@@ -1,5 +1,8 @@
 package io.github.DaniFascio.gui;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,8 +18,10 @@ public class Manager extends JFrame {
 	private JPanel rootPanel;
 	private JPanel centerPane;
 	private JPanel gridBagPanel;
-	private JPanel leftPane;
-	private JPanel leftPaneControls;
+	private JPanel leftToolbar;
+	private JButton button1;
+	private JButton button2;
+	private JPanel leftScrollPane;
 
 	public Manager() {
 
@@ -53,6 +58,11 @@ public class Manager extends JFrame {
 			gridBagPanel.add(new JLabel(value), c);
 			c.gridy++;
 		}
+
+		GridLayoutManager gridLayout = (GridLayoutManager) leftScrollPane.getLayout();
+		leftScrollPane.add(new AutoPane("XX123XX", "Emanuele Scaccia", "stucazz"));
+		leftScrollPane.add(new AutoPane("XX123YY", "Daniele Fasciani", "povero"));
+		leftScrollPane.add(new AutoPane("YY123YY", "Qual Cuno", "acaso"));
 
 	}
 

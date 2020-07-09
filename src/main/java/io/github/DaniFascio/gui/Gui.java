@@ -1,5 +1,7 @@
 package io.github.DaniFascio.gui;
 
+import io.github.DaniFascio.gui.controllers.LoginScreenController;
+import io.github.DaniFascio.gui.controllers.ManagerScreenController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

@@ -1,6 +1,8 @@
-package io.github.DaniFascio.gui;
+package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
+import io.github.DaniFascio.AutoDao;
+import io.github.DaniFascio.gui.AutoCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,9 +29,15 @@ public class ManagerScreenController implements Initializable {
 		return fxmlLoader.load();
 	}
 
-	public void onAddPressed(ActionEvent actionEvent) {
+	@FXML
+	private void onAdd(ActionEvent actionEvent) {
 		leftList.getItems()
 				.add(new Auto("XX000XX", "Fiat", 1000, "Boh", "Qualcosa"));
+	}
+
+	@FXML
+	private void onReload(ActionEvent event) {
+		AutoDao autoDao = new AutoDao();
 	}
 
 	@Override

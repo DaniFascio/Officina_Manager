@@ -11,7 +11,7 @@
 		prefWidth="640"
 		xmlns="http://javafx.com/javafx/10.0.2-internal"
 		xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="io.github.DaniFascio.gui.LoginScreenController">
+		fx:controller="io.github.DaniFascio.gui.controllers.LoginScreenController">
 	<center>
 		<BorderPane>
 

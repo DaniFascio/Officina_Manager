@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManagerScreenController implements Initializable {
@@ -32,12 +33,16 @@ public class ManagerScreenController implements Initializable {
 	@FXML
 	private void onAdd(ActionEvent actionEvent) {
 		leftList.getItems()
-				.add(new Auto("XX000XX", "Fiat", 1000, "Boh", "Qualcosa"));
+				.add(new Auto("XX000XX", "Fiat", 1000, "Boh", "Qualcosa", null));
 	}
 
 	@FXML
 	private void onReload(ActionEvent event) {
 		AutoDao autoDao = new AutoDao();
+		List<Auto> list = autoDao.getAll();
+
+		leftList.getItems()
+				.addAll(list);
 	}
 
 	@Override

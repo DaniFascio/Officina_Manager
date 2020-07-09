@@ -1,6 +1,7 @@
 package io.github.DaniFascio.gui;
 
 import io.github.DaniFascio.Auto;
+import io.github.DaniFascio.gui.controllers.AutoCellController;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 

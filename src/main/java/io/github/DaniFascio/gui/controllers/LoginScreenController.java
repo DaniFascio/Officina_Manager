@@ -1,6 +1,6 @@
-package io.github.DaniFascio.gui;
+package io.github.DaniFascio.gui.controllers;
 
-import javafx.application.Platform;
+import io.github.DaniFascio.gui.Gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
@@ -38,7 +38,7 @@ public class LoginScreenController {
 	@FXML
 	private void guiToManagerEnter(KeyEvent event) {
 		if(event.getCode().equals(KeyCode.ENTER))
-			Gui.getInstance().changeScreen(Gui.MANAGER);
+			guiToManager();
 	}
 
 }

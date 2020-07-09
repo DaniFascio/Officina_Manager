@@ -32,12 +32,12 @@ public class AutoDao implements Dao<Auto> {
 
 
         try (DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
-            ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto LEFT JOIN tipi_gomme g on id_tipo_gomme = g.id_tipo_gomme");
+            ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
             while (rs.next())
 
                 list.add(new Auto(rs.getString("num_targa"), rs.getString("modello"), rs.getInt("km"), rs.getString("misura_gomme"),
-                        rs.getString("note"), rs.getString("id_tipo_gomme")));
+                        rs.getString("note"), rs.getString("tipo_gomme")));
 
         } catch (Exception e) {
             e.printStackTrace();

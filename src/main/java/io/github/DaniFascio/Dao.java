@@ -1,20 +1,22 @@
 package io.github.DaniFascio;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public interface Dao<T> {
 
-	@Nullable
-	T get(Object key);
+	@Nullable T get(Object key);
 
-	List<T> getAll(int page, int limit);
+	@NotNull List<T> getAll();
 
-	void save(T t);
+	@NotNull List<T> getAll(int page, int limit);
 
-	void update(T t, Object[] params);
+	int save(T t);
 
-	void delete(T t);
+	int update(T t, Object[] params);
+
+	int delete(T t);
 
 }

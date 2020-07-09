@@ -3,15 +3,13 @@ package io.github.DaniFascio.gui;
 import io.github.DaniFascio.Auto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class AutoCellController {
 
@@ -21,16 +19,16 @@ public class AutoCellController {
 	private Label plateLabel;
 	@FXML
 	private Label ownerLabel;
-	private final AnchorPane anchorPane;
+	private final VBox node;
 
 	private Auto auto;
 
 	public AutoCellController() {
 		try {
 
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmlPanes/AutoPane.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AutoCell.fxml"));
 			loader.setController(this);
-			anchorPane = loader.load();
+			node = loader.load();
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -39,10 +37,13 @@ public class AutoCellController {
 
 	public void setAuto(Auto auto) {
 		this.auto = auto;
+		modelLabel.setText(auto.getModello());
+		plateLabel.setText(auto.getTarga());
+		ownerLabel.setText("Emanuele Scaccia");
 	}
 
 	public Node getView() {
-		return anchorPane;
+		return node;
 	}
 
 }

@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class LoginScreen {
+public class LoginScreenController {
 
 	@FXML
 	private BorderPane rootPane;
@@ -22,7 +22,7 @@ public class LoginScreen {
 
 	public static Pane loadRoot() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(LoginScreen.class.getResource("/fxmlScreens/loginScreen.fxml"));
+		fxmlLoader.setLocation(LoginScreenController.class.getResource("/fxml/loginScreen.fxml"));
 		return fxmlLoader.load();
 	}
 
@@ -31,14 +31,14 @@ public class LoginScreen {
 	}
 
 	@FXML
-	private void closeWindow() {
-		Platform.exit();
+	private void guiToManager() {
+		Gui.getInstance().changeScreen(Gui.MANAGER);
 	}
 
 	@FXML
-	private void closeWindowEnter(KeyEvent event) {
+	private void guiToManagerEnter(KeyEvent event) {
 		if(event.getCode().equals(KeyCode.ENTER))
-			Platform.exit();
+			Gui.getInstance().changeScreen(Gui.MANAGER);
 	}
 
 }

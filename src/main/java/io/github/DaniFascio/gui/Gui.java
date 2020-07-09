@@ -16,6 +16,7 @@ public class Gui extends Application {
 	private static Gui instance;
 	private HashMap<String, Pane> screenMap;
 	private Scene scene;
+	private Stage stage;
 
 	public static final String LOGIN = "login";
 	public static final String MANAGER = "manager";
@@ -29,19 +30,31 @@ public class Gui extends Application {
 
 		instance = this;
 		screenMap = new HashMap<>();
-		screenMap.put(LOGIN, LoginScreen.loadRoot());
-		screenMap.put(MANAGER, ManagerScreen.loadRoot());
-		scene = new Scene(screenMap.get(MANAGER));
+		screenMap.put(LOGIN, LoginScreenController.loadRoot());
+		screenMap.put(MANAGER, ManagerScreenController.loadRoot());
+		scene = new Scene(screenMap.get(LOGIN));
 
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Officina Manager");
-		primaryStage.show();
+		stage = primaryStage;
+		stage.setScene(scene);
+		stage.setTitle("Officina Manager");
+		stage.show();
 	}
 
 	public void changeScreen(String screen) {
 		Pane root = screenMap.get(screen);
-		if(root != null)
+
+		if(root != null) {
+
+			double x = stage.getX(), y = stage.getY();
+			double w = root.getPrefWidth(), h = root.getPrefHeight();
+
+			stage.setX(x - (w - scene.getWidth()) / 2d);
+			stage.setY(y - (h - scene.getHeight()) / 2d);
+
+			stage.setHeight(root.getPrefHeight());
+			stage.setWidth(root.getPrefWidth());
 			scene.setRoot(root);
+		}
 	}
 
 }

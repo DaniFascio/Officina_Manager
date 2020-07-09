@@ -6,19 +6,18 @@
 
 <AnchorPane prefHeight="720"
 		prefWidth="1280"
+		stylesheets="/css/ManagerScreen.css"
 		xmlns="http://javafx.com/javafx/10.0.2-internal"
 		xmlns:fx="http://javafx.com/fxml/1"
-		stylesheets="/css/ManagerScreen.css"
-		fx:controller="io.github.DaniFascio.gui.ManagerScreen">
+		fx:controller="io.github.DaniFascio.gui.ManagerScreenController">
 
-	<GridPane AnchorPane.bottomAnchor="0"
+	<SplitPane dividerPositions="0.3, 0.7"
+			AnchorPane.bottomAnchor="0"
 			AnchorPane.leftAnchor="0"
 			AnchorPane.rightAnchor="0"
 			AnchorPane.topAnchor="0">
 
-		<BorderPane GridPane.columnIndex="0"
-				GridPane.hgrow="SOMETIMES"
-				GridPane.vgrow="ALWAYS">
+		<BorderPane>
 
 			<center>
 				<ScrollPane fitToHeight="true"
@@ -28,8 +27,39 @@
 			</center>
 
 			<bottom>
-				<HBox styleClass="buttonMenu"
-						spacing="5">
+				<HBox spacing="5"
+						styleClass="buttonMenu">
+					<padding>
+						<Insets topRightBottomLeft="5"/>
+					</padding>
+					<Button onAction="#onAddPressed"
+							text="Add"/>
+					<Button text="Reload"/>
+				</HBox>
+			</bottom>
+
+		</BorderPane>
+
+		<VBox>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+
+		</VBox>
+
+		<BorderPane>
+
+			<center>
+				<ScrollPane fitToHeight="true"
+						fitToWidth="true">
+					<ListView fx:id="rightList"/>
+				</ScrollPane>
+			</center>
+
+			<bottom>
+				<HBox spacing="5"
+						styleClass="buttonMenu">
 					<padding>
 						<Insets topRightBottomLeft="5"/>
 					</padding>
@@ -40,41 +70,6 @@
 
 		</BorderPane>
 
-		<VBox GridPane.columnIndex="1"
-				GridPane.hgrow="ALWAYS"
-				GridPane.vgrow="ALWAYS">
-			<Label text="AAAA"/>
-			<Label text="AAAA"/>
-			<Label text="AAAA"/>
-			<Label text="AAAA"/>
-
-		</VBox>
-
-		<BorderPane GridPane.columnIndex="2"
-				GridPane.hgrow="SOMETIMES"
-				GridPane.vgrow="ALWAYS">
-
-			<center>
-				<ScrollPane fitToHeight="true"
-						fitToWidth="true">
-					<ListView fx:id="rightList"/>
-				</ScrollPane>
-			</center>
-
-			<bottom>
-				<HBox styleClass="buttonMenu"
-						spacing="5">
-					<padding>
-						<Insets topRightBottomLeft="5"/>
-					</padding>
-					<Button text="Add"
-							onAction="#onAddPressed"/>
-					<Button text="Reload"/>
-				</HBox>
-			</bottom>
-
-		</BorderPane>
-
-	</GridPane>
+	</SplitPane>
 
 </AnchorPane>

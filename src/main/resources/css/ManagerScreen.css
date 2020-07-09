@@ -30,4 +30,14 @@
 }
 
 .view-item {
+    -fx-pref-height: 50px;
+}
+
+.view-item > .label {
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 14;
+}
+
+.view-item > .itemMainInfo {
+    -fx-font-size: 20;
 }

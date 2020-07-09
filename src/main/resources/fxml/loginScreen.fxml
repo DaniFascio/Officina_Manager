@@ -5,19 +5,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?language java?>
+<?import java.lang.String?>
 <BorderPane fx:id="rootPane"
 		prefHeight="480"
 		prefWidth="640"
 		xmlns="http://javafx.com/javafx/10.0.2-internal"
 		xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="io.github.DaniFascio.gui.LoginScreen">
+		fx:controller="io.github.DaniFascio.gui.LoginScreenController">
 	<center>
 		<BorderPane>
 
 			<top>
 				<Label alignment="CENTER"
 						BorderPane.alignment="CENTER">
-					<text>LA BELLOFFICINA</text>
+					<String fx:value="LA BELLOFFICINA"/>
 					<font>
 						<Font name="Cooper Black"
 								size="36.0"/>
@@ -39,21 +40,21 @@
 					<TextField fx:id="usernameField"
 							GridPane.columnIndex="1"
 							GridPane.rowIndex="0"
-							onAction="#closeWindow"/>
+							onAction="#guiToManager"/>
 					<Label text="Password"
 							GridPane.columnIndex="0"
 							GridPane.rowIndex="1"/>
 					<PasswordField fx:id="passwordField"
 							GridPane.columnIndex="1"
 							GridPane.rowIndex="1"
-							onAction="#closeWindow"/>
+							onAction="#guiToManager"/>
 					<Button text="LOGIN"
 							GridPane.columnIndex="0"
 							GridPane.columnSpan="2"
 							GridPane.halignment="CENTER"
 							GridPane.rowIndex="2"
-							onAction="#closeWindow"
-							onKeyPressed="#closeWindowEnter"/>
+							onAction="#guiToManager"
+							onKeyPressed="#guiToManagerEnter"/>
 
 				</GridPane>
 			</center>

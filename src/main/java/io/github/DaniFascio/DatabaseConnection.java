@@ -61,7 +61,7 @@ public class DatabaseConnection {
         }
     }
 
-
+/*
     public void SelectAutoAndLavorazioni() throws SQLException {
 
         ResultSet rs;
@@ -74,4 +74,5 @@ public class DatabaseConnection {
         }
     }
 }
+*/
 }

@@ -11,15 +11,14 @@ public class Auto {
     private String note;
 	private String tipo_gomme;
 
-	@Language("PostgreSQL")
-    private static final String query =" SELECT from tipi_gomme where descrizione = tipo_gomme
 
-	public Auto(String targa, String modello, Integer km, String misuraGomme, String note) {
+	public Auto(String targa, String modello, Integer km, String misuraGomme, String note, String tipo_gomme) {
 		this.targa = targa;
 		this.modello = modello;
 		this.km = km;
 		this.misuraGomme = misuraGomme;
 		this.note = note;
+		this.tipo_gomme = tipo_gomme;
 	}
 
 	public String getTarga() {
@@ -45,7 +44,7 @@ public class Auto {
 
 	public String queryValues() {
 
-		String qv = String.format("('%s','%s','%d', '%s','%d','%s',%d)", targa, modello, km , note, , misuraGomme,);
+		String qv = String.format("('%s','%s','%d', '%s','%d','%s',%d)", targa, modello, km , note, tipo_gomme , misuraGomme,);
 		return qv;
 	}
 

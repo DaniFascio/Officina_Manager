@@ -11,12 +11,12 @@ public class AutoDao implements Dao<Auto> {
 		Auto auto = null;
 
 		try {
-			DatabaseManager dm = new DatabaseManager("jdbc:postgresql://gergegrege/db_officina", "user", "pass", true);
+			DatabaseManager dm = new DatabaseManager("jdbc:postgresql://gergegrege/db_officina", "danifascio", "fdm3006", true);
 
 			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misuraGomme, note FROM auto WHERE targa = ?", key);
 			if(rs.next())
 				// TODO: Cambiare nomi "colonne"
-				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null);
+				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null, null);
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -38,7 +38,17 @@ public class AutoDao implements Dao<Auto> {
 
 		// TODO: INSERT Auto
 
+	try {
+		DatabaseManager dbman = new DatabaseManager("jdbc:postgresql://gergegrege/db_officina", "danifascio", "fdm3006", true);
 
+		ResultSet rs = dbman.executePreparedQuery(" SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ? ");
+
+	}
+	catch(Exception e){
+		e.printStackTrace();
+
+
+	}
 
 	}
 

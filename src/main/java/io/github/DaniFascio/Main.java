@@ -11,6 +11,8 @@ public class Main {
         dbconn.SelectAuto();
         dbconn.SelectTipiLavorazioni();
 
+
+
         AutoDao autoDao = new AutoDao();
 
 

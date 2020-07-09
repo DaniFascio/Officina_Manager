@@ -11,15 +11,10 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.12</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -28,9 +23,21 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.intellij</groupId>
-			<artifactId>forms_rt</artifactId>
-			<version>7.0.3</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>14</version>
 		</dependency>
 
 	</dependencies>

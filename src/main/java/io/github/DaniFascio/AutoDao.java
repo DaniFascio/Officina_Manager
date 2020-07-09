@@ -51,7 +51,7 @@ public class AutoDao implements Dao<Auto> {
     public @NotNull List<Auto> getAll(int page, int limit) {
         List<Auto> list = new LinkedList<>();
 
-        // TODO: Select per tutte (con max)
+        // TODO: Select p_ er tutte (con max)
 
         return list;
     }

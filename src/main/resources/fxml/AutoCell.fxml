@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="60"
+		styleClass="view-item"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1">
+
+	<HBox alignment="CENTER_LEFT"
+			styleClass="itemMainInfo">
+		<Label fx:id="modelLabel"/>
+		<Label text=":"/>
+		<Label fx:id="plateLabel"/>
+	</HBox>
+
+	<Label fx:id="ownerLabel"/>
+
+</VBox>

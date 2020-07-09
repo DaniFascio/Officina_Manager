@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720"
+		prefWidth="1280"
+		stylesheets="/css/ManagerScreen.css"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="io.github.DaniFascio.gui.ManagerScreenController">
+
+	<SplitPane dividerPositions="0.3, 0.7"
+			AnchorPane.bottomAnchor="0"
+			AnchorPane.leftAnchor="0"
+			AnchorPane.rightAnchor="0"
+			AnchorPane.topAnchor="0">
+
+		<BorderPane>
+
+			<center>
+				<ScrollPane fitToHeight="true"
+						fitToWidth="true">
+					<ListView fx:id="leftList"/>
+				</ScrollPane>
+			</center>
+
+			<bottom>
+				<HBox spacing="5"
+						styleClass="buttonMenu">
+					<padding>
+						<Insets topRightBottomLeft="5"/>
+					</padding>
+					<Button onAction="#onAddPressed"
+							text="Add"/>
+					<Button text="Reload"/>
+				</HBox>
+			</bottom>
+
+		</BorderPane>
+
+		<VBox>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+
+		</VBox>
+
+		<BorderPane>
+
+			<center>
+				<ScrollPane fitToHeight="true"
+						fitToWidth="true">
+					<ListView fx:id="rightList"/>
+				</ScrollPane>
+			</center>
+
+			<bottom>
+				<HBox spacing="5"
+						styleClass="buttonMenu">
+					<padding>
+						<Insets topRightBottomLeft="5"/>
+					</padding>
+					<Button text="Add"/>
+					<Button text="Reload"/>
+				</HBox>
+			</bottom>
+
+		</BorderPane>
+
+	</SplitPane>
+
+</AnchorPane>

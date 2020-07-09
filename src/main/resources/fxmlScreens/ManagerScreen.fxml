@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720"
+		prefWidth="1280"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1"
+		stylesheets="/css/ManagerScreen.css"
+		fx:controller="io.github.DaniFascio.gui.ManagerScreen">
+
+	<GridPane AnchorPane.bottomAnchor="0"
+			AnchorPane.leftAnchor="0"
+			AnchorPane.rightAnchor="0"
+			AnchorPane.topAnchor="0">
+
+		<BorderPane GridPane.columnIndex="0"
+				GridPane.hgrow="SOMETIMES"
+				GridPane.vgrow="ALWAYS">
+
+			<center>
+				<ScrollPane fitToHeight="true"
+						fitToWidth="true">
+					<ListView fx:id="leftList"/>
+				</ScrollPane>
+			</center>
+
+			<bottom>
+				<HBox styleClass="buttonMenu"
+						spacing="5">
+					<padding>
+						<Insets topRightBottomLeft="5"/>
+					</padding>
+					<Button text="Add"/>
+					<Button text="Reload"/>
+				</HBox>
+			</bottom>
+
+		</BorderPane>
+
+		<VBox GridPane.columnIndex="1"
+				GridPane.hgrow="ALWAYS"
+				GridPane.vgrow="ALWAYS">
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+			<Label text="AAAA"/>
+
+		</VBox>
+
+		<BorderPane GridPane.columnIndex="2"
+				GridPane.hgrow="SOMETIMES"
+				GridPane.vgrow="ALWAYS">
+
+			<center>
+				<ScrollPane fitToHeight="true"
+						fitToWidth="true">
+					<ListView fx:id="rightList"/>
+				</ScrollPane>
+			</center>
+
+			<bottom>
+				<HBox styleClass="buttonMenu"
+						spacing="5">
+					<padding>
+						<Insets topRightBottomLeft="5"/>
+					</padding>
+					<Button text="Add"
+							onAction="#onAddPressed"/>
+					<Button text="Reload"/>
+				</HBox>
+			</bottom>
+
+		</BorderPane>
+
+	</GridPane>
+
+</AnchorPane>

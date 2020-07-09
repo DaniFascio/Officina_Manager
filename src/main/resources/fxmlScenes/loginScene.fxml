@@ -1,38 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?language java?>
 <BorderPane fx:id="rootPane"
-			prefHeight="720.0"
-			prefWidth="1280.0"
-			xmlns="http://javafx.com/javafx/10.0.2-internal"
-			xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="io.github.DaniFascio.gui.LoginScene">
+		prefHeight="480"
+		prefWidth="640"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="io.github.DaniFascio.gui.LoginScene">
 	<center>
 		<BorderPane>
 
 			<top>
-				<Label text="LA BELLOFFICINA"
-					   alignment="CENTER"/>
+				<Label alignment="CENTER"
+						BorderPane.alignment="CENTER">
+					<text>LA BELLOFFICINA</text>
+					<font>
+						<Font name="Cooper Black"
+								size="36.0"/>
+					</font>
+					<BorderPane.margin>
+						<Insets top="100.0"/>
+					</BorderPane.margin>
+				</Label>
 			</top>
 
 			<center>
 				<GridPane alignment="CENTER"
-						  hgap="10"
-						  vgap="10">
+						hgap="10"
+						vgap="10">
 
 					<Label text="Username"
-						   GridPane.rowIndex="0"
-						   GridPane.columnIndex="0"/>
+							GridPane.columnIndex="0"
+							GridPane.rowIndex="0"/>
 					<TextField fx:id="usernameField"
-							   GridPane.rowIndex="0"
-							   GridPane.columnIndex="1"/>
+							GridPane.columnIndex="1"
+							GridPane.rowIndex="0"
+							onAction="#closeWindow"/>
 					<Label text="Password"
-						   GridPane.rowIndex="1"
-						   GridPane.columnIndex="0"/>
-					<TextField fx:id="passwordField"
-							   GridPane.rowIndex="1"
-							   GridPane.columnIndex="1"/>
+							GridPane.columnIndex="0"
+							GridPane.rowIndex="1"/>
+					<PasswordField fx:id="passwordField"
+							GridPane.columnIndex="1"
+							GridPane.rowIndex="1"
+							onAction="#closeWindow"/>
+					<Button text="LOGIN"
+							GridPane.columnIndex="0"
+							GridPane.columnSpan="2"
+							GridPane.halignment="CENTER"
+							GridPane.rowIndex="2"
+							onAction="#closeWindow"
+							onKeyPressed="#closeWindowEnter"/>
 
 				</GridPane>
 			</center>

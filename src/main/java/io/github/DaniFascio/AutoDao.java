@@ -1,6 +1,9 @@
 package io.github.DaniFascio;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AutoDao implements Dao<Auto> {
@@ -10,13 +13,11 @@ public class AutoDao implements Dao<Auto> {
 
 		Auto auto = null;
 
-		try {
-			DatabaseManager dm = new DatabaseManager("jdbc:postgresql://gergegrege/db_officina", "user", "pass", true);
-
+		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
 			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misuraGomme, note FROM auto WHERE targa = ?", key);
+
 			if(rs.next())
-				// TODO: Cambiare nomi "colonne"
-				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null);
+				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null, null);
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -26,32 +27,56 @@ public class AutoDao implements Dao<Auto> {
 	}
 
 	@Override
-	public List<Auto> getAll(int page, int limit) {
+	public @NotNull List<Auto> getAll() {
+		List<Auto> list = new LinkedList<>();
 
-		// TODO: Select per tutte
+		// TODO: Select per tutte (senza max)
 
-		return null;
+		return list;
 	}
 
 	@Override
-	public void save(Auto auto) {
+	public @NotNull List<Auto> getAll(int page, int limit) {
+		List<Auto> list = new LinkedList<>();
 
-		// TODO: INSERT Auto
+		// TODO: Select per tutte (con max)
 
+		return list;
 	}
 
 	@Override
-	public void update(Auto auto, Object[] params) {
+	public int save(Auto auto) {
+
+		int res = 0;
+
+		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
+
+			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ?", auto.getTipoGomme());
+
+			if(rs.next())
+				res = dm.executeUpdate("INSERT INTO auto (num_targa,modello,km,note,id_tipo_gomma,misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), rs.getInt("id_tipo_gomme"), auto.getMisuraGomme());
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return res;
+	}
+
+	@Override
+	public int update(Auto auto, Object[] params) {
 
 		// TODO: UPDATE Auto
 
+		return 0;
 	}
 
 	@Override
-	public void delete(Auto auto) {
+	public int delete(Auto auto) {
 
 		// TODO: DELETE Auto
 
+		return 0;
 	}
 
 }

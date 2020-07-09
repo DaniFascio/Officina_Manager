@@ -47,4 +47,32 @@ public class DatabaseConnection {
             System.out.println(rs.getString("num_targa") + " - " + rs.getString("modello") + " - " + rs.getString("km") + " - " + rs.getString("note"));
         }
     }
+
+
+    public void SelectTipiLavorazioni() throws SQLException {
+
+        ResultSet rs;
+        Statement stmt = conn.createStatement();
+
+        rs = stmt.executeQuery("select * from tipi_lavorazioni");
+
+        while(rs.next()) {
+            System.out.println(rs.getString("id_tipo_lavorazione") + " - " + rs.getString("descrizione") + " - " + rs.getString("spesa"));
+        }
+    }
+
+/*
+    public void SelectAutoAndLavorazioni() throws SQLException {
+
+        ResultSet rs;
+        Statement stmt = conn.createStatement();
+
+        rs = stmt.executeQuery("select * from auto WHERE  = id_tipo_lavorazione");
+
+        while(rs.next()) {
+            System.out.println(rs.getString("num_targa") + " - " + rs.getString("modello") + " - " + rs.getString("km") + " - " + rs.getString("note"));
+        }
+    }
+}
+*/
 }

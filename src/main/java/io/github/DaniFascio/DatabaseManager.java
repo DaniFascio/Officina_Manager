@@ -2,9 +2,11 @@ package io.github.DaniFascio;
 
 import org.intellij.lang.annotations.Language;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.sql.*;
 
-public class DatabaseManager {
+public class DatabaseManager implements Closeable {
 
 	private static final String[] arguments = { "DB_HOST", "DB_USER", "DB_PASS" };
 
@@ -58,6 +60,15 @@ public class DatabaseManager {
 
 	public ResultSet getResultSet() {
 		return resultSet;
+	}
+
+	@Override
+	public void close() throws IOException {
+		try {
+			connection.close();
+		} catch(SQLException e) {
+			throw new IOException(e);
+		}
 	}
 
 }

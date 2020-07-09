@@ -38,6 +38,8 @@ public class AutoDao implements Dao<Auto> {
 
 		// TODO: INSERT Auto
 
+
+
 	}
 
 	@Override

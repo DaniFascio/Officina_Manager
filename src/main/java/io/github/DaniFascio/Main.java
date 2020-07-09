@@ -9,8 +9,11 @@ public class Main {
         DatabaseConnection dbconn = new DatabaseConnection();
         dbconn.connect();
         dbconn.SelectAuto();
+        dbconn.SelectTipiLavorazioni();
 
         AutoDao autoDao = new AutoDao();
+
+
 
 
 

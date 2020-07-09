@@ -1,7 +1,5 @@
 package io.github.DaniFascio;
 
-import org.intellij.lang.annotations.Language;
-
 public class Auto {
 
     private String targa;
@@ -9,16 +7,16 @@ public class Auto {
     private Integer km;
     private String misuraGomme;
     private String note;
-	private String tipo_gomme;
+	private String tipoGomme;
 
 
-	public Auto(String targa, String modello, Integer km, String misuraGomme, String note, String tipo_gomme) {
+	public Auto(String targa, String modello, Integer km, String misuraGomme, String note, String tipoGomme) {
 		this.targa = targa;
 		this.modello = modello;
 		this.km = km;
 		this.misuraGomme = misuraGomme;
 		this.note = note;
-		this.tipo_gomme = tipo_gomme;
+		this.tipoGomme = tipoGomme;
 	}
 
 	public String getTarga() {
@@ -41,10 +39,13 @@ public class Auto {
 		return note;
 	}
 
+	public String getTipoGomme() {
+		return tipoGomme;
+	}
 
 	public String queryValues() {
 
-		String qv = String.format("('%s','%s','%d', '%s','%d','%s',%d)", targa, modello, km , note, tipo_gomme , misuraGomme,);
+		String qv = String.format("('%?','%?','%?', '%?','%?','%?',%?)", targa, modello, km , note, tipoGomme, misuraGomme);
 		return qv;
 	}
 

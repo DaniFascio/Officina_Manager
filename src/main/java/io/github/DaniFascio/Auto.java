@@ -42,8 +42,6 @@ public class Auto {
 		return tipoGomme;
 	}
 
-	public String queryValues() {
-		return String.format("('%s', '%s', %d, '%s', '%s', '%s')", targa, modello, km, note, tipoGomme, misuraGomme);
-	}
+
 
 }

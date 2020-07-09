@@ -1,4 +1,4 @@
-package io.github.DaniFascio.gui;
+package io.github.DaniFascio.gui.components;
 
 import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.gui.controllers.AutoCellController;

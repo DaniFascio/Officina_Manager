@@ -2,7 +2,7 @@ package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.AutoDao;
-import io.github.DaniFascio.gui.AutoCell;
+import io.github.DaniFascio.gui.components.AutoCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

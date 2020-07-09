@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<BorderPane fx:id="rootPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-			xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.DaniFascio.gui.LoginScene">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="rootPane"
+			prefHeight="720.0"
+			prefWidth="1280.0"
+			xmlns="http://javafx.com/javafx/10.0.2-internal"
+			xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="io.github.DaniFascio.gui.LoginScene">
 	<center>
+		<BorderPane>
 
-		<VBox nodeOrientation="LEFT_TO_RIGHT" alignment="CENTER">
-			<children>
+			<top>
+				<Label text="LA BELLOFFICINA"
+					   alignment="CENTER"/>
+			</top>
 
-				<HBox alignment="CENTER">
-					<children>
+			<center>
+				<GridPane alignment="CENTER"
+						  hgap="10"
+						  vgap="10">
 
-						<Label text="Username"/>
-						<TextField fx:id="usernameField"/>
+					<Label text="Username"
+						   GridPane.rowIndex="0"
+						   GridPane.columnIndex="0"/>
+					<TextField fx:id="usernameField"
+							   GridPane.rowIndex="0"
+							   GridPane.columnIndex="1"/>
+					<Label text="Password"
+						   GridPane.rowIndex="1"
+						   GridPane.columnIndex="0"/>
+					<TextField fx:id="passwordField"
+							   GridPane.rowIndex="1"
+							   GridPane.columnIndex="1"/>
 
-					</children>
-				</HBox>
-				<HBox alignment="CENTER">
-					<children>
-						<Label text="Password"/>
-						<TextField fx:id="passwordField"/>
-					</children>
-				</HBox>
+				</GridPane>
+			</center>
 
-			</children>
-		</VBox>
-
+		</BorderPane>
 	</center>
 </BorderPane>

@@ -41,10 +41,10 @@ public class DatabaseConnection {
         ResultSet rs;
         Statement stmt = conn.createStatement();
 
-        rs = stmt.executeQuery("select * from agenzie");
+        rs = stmt.executeQuery("select * from auto");
 
         while(rs.next()) {
-            System.out.println(rs.getInt("id_") + " - " + rs.getString("nome") + " - " + rs.getString("indirizzo") + " - " + rs.getString("cap"));
+            System.out.println(rs.getString("num_targa") + " - " + rs.getString("modello") + " - " + rs.getString("km") + " - " + rs.getString("note"));
         }
     }
 }

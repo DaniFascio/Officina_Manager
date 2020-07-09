@@ -44,7 +44,7 @@ public class DatabaseConnection {
         rs = stmt.executeQuery("select * from auto");
 
         while(rs.next()) {
-            System.out.println(rs.getString("num_targa") + " - " + rs.getString("modello_auto") + " - " + rs.getString("misura") + " - " + rs.getString("spesa"));
+            System.out.println(rs.getString("num_targa") + " - " + rs.getString("modello") + " - " + rs.getString("km") + " - " + rs.getString("note"));
         }
     }
 }

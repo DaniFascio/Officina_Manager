@@ -1,26 +1,21 @@
 package io.github.DaniFascio;
 
-import java.sql.SQLException;
-
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
+		DatabaseManager.setUsername("user");
+		DatabaseManager.setPassword("pass");
 
-        DatabaseConnection dbconn = new DatabaseConnection();
-        dbconn.connect();
-        dbconn.SelectAuto();
-        dbconn.SelectTipiLavorazioni();
+		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 
-        AutoDao ad = new AutoDao();
-        Auto a = new Auto("12sdf12", "ford", 2300 , "200x300", "sos", "sos");
-        ad.save(a);
+			System.out.println(dbm.isClosed());
+			dbm.close();
+			System.out.println(dbm.isClosed());
 
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
-        AutoDao autoDao = new AutoDao();
+	}
 
-
-
-
-
-    }
 }

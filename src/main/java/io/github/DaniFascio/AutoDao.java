@@ -8,87 +8,91 @@ import java.util.List;
 
 public class AutoDao implements Dao<Auto> {
 
-    @Override
-    public Auto get(Object key) {
+	@Override
+	public Auto get(Object key) {
 
-        Auto auto = null;
+		Auto auto = null;
 
-        try (DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
-            ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misuraGomme, note FROM auto WHERE targa = ?", key);
+		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
+			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misuraGomme, note FROM auto WHERE targa = ?", key);
 
-            if (rs.next())
-                auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null, null);
+			if(rs.next())
+				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null, null);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
-        return auto;
-    }
+		return auto;
+	}
 
-    @Override
-    public @NotNull List<Auto> getAll() {
-        List<Auto> list = new LinkedList<>();
-
-
-        try (DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
-            ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
-
-            while (rs.next())
-
-                list.add(new Auto(rs.getString("num_targa"), rs.getString("modello"), rs.getInt("km"), rs.getString("misura_gomme"),
-                        rs.getString("note"), rs.getString("tipo_gomme")));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	@Override
+	public @NotNull List<Auto> getAll() {
+		List<Auto> list = new LinkedList<>();
 
 
-        return list;
-    }
+		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
+			ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
-    @Override
-    public @NotNull List<Auto> getAll(int page, int limit) {
-        List<Auto> list = new LinkedList<>();
+			while(rs.next())
 
-        // TODO: Select p_ er tutte (con max)
+				list.add(new Auto(rs.getString("num_targa"), rs.getString("modello"), rs
+						.getInt("km"), rs.getString("misura_gomme"), rs.getString("note"), rs
+						.getString("tipo_gomme")));
 
-        return list;
-    }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public int save(Auto auto) {
 
-        int res = 0;
+		return list;
+	}
 
-        try (DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
+	@Override
+	public @NotNull List<Auto> getAll(int page, int limit) {
+		List<Auto> list = new LinkedList<>();
 
-            ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ?", auto.getTipoGomme());
+		// TODO: Select per tutte (con max)
 
-            if (rs.next())
-                res = dm.executeUpdate("INSERT INTO auto (num_targa,modello,km,note,id_tipo_gomme,misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), rs.getInt("id_tipo_gomme"), auto.getMisuraGomme());
+		return list;
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	@Override
+	public int save(Auto auto) {
 
-        return res;
-    }
+		int res = 0;
 
-    @Override
-    public int update(Auto auto, Object[] params) {
+		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
 
-        // TODO: UPDATE Auto
+			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ?", auto
+					.getTipoGomme());
 
-        return 0;
-    }
+			if(rs.next())
+				res = dm.executeUpdate("INSERT INTO auto (num_targa,modello,km,note,id_tipo_gomme,misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
+						.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), rs
+						.getInt("id_tipo_gomme"), auto.getMisuraGomme());
 
-    @Override
-    public int delete(Auto auto) {
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
-        // TODO: DELETE Auto
+		return res;
+	}
 
-        return 0;
-    }
+	@Override
+	public int update(Auto auto, Object[] params) {
+
+		// TODO: UPDATE Auto
+
+		return 0;
+	}
+
+	@Override
+	public int delete(Auto auto) {
+
+		// TODO: DELETE Auto
+
+		return 0;
+	}
 
 }

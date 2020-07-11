@@ -2,26 +2,73 @@ package io.github.DaniFascio;
 
 import org.intellij.lang.annotations.Language;
 
-import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.MissingResourceException;
+import java.util.Properties;
 
-public class DatabaseManager implements Closeable {
+public class DatabaseManager implements AutoCloseable {
 
-	private static final String[] arguments = { "DB_HOST", "DB_USER", "DB_PASS" };
+	private static final Properties properties;
+
+	static {
+		properties = new Properties();
+
+		try(InputStream input = DatabaseManager.class.getClassLoader().getResourceAsStream("conn.properties")) {
+
+			if(input == null)
+				throw new MissingResourceException("Cannot load db configs from default properties file", DatabaseManager.class
+						.getCanonicalName(), "conn.properties");
+
+			properties.load(input);
+
+		} catch(MissingResourceException e) {
+			properties.setProperty("db.host", "localhost");
+			properties.setProperty("db.port", "5432");
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private final Connection connection;
 	private Statement statement;
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 
-	public DatabaseManager(String url, String user, String pass, boolean autocommit) throws SQLException, ClassNotFoundException {
-		Class.forName("org.postgresql.Driver");
+	public static DatabaseManager fromConfig(boolean autoCommit) throws SQLException {
+		String dbhost, dbport, dbuser, dbpass;
+
+		dbhost = properties.getProperty("db.host");
+		dbport = properties.getProperty("db.port");
+		dbuser = properties.getProperty("db.username");
+		dbpass = properties.getProperty("db.password");
+
+		return new DatabaseManager("jdbc:postgresql://" + dbhost + ":" + dbport + "/db_officina", dbuser, dbpass, autoCommit);
+	}
+
+	public DatabaseManager(String url, String user, String pass, boolean autoCommit) throws SQLException {
+
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch(ClassNotFoundException e) {
+			throw new SQLException(e);
+		}
+
+		resultSet = null;
 		statement = null;
 		preparedStatement = null;
-		resultSet = null;
 		connection = DriverManager.getConnection(url, user, pass);
-		connection.setAutoCommit(autocommit);
+		connection.setAutoCommit(autoCommit);
+	}
+
+	public static void setUsername(String username) {
+		properties.setProperty("db.username", username);
+	}
+
+	public static void setPassword(String password) {
+		properties.setProperty("db.password", password);
 	}
 
 	public void commit() throws SQLException {
@@ -69,6 +116,10 @@ public class DatabaseManager implements Closeable {
 		} catch(SQLException e) {
 			throw new IOException(e);
 		}
+	}
+
+	public boolean isClosed() throws SQLException {
+		return connection.isClosed();
 	}
 
 }

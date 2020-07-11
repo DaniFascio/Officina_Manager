@@ -32,10 +32,10 @@ public class AutoDao implements Dao<Auto> {
 
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
+			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
-				list.add(new Auto(rs.getString("num_targa"), rs.getString("modello"), rs
+				list.add(new Auto(rs.getString("targa"), rs.getString("modello"), rs
 						.getInt("km"), rs.getString("misura_gomme"), rs.getString("note"), rs
 						.getString("tipo_gomme")));
 
@@ -66,7 +66,7 @@ public class AutoDao implements Dao<Auto> {
 					.getTipoGomme());
 
 			if(rs.next())
-				res = dm.executeUpdate("INSERT INTO auto (num_targa,modello,km,note,id_tipo_gomme,misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
+				res = dm.executeUpdate("INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
 						.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), rs
 						.getInt("id_tipo_gomme"), auto.getMisuraGomme());
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language java?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane minHeight="480"
+		minWidth="640"
+		prefHeight="480"
+		prefWidth="640"
+		AnchorPane.bottomAnchor="0"
+		AnchorPane.leftAnchor="0"
+		AnchorPane.rightAnchor="0"
+		AnchorPane.topAnchor="0"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1">
+
+	<rowConstraints>
+		<RowConstraints percentHeight="15.0"/>
+		<RowConstraints percentHeight="20.0"/>
+		<RowConstraints/>
+	</rowConstraints>
+
+	<Pane GridPane.rowIndex="0"/>
+
+	<Label alignment="CENTER"
+			textAlignment="CENTER"
+			GridPane.halignment="CENTER"
+			GridPane.hgrow="ALWAYS"
+			GridPane.rowIndex="1"
+			GridPane.valignment="CENTER"
+			GridPane.vgrow="ALWAYS">
+		<String fx:value="LA BELLOFFICINA"/>
+		<font>
+			<Font name="Cooper Black"
+					size="36.0"/>
+		</font>
+		<GridPane.margin>
+			<Insets top="20"/>
+		</GridPane.margin>
+	</Label>
+
+	<GridPane fx:id="formPane"
+			alignment="CENTER"
+			hgap="10"
+			vgap="10"
+			GridPane.hgrow="ALWAYS"
+			GridPane.rowIndex="2"
+			GridPane.vgrow="ALWAYS">
+
+		<Label text="Username"
+				GridPane.columnIndex="0"
+				GridPane.rowIndex="0"/>
+		<TextField fx:id="usernameField"
+				onAction="#login"
+				GridPane.columnIndex="1"
+				GridPane.rowIndex="0"/>
+		<Label text="Password"
+				GridPane.columnIndex="0"
+				GridPane.rowIndex="1"/>
+		<PasswordField fx:id="passwordField"
+				onAction="#login"
+				onKeyPressed="#ctrlDelete"
+				GridPane.columnIndex="1"
+				GridPane.rowIndex="1"/>
+		<Button onAction="#login"
+				onKeyPressed="#login"
+				text="LOGIN"
+				GridPane.columnIndex="0"
+				GridPane.columnSpan="2"
+				GridPane.halignment="CENTER"
+				GridPane.rowIndex="2"/>
+
+
+	</GridPane>
+</GridPane>

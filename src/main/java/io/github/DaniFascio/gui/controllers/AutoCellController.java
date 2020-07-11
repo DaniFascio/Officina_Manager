@@ -1,24 +1,27 @@
 package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
+import io.github.DaniFascio.gui.Screen;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-public class AutoCellController {
+public class AutoCellController implements Screen {
 
-	private final VBox node;
 	@FXML
 	private Label modelLabel;
 	@FXML
 	private Label plateLabel;
 	@FXML
 	private Label ownerLabel;
+
+	private final Pane view;
 	private Auto auto;
 
 	public AutoCellController() {
@@ -26,7 +29,7 @@ public class AutoCellController {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AutoCell.fxml"));
 			loader.setController(this);
-			node = loader.load();
+			view = loader.load();
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -37,12 +40,11 @@ public class AutoCellController {
 		this.auto = auto;
 		modelLabel.setText(auto.getModello());
 		plateLabel.setText("[" + auto.getTarga() + "]");
-		ownerLabel.setText(auto.getKm()
-				.toString());
+		ownerLabel.setText(auto.getKm().toString());
 	}
 
-	public Node getView() {
-		return node;
+	public Pane getView() {
+		return view;
 	}
 
 }

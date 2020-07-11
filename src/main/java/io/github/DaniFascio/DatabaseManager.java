@@ -15,7 +15,8 @@ public class DatabaseManager implements AutoCloseable {
 	static {
 		properties = new Properties();
 
-		try(InputStream input = DatabaseManager.class.getClassLoader().getResourceAsStream("conn.properties")) {
+		try(InputStream input = DatabaseManager.class.getClassLoader()
+				.getResourceAsStream("conn.properties")) {
 
 			if(input == null)
 				throw new MissingResourceException("Cannot load db configs from default properties file", DatabaseManager.class
@@ -61,6 +62,14 @@ public class DatabaseManager implements AutoCloseable {
 		preparedStatement = null;
 		connection = DriverManager.getConnection(url, user, pass);
 		connection.setAutoCommit(autoCommit);
+	}
+
+	public static void setHostname(String hostname) {
+		properties.setProperty("db.host", hostname);
+	}
+
+	public static void setPort(String port) {
+		properties.setProperty("db.port", port);
 	}
 
 	public static void setUsername(String username) {

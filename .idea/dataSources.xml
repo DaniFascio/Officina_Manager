@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db_officina@excale.ddns.net" uuid="c60f75bb-7fbc-40ed-8c41-77a7de8882e9">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://excale.ddns.net:54321/db_officina</jdbc-url>
+    </data-source>
+  </component>
+</project>

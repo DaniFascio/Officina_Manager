@@ -31,11 +31,10 @@ public class AutoDao implements Dao<Auto> {
 		List<Auto> list = new LinkedList<>();
 
 
-		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
+		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 			ResultSet rs = dm.executeQuery("SELECT num_targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
-
 				list.add(new Auto(rs.getString("num_targa"), rs.getString("modello"), rs
 						.getInt("km"), rs.getString("misura_gomme"), rs.getString("note"), rs
 						.getString("tipo_gomme")));
@@ -43,7 +42,6 @@ public class AutoDao implements Dao<Auto> {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-
 
 		return list;
 	}
@@ -62,7 +60,7 @@ public class AutoDao implements Dao<Auto> {
 
 		int res = 0;
 
-		try(DatabaseManager dm = new DatabaseManager("jdbc:postgresql://localhost:5432/db_officina", "postgres", "fdm3006", true)) {
+		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
 			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ?", auto
 					.getTipoGomme());

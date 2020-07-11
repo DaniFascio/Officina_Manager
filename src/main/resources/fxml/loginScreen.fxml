@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?language java?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?language java?>
+<?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 <BorderPane fx:id="rootPane"
 		prefHeight="480"
@@ -40,21 +40,21 @@
 					<TextField fx:id="usernameField"
 							GridPane.columnIndex="1"
 							GridPane.rowIndex="0"
-							onAction="#guiToManager"/>
+							onAction="#login"/>
 					<Label text="Password"
 							GridPane.columnIndex="0"
 							GridPane.rowIndex="1"/>
 					<PasswordField fx:id="passwordField"
 							GridPane.columnIndex="1"
 							GridPane.rowIndex="1"
-							onAction="#guiToManager"/>
+							onAction="#login"/>
 					<Button text="LOGIN"
 							GridPane.columnIndex="0"
 							GridPane.columnSpan="2"
-							GridPane.halignment="CENTER"
 							GridPane.rowIndex="2"
-							onAction="#guiToManager"
-							onKeyPressed="#guiToManagerEnter"/>
+							GridPane.halignment="CENTER"
+							onAction="#login"
+							onKeyPressed="#login"/>
 
 				</GridPane>
 			</center>

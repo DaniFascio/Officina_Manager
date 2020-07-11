@@ -26,7 +26,6 @@ public class ManagerScreenController implements Initializable {
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(LoginScreenController.class.getResource("/fxml/ManagerScreen.fxml"));
 
-
 		return fxmlLoader.load();
 	}
 

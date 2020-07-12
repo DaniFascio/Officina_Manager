@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<fx:root type="DialogPane"
+		xmlns="http://javafx.com/javafx"
+		xmlns:fx="http://javafx.com/fxml"
+		prefHeight="480"
+		prefWidth="640">
+	<content>
+		<GridPane hgap="10"
+				vgap="10">
+
+			<padding>
+				<Insets topRightBottomLeft="10"/>
+			</padding>
+
+			<rowConstraints>
+				<RowConstraints percentHeight="10"/>
+				<RowConstraints percentHeight="1"/>
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="14"/>
+				<ColumnConstraints percentWidth="18"/>
+				<ColumnConstraints/>
+				<ColumnConstraints percentWidth="14"/>
+			</columnConstraints>
+
+			<Label text="Registra un'auto"
+					GridPane.rowIndex="0"
+					GridPane.columnIndex="0"
+					GridPane.columnSpan="4"
+					GridPane.halignment="CENTER">
+				<font>
+					<Font name="Cooper Black"
+							size="24"/>
+				</font>
+			</Label>
+
+			<Separator GridPane.hgrow="ALWAYS"
+					GridPane.rowIndex="1"
+					GridPane.columnIndex="0"
+					GridPane.columnSpan="4"
+					GridPane.halignment="CENTER"/>
+
+			<Label text="Targa"
+					GridPane.rowIndex="2"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<TextField fx:id="targaField"
+					GridPane.rowIndex="2"
+					GridPane.columnIndex="2"/>
+
+			<Label text="Modello"
+					GridPane.rowIndex="3"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<TextField fx:id="modelloField"
+					GridPane.rowIndex="3"
+					GridPane.columnIndex="2"/>
+
+			<Label text="Km"
+					GridPane.rowIndex="4"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<TextField fx:id="kmField"
+					GridPane.rowIndex="4"
+					GridPane.columnIndex="2"/>
+
+			<Label text="Misura gomme"
+					GridPane.rowIndex="5"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<TextField fx:id="misuraGommeField"
+					GridPane.rowIndex="5"
+					GridPane.columnIndex="2"/>
+
+			<Label text="Tipo gomme"
+					GridPane.rowIndex="6"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<ComboBox fx:id="tipoGommeBox"
+					editable="true"
+					GridPane.rowIndex="6"
+					GridPane.columnIndex="2"/>
+
+			<Label text="Note"
+					GridPane.rowIndex="7"
+					GridPane.columnIndex="1"
+					GridPane.vgrow="ALWAYS"/>
+			<TextArea fx:id="noteArea"
+					GridPane.rowIndex="7"
+					GridPane.columnIndex="2"
+					GridPane.hgrow="ALWAYS"/>
+
+			<HBox GridPane.columnIndex="1"
+					GridPane.columnSpan="2"
+					GridPane.rowIndex="8"
+					GridPane.halignment="RIGHT"
+					alignment="CENTER_RIGHT"
+					spacing="5">
+
+				<Button fx:id="cancelBtn"
+						text="_Cancella"/>
+				<Button fx:id="addBtn"
+						text="_Aggiungi"/>
+
+			</HBox>
+
+			<Label text="&lt;-- Error"
+					GridPane.rowIndex="2"
+					GridPane.columnIndex="3"/>
+
+		</GridPane>
+	</content>
+
+	<ButtonType text="_Aggiungi"
+			buttonData="APPLY"/>
+	<ButtonType text="_Cancella"
+			buttonData="CANCEL_CLOSE"/>
+</fx:root>

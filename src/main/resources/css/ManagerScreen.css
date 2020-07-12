@@ -41,3 +41,12 @@
 .view-item > .itemMainInfo {
     -fx-font-size: 20;
 }
+
+.format-text {
+    -fx-text-alignment: left;
+}
+
+.mainLabel {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}

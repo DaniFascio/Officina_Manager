@@ -1,14 +1,21 @@
 package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
+import io.github.DaniFascio.TipoGomme;
+import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
-import javax.xml.soap.Text;
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Observable;
+import java.util.regex.Pattern;
 
 public class AutoAddDialog extends Dialog<Auto> {
 
@@ -36,12 +43,22 @@ public class AutoAddDialog extends Dialog<Auto> {
 			loader.setRoot(getDialogPane());
 			loader.load();
 
+			ObservableList<String> list = tipoGommeBox.getItems();
+			for(Map.Entry<String, TipoGomme> stringTipoGommeEntry : TipoGomme.entrySet())
+				list.add(stringTipoGommeEntry.getKey());
+
 			setResizable(true);
 			setResultConverter(btnType -> {
 
-				return null;
+				Auto auto = null;
+
+				return auto;
 
 			});
+
+			targaField.textProperty()
+					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
+							.matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}", newValue)));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -49,12 +66,8 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 	}
 
-	private void hookValidation(Control input) {
-
-		if(input instanceof TextField) {
-			return;
-		}
-
+	private boolean validate() {
+		return false;
 	}
 
 }

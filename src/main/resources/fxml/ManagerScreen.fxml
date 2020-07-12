@@ -46,6 +46,8 @@
 			<padding>
 				<Insets topRightBottomLeft="12"/>
 			</padding>
+
+			<!-- Modello -->
 			<HBox alignment="BOTTOM_LEFT">
 				<Label styleClass="mainLabel,format-text"
 						text="Modello:">
@@ -56,6 +58,8 @@
 				<Label fx:id="modelloLabel"
 						styleClass="format-text"/>
 			</HBox>
+
+			<!-- Targa -->
 			<HBox alignment="BOTTOM_LEFT">
 				<Label styleClass="mainLabel,format-text"
 						text="Targa:">
@@ -66,14 +70,64 @@
 				<Label fx:id="targaLabel"
 						styleClass="format-text"/>
 			</HBox>
+
+			<!-- Km -->
 			<HBox alignment="BOTTOM_LEFT">
 				<Label styleClass="mainLabel,format-text"
-						text="km:">
+						text="Km:">
 					<padding>
 						<Insets right="5"/>
 					</padding>
 				</Label>
 				<Label fx:id="kmLabel"
+						styleClass="format-text"/>
+			</HBox>
+
+			<!-- Misura gomme -->
+			<HBox alignment="BOTTOM_LEFT">
+				<Label styleClass="mainLabel,format-text"
+						text="Misura gomme:">
+					<padding>
+						<Insets right="5"/>
+					</padding>
+				</Label>
+				<Label fx:id="misuraGommeLabel"
+						styleClass="format-text"/>
+			</HBox>
+
+			<!-- Tipo gomme -->
+			<HBox alignment="BOTTOM_LEFT">
+				<Label styleClass="mainLabel,format-text"
+						text="Tipo gomme:">
+					<padding>
+						<Insets right="5"/>
+					</padding>
+				</Label>
+				<Label fx:id="tipoGommeLabel"
+						styleClass="format-text"/>
+			</HBox>
+
+			<!-- Totale lavorazioni -->
+			<HBox alignment="BOTTOM_LEFT">
+				<Label styleClass="mainLabel,format-text"
+						text="Totale lavorazioni:">
+					<padding>
+						<Insets right="5"/>
+					</padding>
+				</Label>
+				<Label fx:id="totaleLavorazioniLabel"
+						styleClass="format-text"/>
+			</HBox>
+
+			<!-- Note -->
+			<HBox alignment="BOTTOM_LEFT">
+				<Label styleClass="mainLabel,format-text"
+						text="Note:">
+					<padding>
+						<Insets right="5"/>
+					</padding>
+				</Label>
+				<Label fx:id="noteLabel"
 						styleClass="format-text"/>
 			</HBox>
 		</VBox>

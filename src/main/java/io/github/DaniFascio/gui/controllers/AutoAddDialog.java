@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.regex.Pattern;
 
 public class AutoAddDialog extends Dialog<Auto> {
 
@@ -27,6 +27,8 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
+	private final static Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
+
 	public AutoAddDialog() {
 		try {
 
@@ -39,9 +41,13 @@ public class AutoAddDialog extends Dialog<Auto> {
 			setResizable(true);
 			setResultConverter(btnType -> {
 
-				return null;
+				Auto auto = null;
+
+				return auto;
 
 			});
+
+			hookValidation(targaField);
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -49,10 +55,19 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 	}
 
+	private boolean validate() {
+		return false;
+	}
+
 	private void hookValidation(Control input) {
 
 		if(input instanceof TextField) {
-			return;
+			TextField textField = (TextField) input;
+			textField.textProperty()
+					.addListener((observable, oldValue, newValue) -> textField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, newValue
+							.length() == 0));
+
+			System.out.println("Set hook on " + input.getId());
 		}
 
 	}

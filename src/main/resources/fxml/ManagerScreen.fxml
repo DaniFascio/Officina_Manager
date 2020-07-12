@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="rootPane"
+<VBox fx:id="rootPane"
 		prefHeight="720"
 		prefWidth="1280"
 		minHeight="480"
@@ -12,148 +12,167 @@
 		xmlns="http://javafx.com/javafx/10.0.2-internal"
 		xmlns:fx="http://javafx.com/fxml/1">
 
-	<SplitPane dividerPositions="0.3, 0.7"
-			AnchorPane.bottomAnchor="0"
-			AnchorPane.leftAnchor="0"
-			AnchorPane.rightAnchor="0"
-			AnchorPane.topAnchor="0">
+	<MenuBar VBox.vgrow="NEVER">
+		<padding>
+			<Insets topRightBottomLeft="0"/>
+		</padding>
 
-		<BorderPane>
+		<Menu text="A_uto">
+			<MenuItem text="Aggiungi"/>
+			<MenuItem text="Rimuovi"/>
+		</Menu>
 
-			<center>
-				<ScrollPane fitToHeight="true"
-						fitToWidth="true">
-					<ListView fx:id="leftList"/>
-				</ScrollPane>
-			</center>
+		<Menu text="_Strumenti">
+			<MenuItem text="Impostazioni"
+					onAction="#toImplement"/>
+			<MenuItem text="Esci"
+					onAction="#quit"/>
+		</Menu>
+	</MenuBar>
 
-			<bottom>
-				<HBox spacing="5"
-						styleClass="buttonMenu">
-					<padding>
-						<Insets topRightBottomLeft="5"/>
-					</padding>
-					<Button text="Add"
-							onAction="#onAdd"/>
-					<Button text="Reload"
-							onAction="#onReload"/>
+	<AnchorPane VBox.vgrow="ALWAYS">
+		<SplitPane dividerPositions="0.3, 0.7"
+				AnchorPane.bottomAnchor="0"
+				AnchorPane.leftAnchor="0"
+				AnchorPane.rightAnchor="0"
+				AnchorPane.topAnchor="0">
+
+			<BorderPane>
+
+				<center>
+					<ScrollPane fitToHeight="true"
+							fitToWidth="true">
+						<ListView fx:id="leftList"/>
+					</ScrollPane>
+				</center>
+
+				<bottom>
+					<HBox spacing="5"
+							styleClass="buttonMenu">
+						<padding>
+							<Insets topRightBottomLeft="5"/>
+						</padding>
+						<Button text="_Aggiungi"
+								onAction="#onAdd"/>
+						<Button text="Ricarica"
+								onAction="#onReload"/>
+					</HBox>
+				</bottom>
+
+			</BorderPane>
+
+			<VBox spacing="6">
+				<padding>
+					<Insets topRightBottomLeft="12"/>
+				</padding>
+
+				<!-- Modello -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Modello:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="modelloLabel"
+							styleClass="format-text"/>
 				</HBox>
-			</bottom>
 
-		</BorderPane>
-
-		<VBox spacing="6">
-			<padding>
-				<Insets topRightBottomLeft="12"/>
-			</padding>
-
-			<!-- Modello -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Modello:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="modelloLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Targa -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Targa:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="targaLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Km -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Km:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="kmLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Misura gomme -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Misura gomme:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="misuraGommeLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Tipo gomme -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Tipo gomme:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="tipoGommeLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Totale lavorazioni -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Totale lavorazioni:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="totaleLavorazioniLabel"
-						styleClass="format-text"/>
-			</HBox>
-
-			<!-- Note -->
-			<HBox alignment="BOTTOM_LEFT">
-				<Label styleClass="mainLabel,format-text"
-						text="Note:">
-					<padding>
-						<Insets right="5"/>
-					</padding>
-				</Label>
-				<Label fx:id="noteLabel"
-						styleClass="format-text"/>
-			</HBox>
-		</VBox>
-
-		<BorderPane>
-
-			<center>
-				<ScrollPane fitToHeight="true"
-						fitToWidth="true">
-					<ListView fx:id="rightList"/>
-				</ScrollPane>
-			</center>
-
-			<bottom>
-				<HBox spacing="5"
-						styleClass="buttonMenu">
-					<padding>
-						<Insets topRightBottomLeft="5"/>
-					</padding>
-					<Button text="Add"/>
-					<Button text="Reload"/>
+				<!-- Targa -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Targa:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="targaLabel"
+							styleClass="format-text"/>
 				</HBox>
-			</bottom>
 
-		</BorderPane>
+				<!-- Km -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Km:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="kmLabel"
+							styleClass="format-text"/>
+				</HBox>
 
-	</SplitPane>
+				<!-- Misura gomme -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Misura gomme:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="misuraGommeLabel"
+							styleClass="format-text"/>
+				</HBox>
 
-</AnchorPane>
+				<!-- Tipo gomme -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Tipo gomme:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="tipoGommeLabel"
+							styleClass="format-text"/>
+				</HBox>
+
+				<!-- Totale lavorazioni -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Totale lavorazioni:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="totaleLavorazioniLabel"
+							styleClass="format-text"/>
+				</HBox>
+
+				<!-- Note -->
+				<HBox alignment="BOTTOM_LEFT">
+					<Label styleClass="mainLabel,format-text"
+							text="Note:">
+						<padding>
+							<Insets right="5"/>
+						</padding>
+					</Label>
+					<Label fx:id="noteLabel"
+							styleClass="format-text"/>
+				</HBox>
+			</VBox>
+
+			<BorderPane>
+
+				<center>
+					<ScrollPane fitToHeight="true"
+							fitToWidth="true">
+						<ListView fx:id="rightList"/>
+					</ScrollPane>
+				</center>
+
+				<bottom>
+					<HBox spacing="5"
+							styleClass="buttonMenu">
+						<padding>
+							<Insets topRightBottomLeft="5"/>
+						</padding>
+						<Button text="Aggiungi"/>
+						<Button text="Ricarica"/>
+					</HBox>
+				</bottom>
+
+			</BorderPane>
+
+		</SplitPane>
+	</AnchorPane>
+</VBox>

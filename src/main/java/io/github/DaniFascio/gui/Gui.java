@@ -3,12 +3,15 @@ package io.github.DaniFascio.gui;
 import io.github.DaniFascio.gui.controllers.LoginScreen;
 import io.github.DaniFascio.gui.controllers.ManagerScreen;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class Gui extends Application {
 
@@ -86,6 +89,11 @@ public class Gui extends Application {
 			return aClass.newInstance().getView();
 		}
 
+	}
+
+	@FXML
+	private static void quit(Event event) {
+		getInstance().stage.close();
 	}
 
 }

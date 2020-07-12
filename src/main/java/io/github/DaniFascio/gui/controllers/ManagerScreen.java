@@ -4,7 +4,9 @@ import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.AutoDao;
 import io.github.DaniFascio.gui.Screen;
 import io.github.DaniFascio.gui.components.AutoCell;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -71,9 +73,6 @@ public class ManagerScreen implements Screen {
 	private void onAdd(ActionEvent actionEvent) {
 		Dialog<Auto> dialog = new AutoAddDialog();
 
-		dialog.getDialogPane()
-				.getButtonTypes()
-				.addAll(new ButtonType("Aggiungi", ButtonBar.ButtonData.APPLY), new ButtonType("Cancella", ButtonBar.ButtonData.CANCEL_CLOSE));
 		dialog.showAndWait();
 	}
 
@@ -82,7 +81,20 @@ public class ManagerScreen implements Screen {
 		AutoDao autoDao = new AutoDao();
 		List<Auto> list = autoDao.getAll();
 
+		leftList.getItems().clear();
 		leftList.getItems().addAll(list);
+	}
+
+	@FXML
+	private void quit(Event event) {
+		Platform.exit();
+	}
+
+	@FXML
+	private void toImplement(Event event) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		alert.setHeaderText("Pazienta per favore");
+		alert.showAndWait();
 	}
 
 	@Override

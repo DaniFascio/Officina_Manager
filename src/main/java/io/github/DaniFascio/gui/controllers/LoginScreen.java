@@ -3,13 +3,13 @@ package io.github.DaniFascio.gui.controllers;
 import io.github.DaniFascio.DatabaseManager;
 import io.github.DaniFascio.gui.Gui;
 import io.github.DaniFascio.gui.Screen;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -96,6 +96,18 @@ public class LoginScreen implements Screen {
 			field.setText(text.substring(0, pos));
 			event.consume();
 		}
+	}
+
+	@FXML
+	private void quit(Event event) {
+		Platform.exit();
+	}
+
+	@FXML
+	private void toImplement(Event event) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		alert.setHeaderText("Pazienta per favore");
+		alert.showAndWait();
 	}
 
 	@Override

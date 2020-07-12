@@ -3,6 +3,7 @@ package io.github.DaniFascio;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class AutoDao implements Dao<Auto> {
 			while(rs.next())
 				list.add(new Auto(rs.getString("targa"), rs.getString("modello"), rs
 						.getInt("km"), rs.getString("misura_gomme"), rs.getString("note"), rs
-						.getString("tipo_gomme")));
+						.getString("tipo_gomme")rs
+						.getInt("tipo_gomme")));
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -82,8 +84,13 @@ public class AutoDao implements Dao<Auto> {
 
 		// TODO: UPDATE Auto
 
-
-
+		try {
+			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
+			databaseManager.executeUpdate("UPDATE TABLE auto (num_targa,modello,km,note,id_tipo_gomme,misura_gomme) VALUES ()")
+		}
+		catch(SQLException throwables){
+			throwables.printStackTrace();
+		}
 
 
 		return 0;

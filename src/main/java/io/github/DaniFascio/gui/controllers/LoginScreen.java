@@ -62,19 +62,23 @@ public class LoginScreen implements Screen {
 		DatabaseManager.setUsername(usernameField.getText());
 		DatabaseManager.setPassword(passwordField.getText());
 
-		try {
-			DatabaseManager.fromConfig(true);
-		} catch(SQLException e) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Impossibile connettersi al database");
-			alert.setContentText(e.getMessage());
-			alert.setOnCloseRequest(event1 -> formPane.setDisable(false));
-			alert.showAndWait();
-			return;
-		}
+		Platform.runLater(() -> {
+			try {
 
-		Gui.getInstance().changeScreen(Gui.Screen.MANAGER);
+				DatabaseManager.fromConfig(true);
+
+			} catch(SQLException e) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Errore");
+				alert.setHeaderText("Impossibile connettersi al database");
+				alert.setContentText(e.getMessage());
+				alert.setOnCloseRequest(event1 -> formPane.setDisable(false));
+				alert.showAndWait();
+				return;
+			}
+
+			Gui.getInstance().changeScreen(Gui.Screen.MANAGER);
+		});
 	}
 
 	@FXML

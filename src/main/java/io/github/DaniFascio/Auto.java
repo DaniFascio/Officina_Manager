@@ -7,13 +7,15 @@ public class Auto {
 	private final Integer km;
 	private final String misuraGomme;
 	private final String tipoGomme;
+	private final Integer idTipoGomme;
 	private final String note;
 
-	public Auto(String targa, String modello, Integer km, String misuraGomme, String note, String tipoGomme) {
+	public Auto(String targa, String modello, Integer km, String misuraGomme, Integer idTipoGomme, String note, String tipoGomme) {
 		this.targa = targa;
 		this.modello = modello;
 		this.km = km;
 		this.misuraGomme = misuraGomme;
+		this.idTipoGomme = idTipoGomme;
 		this.note = note;
 		this.tipoGomme = tipoGomme;
 	}

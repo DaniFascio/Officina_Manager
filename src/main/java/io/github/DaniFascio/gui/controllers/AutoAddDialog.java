@@ -1,13 +1,20 @@
 package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
+import io.github.DaniFascio.TipoGomme;
+import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Observable;
 import java.util.regex.Pattern;
 
 public class AutoAddDialog extends Dialog<Auto> {
@@ -27,8 +34,6 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
-	private final static Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
-
 	public AutoAddDialog() {
 		try {
 
@@ -37,6 +42,10 @@ public class AutoAddDialog extends Dialog<Auto> {
 			loader.setController(this);
 			loader.setRoot(getDialogPane());
 			loader.load();
+
+			ObservableList<String> list = tipoGommeBox.getItems();
+			for(Map.Entry<String, TipoGomme> stringTipoGommeEntry : TipoGomme.entrySet())
+				list.add(stringTipoGommeEntry.getKey());
 
 			setResizable(true);
 			setResultConverter(btnType -> {
@@ -47,7 +56,9 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 			});
 
-			hookValidation(targaField);
+			targaField.textProperty()
+					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
+							.matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}", newValue)));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -57,19 +68,6 @@ public class AutoAddDialog extends Dialog<Auto> {
 
 	private boolean validate() {
 		return false;
-	}
-
-	private void hookValidation(Control input) {
-
-		if(input instanceof TextField) {
-			TextField textField = (TextField) input;
-			textField.textProperty()
-					.addListener((observable, oldValue, newValue) -> textField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, newValue
-							.length() == 0));
-
-			System.out.println("Set hook on " + input.getId());
-		}
-
 	}
 
 }

@@ -63,7 +63,8 @@ public class ManagerScreen implements Screen {
 					modelloLabel.setText(newValue.getModello());
 					kmLabel.setText(newValue.getKm().toString());
 					misuraGommeLabel.setText(newValue.getMisuraGomme());
-					tipoGommeLabel.setText(newValue.getTipoGomme());
+					tipoGommeLabel.setText(newValue.getTipoGomme()
+							.getDescrizione());
 					totaleLavorazioniLabel.setText("0");
 					noteLabel.setText(newValue.getNote());
 				});

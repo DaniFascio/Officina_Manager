@@ -15,10 +15,16 @@ public class AutoDao implements Dao<Auto> {
 		Auto auto = null;
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misuraGomme, note FROM auto WHERE targa = ?", key);
+			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
 
 			if(rs.next())
-				auto = new Auto(rs.getString("targa"), rs.getString("modello"), null, null, null, null);
+				auto = new Auto.AutoBuilder().setTarga(rs.getString("targa"))
+						.setModello(rs.getString("modello"))
+						.setKm(rs.getInt("km"))
+						.setMisuraGomme(rs.getString("misura_gomme"))
+						.setNote(rs.getString("note"))
+						.setTipoGomme(TipoGomme.get("tipo_gomme"))
+						.build();
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -33,13 +39,16 @@ public class AutoDao implements Dao<Auto> {
 
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
+			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
-				list.add(new Auto(rs.getString("targa"), rs.getString("modello"), rs
-						.getInt("km"), rs.getString("misura_gomme"), rs.getString("note"), rs
-						.getString("tipo_gomme")rs
-						.getInt("tipo_gomme")));
+				list.add(new Auto.AutoBuilder().setTarga(rs.getString("targa"))
+						.setModello(rs.getString("modello"))
+						.setKm(rs.getInt("km"))
+						.setMisuraGomme(rs.getString("misura_gomme"))
+						.setNote(rs.getString("note"))
+						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
+						.build());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -86,9 +95,8 @@ public class AutoDao implements Dao<Auto> {
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			databaseManager.executeUpdate("UPDATE TABLE auto (num_targa,modello,km,note,id_tipo_gomme,misura_gomme) VALUES ()")
-		}
-		catch(SQLException throwables){
+			databaseManager.executeUpdate("UPDATE TABLE auto (num_targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES ()");
+		} catch(SQLException throwables) {
 			throwables.printStackTrace();
 		}
 

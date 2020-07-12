@@ -1,6 +1,7 @@
 package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.DatabaseManager;
+import io.github.DaniFascio.TipoGomme;
 import io.github.DaniFascio.gui.Gui;
 import io.github.DaniFascio.gui.Screen;
 import javafx.application.Platform;
@@ -66,6 +67,7 @@ public class LoginScreen implements Screen {
 			try {
 
 				DatabaseManager.fromConfig(true);
+				TipoGomme.reload();
 
 			} catch(SQLException e) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);

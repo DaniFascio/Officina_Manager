@@ -74,7 +74,20 @@ public class ManagerScreen implements Screen {
 	private void onAdd(ActionEvent actionEvent) {
 		Dialog<Auto> dialog = new AutoAddDialog();
 
-		dialog.showAndWait();
+		dialog.showAndWait().ifPresent(auto -> {
+			int res = new AutoDao().save(auto);
+
+			Alert alert;
+			if(res == 0) {
+				alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText("Auto non aggiunta.");
+			} else {
+				alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText("Auto aggiunta!");
+			}
+			alert.setTitle("Registra auto");
+			alert.showAndWait();
+		});
 	}
 
 	@FXML

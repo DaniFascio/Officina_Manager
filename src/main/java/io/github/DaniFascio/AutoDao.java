@@ -73,13 +73,10 @@ public class AutoDao implements Dao<Auto> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_gomme from tipi_gomme WHERE descrizione = ?", auto
-					.getTipoGomme());
-
-			if(rs.next())
-				res = dm.executeUpdate("INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
-						.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), rs
-						.getInt("id_tipo_gomme"), auto.getMisuraGomme());
+			res = dm.executeUpdate("INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
+					.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), auto
+					.getTipoGomme()
+					.getId(), auto.getMisuraGomme());
 
 		} catch(Exception e) {
 			e.printStackTrace();

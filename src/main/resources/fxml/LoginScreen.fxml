@@ -34,10 +34,10 @@
 			<Insets topRightBottomLeft="0"/>
 		</padding>
 
-		<Menu text="_Tools">
-			<MenuItem text="_Impostazioni"
+		<Menu text="_Strumenti">
+			<MenuItem text="Impostazioni"
 					onAction="#toImplement"/>
-			<MenuItem text="_Esci"
+			<MenuItem text="Esci"
 					onAction="#quit"/>
 		</Menu>
 

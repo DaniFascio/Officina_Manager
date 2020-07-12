@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import javax.print.DocFlavor;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class AutoAddDialog extends Dialog<Auto> {
 	@FXML
 	private TextField misuraGommeField;
 	@FXML
-	private ComboBox<String> tipoGommeBox;
+	private ChoiceBox<TipoGomme> tipoGommeBox;
 	@FXML
 	private TextArea noteArea;
 
@@ -42,18 +43,38 @@ public class AutoAddDialog extends Dialog<Auto> {
 			loader.setController(this);
 			loader.setRoot(getDialogPane());
 			loader.load();
+			getDialogPane().setMinSize(640, 480);
 
-			ObservableList<String> list = tipoGommeBox.getItems();
-			for(Map.Entry<String, TipoGomme> stringTipoGommeEntry : TipoGomme.entrySet())
-				list.add(stringTipoGommeEntry.getKey());
+			tipoGommeBox.getItems().addAll(TipoGomme.values());
+			tipoGommeBox.setConverter(new StringConverter<TipoGomme>() {
+				@Override
+				public String toString(TipoGomme tipoGomme) {
+					return tipoGomme.getDescrizione();
+				}
+
+				@Override
+				public TipoGomme fromString(String string) {
+					return TipoGomme.get(string);
+				}
+			});
 
 			setResizable(true);
 			setResultConverter(btnType -> {
-
 				Auto auto = null;
 
-				return auto;
+				try {
+					auto = new Auto.AutoBuilder().setTarga(targaField.getText())
+							.setModello(modelloField.getText())
+							.setKm(Integer.parseInt(kmField.getText()))
+							.setMisuraGomme(misuraGommeField.getText())
+							.setNote(noteArea.getText())
+							.setTipoGomme(tipoGommeBox.getValue())
+							.build();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 
+				return auto;
 			});
 
 			targaField.textProperty()

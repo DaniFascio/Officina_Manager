@@ -2,6 +2,7 @@ package io.github.DaniFascio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -57,6 +58,10 @@ public class TipoGomme {
 
 	public static Set<Map.Entry<String, TipoGomme>> entrySet() {
 		return tipi.entrySet();
+	}
+
+	public static Collection<TipoGomme> values() {
+		return tipi.values();
 	}
 
 	public int getId() {

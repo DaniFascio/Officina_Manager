@@ -83,8 +83,7 @@
 						GridPane.rowIndex="4"
 						GridPane.columnIndex="0">
 					<Label text="Tipo gomme"/>
-					<ComboBox fx:id="tipoGommeBox"
-							editable="true"
+					<ChoiceBox fx:id="tipoGommeBox"
 							maxWidth="Infinity"/>
 				</VBox>
 

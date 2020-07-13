@@ -19,7 +19,7 @@ public class AutoDao implements Dao<Auto> {
 					"FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
 
 			if(rs.next())
-				auto = new Auto.AutoBuilder().setTarga(rs.getString("targa"))
+				auto = new Auto.Builder().setTarga(rs.getString("targa"))
 						.setModello(rs.getString("modello"))
 						.setKm(rs.getInt("km"))
 						.setMisuraGomme(rs.getString("misura_gomme"))
@@ -44,7 +44,7 @@ public class AutoDao implements Dao<Auto> {
 					"FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
-				list.add(new Auto.AutoBuilder().setTarga(rs.getString("targa"))
+				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
 						.setModello(rs.getString("modello"))
 						.setKm(rs.getInt("km"))
 						.setMisuraGomme(rs.getString("misura_gomme"))

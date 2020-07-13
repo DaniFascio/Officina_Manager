@@ -1,6 +1,5 @@
 package io.github.DaniFascio;
 
-import java.util.MissingResourceException;
 import java.util.Objects;
 
 public class Auto {
@@ -12,7 +11,7 @@ public class Auto {
 	private final TipoGomme tipoGomme;
 	private final String note;
 
-	public Auto(String targa, String modello, Integer km, String misuraGomme, TipoGomme tipoGomme, String note) {
+	private Auto(String targa, String modello, Integer km, String misuraGomme, TipoGomme tipoGomme, String note) {
 		this.targa = targa;
 		this.modello = modello;
 		this.km = km;
@@ -45,7 +44,7 @@ public class Auto {
 		return note;
 	}
 
-	public static class AutoBuilder {
+	public static class Builder {
 
 		private String targa;
 		private String modello;
@@ -54,7 +53,7 @@ public class Auto {
 		private Integer km;
 		private TipoGomme tipoGomme;
 
-		public AutoBuilder() {
+		public Builder() {
 
 		}
 
@@ -67,38 +66,38 @@ public class Auto {
 				Objects.requireNonNull(km);
 				Objects.requireNonNull(tipoGomme);
 			} catch(NullPointerException e) {
-				throw new Exception(e);
+				throw new Exception("Non-initialized argument in Auto.Builder", e);
 			}
 
 			return new Auto(targa, modello, km, misuraGomme, tipoGomme, note);
 		}
 
-		public AutoBuilder setTarga(String targa) {
+		public Builder setTarga(String targa) {
 			this.targa = targa;
 			return this;
 		}
 
-		public AutoBuilder setModello(String modello) {
+		public Builder setModello(String modello) {
 			this.modello = modello;
 			return this;
 		}
 
-		public AutoBuilder setMisuraGomme(String misuraGomme) {
+		public Builder setMisuraGomme(String misuraGomme) {
 			this.misuraGomme = misuraGomme;
 			return this;
 		}
 
-		public AutoBuilder setNote(String note) {
+		public Builder setNote(String note) {
 			this.note = note;
 			return this;
 		}
 
-		public AutoBuilder setKm(Integer km) {
+		public Builder setKm(Integer km) {
 			this.km = km;
 			return this;
 		}
 
-		public AutoBuilder setTipoGomme(TipoGomme tipoGomme) {
+		public Builder setTipoGomme(TipoGomme tipoGomme) {
 			this.tipoGomme = tipoGomme;
 			return this;
 		}

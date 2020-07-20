@@ -1,15 +1,19 @@
 package io.github.DaniFascio.gui;
 
+import io.github.DaniFascio.gui.anew.LoginPane;
 import io.github.DaniFascio.gui.controllers.LoginScreen;
 import io.github.DaniFascio.gui.controllers.ManagerScreen;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 
@@ -29,49 +33,34 @@ public class Gui extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
 		instance = this;
-		Pane pane = Screen.LOGIN.loadView();
-		scene = new Scene(pane);
-
 		stage = primaryStage;
-		stage.setScene(scene);
+//		stage.initStyle(StageStyle.UNDECORATED);
 
-		stage.setTitle("Officina Manager");
+		Pane pane = new LoginPane();
+
+		stage.setScene(scene = new Scene(pane));
 		stage.setMinHeight(pane.getMinHeight());
 		stage.setMinWidth(pane.getMinWidth());
+		stage.setTitle("Officina Manager");
 
 		stage.show();
 	}
 
-	public void changeScreen(Screen screen) {
-		Pane root = null;
+	public void changeScreen(Region pane) {
 
-		try {
-			root = screen.loadView();
-		} catch(Exception e) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Errore nel cambio di finestra");
-			alert.setContentText(e.getMessage());
-			alert.show();
-			return;
-		}
+		double x = stage.getX(), y = stage.getY();
+		double w = pane.getPrefWidth(), h = pane.getPrefHeight();
 
-		if(root != null) {
+		stage.setX(x - (w - scene.getWidth()) / 2d);
+		stage.setY(y - (h - scene.getHeight()) / 2d);
 
-			double x = stage.getX(), y = stage.getY();
-			double w = root.getPrefWidth(), h = root.getPrefHeight();
+		stage.setMinHeight(pane.getMinHeight());
+		stage.setMinWidth(pane.getMinWidth());
+		stage.setHeight(pane.getPrefHeight());
+		stage.setWidth(pane.getPrefWidth());
+		scene.setRoot(pane);
 
-			stage.setX(x - (w - scene.getWidth()) / 2d);
-			stage.setY(y - (h - scene.getHeight()) / 2d);
-
-			stage.setMinHeight(root.getMinHeight());
-			stage.setMinWidth(root.getMinWidth());
-			stage.setHeight(root.getPrefHeight());
-			stage.setWidth(root.getPrefWidth());
-			scene.setRoot(root);
-		}
 	}
 
 	public enum Screen {
@@ -93,7 +82,7 @@ public class Gui extends Application {
 
 	@FXML
 	private static void quit(Event event) {
-		getInstance().stage.close();
+		Platform.exit();
 	}
 
 }

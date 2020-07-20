@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns="http://javafx.com/javafx"
+		xmlns:fx="http://javafx.com/fxml"
+		prefHeight="720"
+		prefWidth="960"
+		minHeight="640"
+		minWidth="720"
+		type="BorderPane"
+		stylesheets="@/css/Text.css,@/css/Icons.css"
+		fx:id="root">
+
+	<top>
+		<MenuBar minWidth="720">
+			<padding>
+				<Insets topRightBottomLeft="0"/>
+			</padding>
+
+			<Menu text="_Tools">
+				<MenuItem text="_Impostazioni"/>
+				<MenuItem text="_Esci"/>
+			</Menu>
+
+			<Menu text="A_iuto">
+				<MenuItem text="Eh no, troppo presto"/>
+			</Menu>
+
+		</MenuBar>
+	</top>
+
+	<center>
+		<SplitPane dividerPositions="0.35">
+
+			<!-- LISTA AUTO -->
+
+			<VBox minWidth="256"
+					maxWidth="412">
+				<padding>
+					<Insets topRightBottomLeft="20"/>
+				</padding>
+
+				<HBox alignment="CENTER">
+					<Label text="Lista Auto"
+							HBox.hgrow="ALWAYS"
+							styleClass="main-label"/>
+				</HBox>
+
+				<FlowPane styleClass="toolbar-icon">
+
+					<Button fx:id="addAutoButton"
+							styleClass="icon,icon-add">
+						<tooltip>
+							<Tooltip text="Aggiungi una nuova auto"/>
+						</tooltip>
+					</Button>
+
+					<Button fx:id="editAutoButton"
+							styleClass="icon,icon-edit">
+						<tooltip>
+							<Tooltip text="Modifica l'auto selezionata"/>
+						</tooltip>
+					</Button>
+
+					<Button fx:id="removeAutoButton"
+							styleClass="icon,icon-remove">
+						<tooltip>
+							<Tooltip text="Rimuovi l'auto selezionata"/>
+						</tooltip>
+					</Button>
+
+					<Button fx:id="sortAutoButton"
+							styleClass="icon,icon-sort">
+						<tooltip>
+							<Tooltip text="Riordina per ordine alfabetico"/>
+						</tooltip>
+					</Button>
+
+					<Separator orientation="VERTICAL"/>
+
+					<HBox fx:id="searchBox"
+							alignment="CENTER_LEFT">
+						<Label styleClass="icon,icon-search"/>
+						<TextField fx:id="searchAutoField"/>
+					</HBox>
+
+				</FlowPane>
+
+				<ListView fx:id="listaAutoView"
+						VBox.vgrow="ALWAYS"/>
+
+			</VBox>
+
+			<SplitPane orientation="VERTICAL">
+
+				<!-- DETAILS AUTO -->
+				<ScrollPane fitToWidth="true">
+					<padding>
+						<Insets topRightBottomLeft="20"/>
+					</padding>
+					<GridPane minHeight="256"
+							alignment="BOTTOM_LEFT"
+							hgap="20"
+							vgap="20">
+						<columnConstraints>
+							<ColumnConstraints percentWidth="50"/>
+							<ColumnConstraints percentWidth="50"/>
+						</columnConstraints>
+
+						<Label text="Dettagli Auto"
+								styleClass="main-label"
+								GridPane.rowIndex="0"
+								GridPane.columnIndex="0"
+								GridPane.columnSpan="2"
+								GridPane.halignment="CENTER"
+								GridPane.hgrow="ALWAYS"/>
+
+						<VBox GridPane.hgrow="ALWAYS"
+								GridPane.rowIndex="1"
+								GridPane.columnIndex="0">
+							<Label text="Targa"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="targaLabel"/>
+						</VBox>
+
+						<VBox GridPane.hgrow="ALWAYS"
+								GridPane.rowIndex="1"
+								GridPane.columnIndex="1">
+							<Label text="Modello"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="modelloLabel"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="2"
+								GridPane.columnIndex="0">
+							<Label text="Km"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="kmLabel"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="2"
+								GridPane.columnIndex="1">
+							<Label text="Misura Gomme"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="misuraGommeLabel"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="3"
+								GridPane.columnIndex="0">
+							<Label text="Tipo Gomme"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="tipoGommeLabel"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="4"
+								GridPane.columnIndex="0"
+								GridPane.columnSpan="2">
+							<Label text="Note"
+									styleClass="i,em1_2"/>
+							<TextArea fx:id="noteArea"
+									editable="false"/>
+						</VBox>
+
+					</GridPane>
+				</ScrollPane>
+
+				<!-- LISTA LAVORAZIONI -->
+
+				<VBox minWidth="412"
+						minHeight="256">
+					<padding>
+						<Insets topRightBottomLeft="20"/>
+					</padding>
+
+					<Label text="Lavorazioni Auto"
+							styleClass="main-label"/>
+
+					<FlowPane styleClass="toolbar-icon">
+
+						<Button fx:id="addLavorazioneButton"
+								styleClass="icon,icon-add"/>
+
+						<Button fx:id="editLavorazioneButton"
+								styleClass="icon,icon-edit"/>
+
+						<Button fx:id="removeLavorazioneButton"
+								styleClass="icon,icon-remove"/>
+
+						<Button fx:id="sortLavorazioneButton"
+								styleClass="icon,icon-sort"/>
+
+						<Separator orientation="VERTICAL"/>
+
+						<HBox alignment="CENTER_LEFT">
+							<Label styleClass="icon,icon-search"/>
+							<TextField fx:id="searchLavorazioneField"
+									HBox.hgrow="ALWAYS"/>
+						</HBox>
+
+					</FlowPane>
+
+					<ListView fx:id="listaLavorazioneView"
+							VBox.vgrow="ALWAYS"/>
+				</VBox>
+
+			</SplitPane>
+
+		</SplitPane>
+	</center>
+
+	<bottom>
+		<AnchorPane minWidth="720">
+
+			<HBox AnchorPane.rightAnchor="0"
+					alignment="CENTER_RIGHT">
+				<padding>
+					<Insets topRightBottomLeft="3"/>
+				</padding>
+				<Label text="Benvenuto, "/>
+				<Label fx:id="welcomeLabel"
+						styleClass="b"/>
+				<Label text="!"/>
+			</HBox>
+
+		</AnchorPane>
+	</bottom>
+
+</fx:root>

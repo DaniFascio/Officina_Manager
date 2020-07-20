@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
-<GridPane minHeight="480"
+<fx:root type="GridPane"
+		minHeight="480"
 		minWidth="640"
 		prefHeight="480"
 		prefWidth="640"
@@ -99,4 +100,4 @@
 				GridPane.rowIndex="2"/>
 
 	</GridPane>
-</GridPane>
+</fx:root>

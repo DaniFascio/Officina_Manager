@@ -1,0 +1,26 @@
+.main-label {
+
+	-fx-font-size: 1.5em;
+	-fx-font-weight: bold;
+	-fx-font-family: "Arial Black", serif;
+	-fx-padding: 0 0 5 0;
+
+}
+
+.std-label {
+
+	-fx-font-family: Arial, sans-serif;
+
+}
+
+.i {
+	-fx-font-style: italic;
+}
+
+.b {
+	-fx-font-weight: bold;
+}
+
+.em1_2 {
+	-fx-font-size: 1.2em;
+}

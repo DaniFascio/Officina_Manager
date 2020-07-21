@@ -63,7 +63,7 @@ public class AutoAddDialog extends Dialog<Auto> {
 				Auto auto = null;
 
 				try {
-					auto = new Auto.AutoBuilder().setTarga(targaField.getText())
+					auto = new Auto.Builder().setTarga(targaField.getText())
 							.setModello(modelloField.getText())
 							.setKm(Integer.parseInt(kmField.getText()))
 							.setMisuraGomme(misuraGommeField.getText())

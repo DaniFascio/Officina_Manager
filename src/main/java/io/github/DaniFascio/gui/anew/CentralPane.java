@@ -79,13 +79,32 @@ public class CentralPane extends AnchorPane {
 	private void onAdd(ActionEvent event) {
 
 		new AutoAddDialog().showAndWait().ifPresent(auto -> {
+			AutoDao autoDao = new AutoDao();
 			Dialog<ButtonType> dialog;
-			if(new AutoDao().save(auto) == 1)
-				dialog = new Alert(Alert.AlertType.INFORMATION, "Auto aggiunta con successo.");
-			else
-				dialog = new Alert(Alert.AlertType.ERROR, "Errore nell'inserimento dell'auto");
+
+			if(autoDao.save(auto) == 1) {
+
+				dialog = new Alert(Alert.AlertType.INFORMATION);
+				dialog.setHeaderText("Auto aggiunta con successo");
+
+			} else {
+
+				String message = autoDao.getErrorMessage();
+				int index = message.indexOf("Detail");
+				if(index != -1)
+					message = message.substring(index);
+
+				dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Errore nell'inserimento dell'auto");
+				dialog.setContentText(message);
+
+			}
+
 			dialog.setTitle("Aggiungi auto");
 			dialog.showAndWait();
+			System.out.println("Reload");
+			listaAutoView.getItems().clear();
+			listaAutoView.getItems().addAll(new AutoDao().getAll());
 		});
 
 	}

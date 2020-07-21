@@ -77,6 +77,9 @@ public class AutoAddDialog extends Dialog<Auto> {
 			targaField.textProperty()
 					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
 							.matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}", newValue)));
+			kmField.textProperty()
+					.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
+							.matches("\\d+", newValue)));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);

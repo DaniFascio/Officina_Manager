@@ -128,7 +128,8 @@
 									GridPane.columnIndex="0">
 								<Label text="Targa"
 										styleClass="i,em1_2"/>
-								<TextField fx:id="targaLabel"/>
+								<TextField fx:id="targaLabel"
+										editable="false"/>
 							</VBox>
 
 							<VBox GridPane.hgrow="ALWAYS"
@@ -136,28 +137,32 @@
 									GridPane.columnIndex="1">
 								<Label text="Modello"
 										styleClass="i,em1_2"/>
-								<TextField fx:id="modelloLabel"/>
+								<TextField fx:id="modelloLabel"
+										editable="false"/>
 							</VBox>
 
 							<VBox GridPane.rowIndex="2"
 									GridPane.columnIndex="0">
 								<Label text="Km"
 										styleClass="i,em1_2"/>
-								<TextField fx:id="kmLabel"/>
+								<TextField fx:id="kmLabel"
+										editable="false"/>
 							</VBox>
 
 							<VBox GridPane.rowIndex="2"
 									GridPane.columnIndex="1">
 								<Label text="Misura Gomme"
 										styleClass="i,em1_2"/>
-								<TextField fx:id="misuraGommeLabel"/>
+								<TextField fx:id="misuraGommeLabel"
+										editable="false"/>
 							</VBox>
 
 							<VBox GridPane.rowIndex="3"
 									GridPane.columnIndex="0">
 								<Label text="Tipo Gomme"
 										styleClass="i,em1_2"/>
-								<TextField fx:id="tipoGommeLabel"/>
+								<TextField fx:id="tipoGommeLabel"
+										editable="false"/>
 							</VBox>
 
 							<VBox GridPane.rowIndex="4"

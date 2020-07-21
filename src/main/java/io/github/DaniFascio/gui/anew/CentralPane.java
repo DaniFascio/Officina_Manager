@@ -7,6 +7,7 @@ import io.github.DaniFascio.gui.components.AutoCell;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -14,10 +15,10 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.sql.SQLException;
 
-public class CentralPane extends BorderPane {
+public class CentralPane extends AnchorPane {
 
 	@FXML
-	private BorderPane root;
+	private AnchorPane root;
 	@FXML
 	private ListView<Auto> listaAutoView;
 	@FXML

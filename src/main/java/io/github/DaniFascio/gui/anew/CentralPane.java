@@ -4,6 +4,9 @@ import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.AutoDao;
 import io.github.DaniFascio.DatabaseManager;
 import io.github.DaniFascio.gui.components.AutoCell;
+import io.github.DaniFascio.gui.controllers.AutoAddDialog;
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -70,6 +73,21 @@ public class CentralPane extends AnchorPane {
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+	}
+
+	@FXML
+	private void onAdd(ActionEvent event) {
+
+		new AutoAddDialog().showAndWait().ifPresent(auto -> {
+			Dialog<ButtonType> dialog;
+			if(new AutoDao().save(auto) == 1)
+				dialog = new Alert(Alert.AlertType.INFORMATION, "Auto aggiunta con successo.");
+			else
+				dialog = new Alert(Alert.AlertType.ERROR, "Errore nell'inserimento dell'auto");
+			dialog.setTitle("Aggiungi auto");
+			dialog.showAndWait();
+		});
+
 	}
 
 }

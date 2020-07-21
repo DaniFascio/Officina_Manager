@@ -1,31 +1,23 @@
 .root {
 
-	-color-main: darkred;
+	-color-main: #08a142;
 
+}
+
+.text-field {
+
+	-fx-border-radius: 0;
+	-fx-border-width: 0 0 3;
+	-fx-border-insets: 0;
+	-fx-background-insets: 0;
+	-fx-padding: 5;
+	-fx-background-color: -fx-control-inner-background;
+
+}
+
+.text-field:focused {
+
+	-fx-border-width: 0 0 3;
 	-fx-border-color: -color-main;
-	/*-fx-border-width: 1px;*/
-
-}
-
-.windowControls {
-
-	-fx-background-color: -color-main;
-
-}
-
-.windowControls .button {
-
-	-fx-min-height: 28;
-	-fx-pref-height: 28;
-	-fx-max-height: 28;
-	-fx-min-width: 48;
-	-fx-pref-width: 48;
-	-fx-max-width: 48;
-
-	-fx-background-color: white;
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: center center;
-	-fx-background-size: contain;
-	-fx-background-insets: 8 18;
 
 }

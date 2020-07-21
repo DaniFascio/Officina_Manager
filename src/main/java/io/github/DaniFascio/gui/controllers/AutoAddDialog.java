@@ -2,20 +2,17 @@ package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.TipoGomme;
-import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.util.Callback;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Observable;
 import java.util.regex.Pattern;
 
 public class AutoAddDialog extends Dialog<Auto> {

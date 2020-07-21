@@ -56,7 +56,8 @@
 					<FlowPane styleClass="toolbar-icon">
 
 						<Button fx:id="addAutoButton"
-								styleClass="icon,icon-add">
+								styleClass="icon,icon-add"
+								onAction="#onAdd">
 							<tooltip>
 								<Tooltip text="Aggiungi una nuova auto"/>
 							</tooltip>

@@ -9,14 +9,19 @@ import java.util.List;
 
 public class AutoDao implements Dao<Auto> {
 
+	private String errorMessage;
+
+	public AutoDao() {
+		errorMessage = "";
+	}
+
 	@Override
 	public Auto get(Object key) {
 
 		Auto auto = null;
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " +
-					"FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
+			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
 
 			if(rs.next())
 				auto = new Auto.Builder().setTarga(rs.getString("targa"))
@@ -29,6 +34,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(Exception e) {
 			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
 		return auto;
@@ -40,8 +46,7 @@ public class AutoDao implements Dao<Auto> {
 
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " +
-					"FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
+			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
 				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
@@ -54,6 +59,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(Exception e) {
 			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
 		return list;
@@ -82,6 +88,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(Exception e) {
 			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
 		return res;
@@ -90,36 +97,41 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public int update(Auto auto, Object[] params) {
 
-		// TODO: UPDATE Auto
+		int res = 0;
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			databaseManager.executeUpdate("UPDATE TABLE auto (num_targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?,?,?,?,?,?) WHERE targa = ?",
-					params, auto.getTarga());
+			res = databaseManager.executeUpdate("UPDATE TABLE auto (num_targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?,?,?,?,?,?) WHERE targa = ?", params, auto
+					.getTarga());
 
-		} catch(SQLException throwables) {
-			throwables.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
 
-		return 0;
+		return res;
 	}
 
 	@Override
 	public int delete(Auto auto) {
 
-		// TODO: DELETE Auto
+		int res = 0;
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ? ", auto.getTarga());
-		}
-		catch(SQLException throwables){
-			throwables.printStackTrace();
+			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ? ", auto
+					.getTarga());
+		} catch(SQLException e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
+		return res;
+	}
 
-		return 0;
+	public @NotNull String getErrorMessage() {
+		return errorMessage;
 	}
 
 }

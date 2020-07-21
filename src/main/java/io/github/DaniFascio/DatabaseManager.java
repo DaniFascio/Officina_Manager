@@ -1,5 +1,6 @@
 package io.github.DaniFascio;
 
+import javafx.scene.Scene;
 import org.intellij.lang.annotations.Language;
 
 import java.io.IOException;
@@ -129,6 +130,10 @@ public class DatabaseManager implements AutoCloseable {
 
 	public boolean isClosed() throws SQLException {
 		return connection.isClosed();
+	}
+
+	public static String getUsername() {
+		return properties.getProperty("db.username");
 	}
 
 }

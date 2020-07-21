@@ -1,32 +1,28 @@
-package io.github.DaniFascio.gui.controllers;
+package io.github.DaniFascio.gui.anew;
 
 import io.github.DaniFascio.DatabaseManager;
 import io.github.DaniFascio.TipoGomme;
 import io.github.DaniFascio.gui.Gui;
-import io.github.DaniFascio.gui.Screen;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class LoginScreen implements Screen {
+public class LoginPane extends BorderPane {
 
 	@FXML
 	private GridPane formPane;
@@ -35,20 +31,21 @@ public class LoginScreen implements Screen {
 	@FXML
 	private TextField passwordField;
 
-	private final Pane view;
+	public LoginPane() {
+		super();
 
-	public LoginScreen() {
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/LoginScreen.fxml"));
+			loader.setLocation(getClass().getResource("/fxml/new/LoginPane.fxml"));
+			loader.setRoot(this);
 			loader.setController(this);
-			view = loader.load();
+			loader.load();
 
 		} catch(IOException e) {
+			Platform.exit();
 			throw new UncheckedIOException(e);
 		}
-
 	}
 
 	@FXML
@@ -66,8 +63,8 @@ public class LoginScreen implements Screen {
 		Platform.runLater(() -> {
 			try {
 
-				DatabaseManager.fromConfig(true);
 				TipoGomme.reload();
+				Gui.getInstance().changeScreen(new CentralPane());
 
 			} catch(SQLException e) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,10 +73,8 @@ public class LoginScreen implements Screen {
 				alert.setContentText(e.getMessage());
 				alert.setOnCloseRequest(event1 -> formPane.setDisable(false));
 				alert.showAndWait();
-				return;
+				formPane.setDisable(false);
 			}
-
-//			Gui.getInstance().changeScreen(Gui.Screen.MANAGER);
 		});
 	}
 
@@ -105,20 +100,15 @@ public class LoginScreen implements Screen {
 	}
 
 	@FXML
-	private void quit(Event event) {
-		Platform.exit();
-	}
-
-	@FXML
 	private void toImplement(Event event) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
 		alert.setHeaderText("Pazienta per favore");
 		alert.showAndWait();
 	}
 
-	@Override
-	public Pane getView() {
-		return view;
+	@FXML
+	private void quit(Event event) {
+		Platform.exit();
 	}
 
 }

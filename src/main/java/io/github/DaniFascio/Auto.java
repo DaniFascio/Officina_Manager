@@ -57,6 +57,20 @@ public class Auto {
 
 		}
 
+		// num_targa, modello, km, note, id_tipo_gomme, misura_gomme
+		public Object[] values() {
+			
+			return new Object[] {
+					targa,
+					modello,
+					km,
+					note,
+					tipoGomme.getId(),
+					misuraGomme
+			};
+
+		}
+
 		public Auto build() throws Exception {
 			try {
 				Objects.requireNonNull(targa);

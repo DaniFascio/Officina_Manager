@@ -73,9 +73,9 @@ public class CentralPane extends AnchorPane {
 	}
 
 	@FXML
-	private void onAdd(ActionEvent event) {
+	private void onAddAuto(ActionEvent event) {
 
-		new AutoDialog(false).showAndWait().ifPresent(auto -> {
+		new AutoDialog(false, null).showAndWait().ifPresent(auto -> {
 			AutoDao autoDao = new AutoDao();
 			Dialog<ButtonType> dialog;
 
@@ -102,6 +102,42 @@ public class CentralPane extends AnchorPane {
 			System.out.println("Reload");
 			listaAutoView.getItems().clear();
 			listaAutoView.getItems().addAll(new AutoDao().getAll());
+		});
+
+	}
+
+	@FXML
+	private void onEditAuto(ActionEvent event) {
+		Auto selectedAuto = listaAutoView.getSelectionModel().getSelectedItem();
+
+		new AutoDialog(true, selectedAuto).showAndWait().ifPresent(auto -> {
+			AutoDao autoDao = new AutoDao();
+			Dialog<ButtonType> dialog;
+
+			if(autoDao.update(selectedAuto, auto.values()) == 1) {
+
+				dialog = new Alert(Alert.AlertType.INFORMATION);
+				dialog.setHeaderText("Auto modificata con successo");
+
+			} else {
+
+				String message = autoDao.getErrorMessage();
+				int index = message.indexOf("Detail");
+				if(index != -1)
+					message = message.substring(index);
+
+				dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Errore nella modifica dell'auto");
+				dialog.setContentText(message);
+
+			}
+
+			dialog.setTitle("Modifica auto");
+			dialog.showAndWait();
+			System.out.println("Reload");
+			listaAutoView.getItems().clear();
+			listaAutoView.getItems().addAll(new AutoDao().getAll());
+
 		});
 
 	}

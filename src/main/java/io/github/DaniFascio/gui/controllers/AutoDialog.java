@@ -72,10 +72,10 @@ public class AutoDialog extends Dialog<Auto> {
 
 		setResizable(true);
 		setResultConverter(btnType -> {
-			Auto auto = null;
+			Auto auto1 = null;
 
 			try {
-				auto = new Auto.Builder().setTarga(targaField.getText())
+				auto1 = new Auto.Builder().setTarga(targaField.getText())
 						.setModello(modelloField.getText())
 						.setKm(Integer.parseInt(kmField.getText()))
 						.setMisuraGomme(misuraGommeField.getText())
@@ -86,7 +86,7 @@ public class AutoDialog extends Dialog<Auto> {
 				e.printStackTrace();
 			}
 
-			return auto;
+			return auto1;
 		});
 
 		// FIELD INIT (FOR EDIT DIALOG)
@@ -98,7 +98,8 @@ public class AutoDialog extends Dialog<Auto> {
 			kmField.setText(auto.getKm().toString());
 			misuraGommeField.setText(auto.getMisuraGomme());
 			noteArea.setText(auto.getNote());
-//			tipoGommeBox.setValue();
+			tipoGommeBox.setValue(TipoGomme.get(auto.getTipoGomme()
+					.getDescrizione()));
 		}
 
 		// DATA VALIDATORS
@@ -120,11 +121,6 @@ public class AutoDialog extends Dialog<Auto> {
 								.matcher(newValue)
 								.matches()));
 
-	}
-
-	public AutoDialog setAuto(Auto auto) {
-		this.auto = auto;
-		return this;
 	}
 
 }

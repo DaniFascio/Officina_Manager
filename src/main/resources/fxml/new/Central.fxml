@@ -60,14 +60,15 @@
 
 						<Button fx:id="addAutoButton"
 								styleClass="icon,icon-add"
-								onAction="#onAdd">
+								onAction="#onAddAuto">
 							<tooltip>
 								<Tooltip text="Aggiungi una nuova auto"/>
 							</tooltip>
 						</Button>
 
 						<Button fx:id="editAutoButton"
-								styleClass="icon,icon-edit">
+								styleClass="icon,icon-edit"
+								onAction="#onEditAuto">
 							<tooltip>
 								<Tooltip text="Modifica l'auto selezionata"/>
 							</tooltip>

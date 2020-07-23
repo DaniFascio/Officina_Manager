@@ -44,6 +44,15 @@ public class Auto {
 		return note;
 	}
 
+	// num_targa, modello, km, note, id_tipo_gomme, misura_gomme
+	public Object[] values() {
+
+		return new Object[] {
+				targa, modello, km.toString(), note, tipoGomme.getId(), misuraGomme
+		};
+
+	}
+
 	public static class Builder {
 
 		private String targa;
@@ -54,20 +63,6 @@ public class Auto {
 		private TipoGomme tipoGomme;
 
 		public Builder() {
-
-		}
-
-		// num_targa, modello, km, note, id_tipo_gomme, misura_gomme
-		public Object[] values() {
-			
-			return new Object[] {
-					targa,
-					modello,
-					km,
-					note,
-					tipoGomme.getId(),
-					misuraGomme
-			};
 
 		}
 

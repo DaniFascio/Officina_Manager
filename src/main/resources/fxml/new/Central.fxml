@@ -10,7 +10,7 @@
 		minHeight="640"
 		minWidth="800"
 		type="AnchorPane"
-		stylesheets="@/css/Text.css,@/css/Icons.css"
+		stylesheets="@/css/Text.css,@/css/Icons.css,@/css/Root.css"
 		fx:id="root">
 
 	<BorderPane AnchorPane.bottomAnchor="0"
@@ -89,7 +89,8 @@
 						<HBox fx:id="searchBox"
 								alignment="CENTER_LEFT">
 							<Label styleClass="icon,icon-search"/>
-							<TextField fx:id="searchAutoField"/>
+							<TextField fx:id="searchAutoField"
+									styleClass="searchField"/>
 						</HBox>
 
 					</FlowPane>
@@ -207,6 +208,7 @@
 							<HBox alignment="CENTER_LEFT">
 								<Label styleClass="icon,icon-search"/>
 								<TextField fx:id="searchLavorazioneField"
+										styleClass="searchField"
 										HBox.hgrow="ALWAYS"/>
 							</HBox>
 

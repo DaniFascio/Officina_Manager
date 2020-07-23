@@ -50,72 +50,67 @@ public class AutoDialog extends Dialog<Auto> {
 			loader.load();
 			getDialogPane().setMinSize(640, 480);
 
-			tipoGommeBox.getItems().addAll(TipoGomme.values());
-			tipoGommeBox.setConverter(new StringConverter<TipoGomme>() {
-				@Override
-				public String toString(TipoGomme tipoGomme) {
-					return tipoGomme.getDescrizione();
-				}
-
-				@Override
-				public TipoGomme fromString(String string) {
-					return TipoGomme.get(string);
-				}
-			});
-
-			setResizable(true);
-			setResultConverter(btnType -> {
-				Auto auto = null;
-
-				try {
-					auto = new Auto.Builder().setTarga(targaField.getText())
-							.setModello(modelloField.getText())
-							.setKm(Integer.parseInt(kmField.getText()))
-							.setMisuraGomme(misuraGommeField.getText())
-							.setNote(noteArea.getText())
-							.setTipoGomme(tipoGommeBox.getValue())
-							.build();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-
-				return auto;
-			});
-
-			// DATA VALIDATORS
-			targaField.textProperty()
-					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !targaPattern
-							.matcher(newValue)
-							.matches()));
-			kmField.textProperty()
-					.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !kmPattern
-							.matcher(newValue)
-							.matches()));
-			modelloField.textProperty()
-					.addListener((observable, oldValue, newValue) -> modelloField
-							.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
-									.matcher(newValue)
-									.matches()));
-			misuraGommeField.textProperty()
-					.addListener((observable, oldValue, newValue) -> misuraGommeField
-							.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
-									.matcher(newValue)
-									.matches()));
-
-
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+
+		tipoGommeBox.getItems().addAll(TipoGomme.values());
+		tipoGommeBox.setValue(tipoGommeBox.getItems().get(0));
+		tipoGommeBox.setConverter(new StringConverter<TipoGomme>() {
+			@Override
+			public String toString(TipoGomme tipoGomme) {
+				return tipoGomme.getDescrizione();
+			}
+
+			@Override
+			public TipoGomme fromString(String string) {
+				return TipoGomme.get(string);
+			}
+		});
+
+		setResizable(true);
+		setResultConverter(btnType -> {
+			Auto auto = null;
+
+			try {
+				auto = new Auto.Builder().setTarga(targaField.getText())
+						.setModello(modelloField.getText())
+						.setKm(Integer.parseInt(kmField.getText()))
+						.setMisuraGomme(misuraGommeField.getText())
+						.setNote(noteArea.getText())
+						.setTipoGomme(tipoGommeBox.getValue())
+						.build();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
+			return auto;
+		});
+
+		// DATA VALIDATORS
+		targaField.textProperty()
+				.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !targaPattern
+						.matcher(newValue)
+						.matches()));
+		kmField.textProperty()
+				.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !kmPattern
+						.matcher(newValue)
+						.matches()));
+		modelloField.textProperty()
+				.addListener((observable, oldValue, newValue) -> modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
+						.matcher(newValue)
+						.matches()));
+		misuraGommeField.textProperty()
+				.addListener((observable, oldValue, newValue) -> misuraGommeField
+						.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
+								.matcher(newValue)
+								.matches()));
 
 	}
 
 	public AutoDialog setAuto(Auto auto) {
 		this.auto = auto;
 		return this;
-	}
-
-	private boolean validate() {
-		return false;
 	}
 
 }

@@ -4,7 +4,7 @@ import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.AutoDao;
 import io.github.DaniFascio.DatabaseManager;
 import io.github.DaniFascio.gui.components.AutoCell;
-import io.github.DaniFascio.gui.controllers.AutoAddDialog;
+import io.github.DaniFascio.gui.controllers.AutoDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,7 +75,7 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private void onAdd(ActionEvent event) {
 
-		new AutoAddDialog().showAndWait().ifPresent(auto -> {
+		new AutoDialog(false).showAndWait().ifPresent(auto -> {
 			AutoDao autoDao = new AutoDao();
 			Dialog<ButtonType> dialog;
 

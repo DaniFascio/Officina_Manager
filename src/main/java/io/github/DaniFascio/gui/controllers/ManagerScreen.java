@@ -72,7 +72,7 @@ public class ManagerScreen implements Screen {
 
 	@FXML
 	private void onAdd(ActionEvent actionEvent) {
-		Dialog<Auto> dialog = new AutoAddDialog();
+		Dialog<Auto> dialog = new AutoDialog(false);
 
 		dialog.showAndWait().ifPresent(auto -> {
 			int res = new AutoDao().save(auto);

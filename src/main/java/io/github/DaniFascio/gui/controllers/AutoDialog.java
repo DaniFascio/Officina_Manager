@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.regex.Pattern;
 
-public class AutoAddDialog extends Dialog<Auto> {
+public class AutoDialog extends Dialog<Auto> {
+
+	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
+	private static final Pattern kmPattern = Pattern.compile("\\d+");
+	private static final Pattern anyPattern = Pattern.compile(".+");
 
 	@FXML
 	private TextField targaField;
@@ -30,9 +34,13 @@ public class AutoAddDialog extends Dialog<Auto> {
 	@FXML
 	private TextArea noteArea;
 
+	private final boolean editable;
+	private Auto auto;
+
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
-	public AutoAddDialog() {
+	public AutoDialog(boolean editable) {
+		this.editable = editable;
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
@@ -74,17 +82,36 @@ public class AutoAddDialog extends Dialog<Auto> {
 				return auto;
 			});
 
+			// DATA VALIDATORS
 			targaField.textProperty()
-					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
-							.matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}", newValue)));
+					.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !targaPattern
+							.matcher(newValue)
+							.matches()));
 			kmField.textProperty()
-					.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !Pattern
-							.matches("\\d+", newValue)));
+					.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !kmPattern
+							.matcher(newValue)
+							.matches()));
+			modelloField.textProperty()
+					.addListener((observable, oldValue, newValue) -> modelloField
+							.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
+									.matcher(newValue)
+									.matches()));
+			misuraGommeField.textProperty()
+					.addListener((observable, oldValue, newValue) -> misuraGommeField
+							.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
+									.matcher(newValue)
+									.matches()));
+
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
 
+	}
+
+	public AutoDialog setAuto(Auto auto) {
+		this.auto = auto;
+		return this;
 	}
 
 	private boolean validate() {

@@ -1,25 +1,39 @@
 .root {
 
-	-color-main: #08a142;
+	-color-primary: #08a142;
 	-color-secondary: #4949ea;
+	-color-background: #f4f4f4;
 
 }
 
 .text-field {
 
 	-fx-border-radius: 0;
-	-fx-border-width: 0 0 3;
+	-fx-border-width: 0 0 2;
 	-fx-border-insets: 0;
 	-fx-background-insets: 0;
 	-fx-padding: 5;
-	-fx-background-color: white;
-	-fx-border-color: white;
+	-fx-background-color: -color-background;
+	-fx-border-color: -color-primary;
 
 }
 
 .text-field:focused {
 
-	-fx-border-width: 0 0 3;
+	-fx-border-width: 0 0 2;
 	-fx-border-color: -color-secondary;
 
+}
+
+.searchField {
+	-fx-border-radius: 4;
+	-fx-border-width: 1;
+	-fx-border-color: #c8c8c8;
+	-fx-padding: 4;
+	-fx-background-color: white;
+}
+
+.searchField:focused {
+	-fx-border-color: #c8c8c8;
+	-fx-border-width: 1;
 }

@@ -6,17 +6,14 @@ import io.github.DaniFascio.DatabaseManager;
 import io.github.DaniFascio.gui.components.AutoCell;
 import io.github.DaniFascio.gui.controllers.AutoAddDialog;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.sql.SQLException;
 
 public class CentralPane extends AnchorPane {
 
@@ -41,7 +38,7 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private HBox searchBox;
 
-	public CentralPane() throws SQLException {
+	public CentralPane() {
 		super();
 
 		try {

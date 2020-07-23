@@ -10,9 +10,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class AutoDialog extends Dialog<Auto> {
@@ -34,13 +36,13 @@ public class AutoDialog extends Dialog<Auto> {
 	@FXML
 	private TextArea noteArea;
 
-	private final boolean editable;
-	private Auto auto;
+	private final boolean editable
 
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
-	public AutoDialog(boolean editable) {
+	public AutoDialog(boolean editable, @Nullable Auto auto) {
 		this.editable = editable;
+
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
@@ -86,6 +88,18 @@ public class AutoDialog extends Dialog<Auto> {
 
 			return auto;
 		});
+
+		// FIELD INIT (FOR EDIT DIALOG)
+		if(editable) {
+			Objects.requireNonNull(auto);
+
+			targaField.setText(auto.getTarga());
+			modelloField.setText(auto.getModello());
+			kmField.setText(auto.getKm().toString());
+			misuraGommeField.setText(auto.getMisuraGomme());
+			noteArea.setText(auto.getNote());
+//			tipoGommeBox.setValue();
+		}
 
 		// DATA VALIDATORS
 		targaField.textProperty()

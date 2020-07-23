@@ -53,6 +53,9 @@
 								styleClass="main-label"/>
 					</HBox>
 
+					<!-- LISTA AUTO CONTROLS -->
+					<!-- TODO: REFRESH BUTTON -->
+
 					<FlowPane styleClass="toolbar-icon">
 
 						<Button fx:id="addAutoButton"
@@ -103,6 +106,7 @@
 				<SplitPane orientation="VERTICAL">
 
 					<!-- DETAILS AUTO -->
+
 					<ScrollPane fitToWidth="true">
 						<padding>
 							<Insets topRightBottomLeft="20"/>
@@ -188,6 +192,9 @@
 
 						<Label text="Lavorazioni Auto"
 								styleClass="main-label"/>
+
+						<!-- LISTA LAVORAZIONI CONTROLS -->
+						<!-- TODO: REFRESH BUTTON -->
 
 						<FlowPane styleClass="toolbar-icon">
 

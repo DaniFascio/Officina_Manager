@@ -1,6 +1,7 @@
 .root {
 
 	-color-main: #08a142;
+	-color-secondary: #4949ea;
 
 }
 
@@ -11,13 +12,14 @@
 	-fx-border-insets: 0;
 	-fx-background-insets: 0;
 	-fx-padding: 5;
-	-fx-background-color: -fx-control-inner-background;
+	-fx-background-color: white;
+	-fx-border-color: white;
 
 }
 
 .text-field:focused {
 
 	-fx-border-width: 0 0 3;
-	-fx-border-color: -color-main;
+	-fx-border-color: -color-secondary;
 
 }

@@ -36,7 +36,7 @@ public class AutoDialog extends Dialog<Auto> {
 	@FXML
 	private TextArea noteArea;
 
-	private final boolean editable
+	private final boolean editable;
 
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 

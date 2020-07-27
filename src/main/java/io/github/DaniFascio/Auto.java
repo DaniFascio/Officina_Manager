@@ -48,7 +48,7 @@ public class Auto {
 	public Object[] values() {
 
 		return new Object[] {
-				targa, modello, km.toString(), note, tipoGomme.getId(), misuraGomme
+				targa, modello, km, note, tipoGomme.getId(), misuraGomme
 		};
 
 	}

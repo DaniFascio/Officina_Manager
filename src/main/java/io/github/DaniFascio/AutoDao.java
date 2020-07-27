@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class AutoDao implements Dao<Auto> {
 
@@ -101,8 +102,10 @@ public class AutoDao implements Dao<Auto> {
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			res = databaseManager.executeUpdate("UPDATE TABLE auto (num_targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?,?,?,?,?,?) WHERE targa = ?", params, auto
-					.getTarga());
+			Object[] objects = new Object[params.length + 1];
+			System.arraycopy(params, 0, objects, 0, params.length);
+			objects[objects.length - 1] = auto.getTarga();
+			res = databaseManager.executeUpdate("UPDATE auto SET targa = ?, modello = ?, km = ?, note = ?, id_tipo_gomme = ?, misura_gomme = ? WHERE targa = ?", objects);
 
 		} catch(SQLException e) {
 			e.printStackTrace();

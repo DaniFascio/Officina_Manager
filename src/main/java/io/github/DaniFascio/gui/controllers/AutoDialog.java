@@ -2,13 +2,12 @@ package io.github.DaniFascio.gui.controllers;
 
 import io.github.DaniFascio.Auto;
 import io.github.DaniFascio.TipoGomme;
+import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,20 +20,26 @@ public class AutoDialog extends Dialog<Auto> {
 
 	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
-	private static final Pattern anyPattern = Pattern.compile(".+");
+	private static final Pattern anyPattern = Pattern.compile(".{3,}");
 
 	@FXML
 	private TextField targaField;
+	private boolean targaError;
 	@FXML
 	private TextField modelloField;
+	private boolean modelloError;
 	@FXML
 	private TextField kmField;
+	private boolean kmError;
 	@FXML
 	private TextField misuraGommeField;
+	private boolean misuraGommeError;
 	@FXML
 	private ChoiceBox<TipoGomme> tipoGommeBox;
 	@FXML
 	private TextArea noteArea;
+	@FXML
+	private ButtonType doneButton;
 
 	private final boolean editable;
 
@@ -42,6 +47,10 @@ public class AutoDialog extends Dialog<Auto> {
 
 	public AutoDialog(boolean editable, @Nullable Auto auto) {
 		this.editable = editable;
+		targaError = true;
+		modelloError = true;
+		kmError = true;
+		misuraGommeError = true;
 
 		try {
 
@@ -74,17 +83,18 @@ public class AutoDialog extends Dialog<Auto> {
 		setResultConverter(btnType -> {
 			Auto auto1 = null;
 
-			try {
-				auto1 = new Auto.Builder().setTarga(targaField.getText())
-						.setModello(modelloField.getText())
-						.setKm(Integer.parseInt(kmField.getText()))
-						.setMisuraGomme(misuraGommeField.getText())
-						.setNote(noteArea.getText())
-						.setTipoGomme(tipoGommeBox.getValue())
-						.build();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+			if(btnType.getButtonData().equals(ButtonBar.ButtonData.OK_DONE))
+				try {
+					auto1 = new Auto.Builder().setTarga(targaField.getText())
+							.setModello(modelloField.getText())
+							.setKm(Integer.parseInt(kmField.getText()))
+							.setMisuraGomme(misuraGommeField.getText())
+							.setNote(noteArea.getText())
+							.setTipoGomme(tipoGommeBox.getValue())
+							.build();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 
 			return auto1;
 		});
@@ -103,24 +113,32 @@ public class AutoDialog extends Dialog<Auto> {
 		}
 
 		// DATA VALIDATORS
-		targaField.textProperty()
-				.addListener((observable, oldValue, newValue) -> targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !targaPattern
-						.matcher(newValue)
-						.matches()));
-		kmField.textProperty()
-				.addListener((observable, oldValue, newValue) -> kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !kmPattern
-						.matcher(newValue)
-						.matches()));
-		modelloField.textProperty()
-				.addListener((observable, oldValue, newValue) -> modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
-						.matcher(newValue)
-						.matches()));
-		misuraGommeField.textProperty()
-				.addListener((observable, oldValue, newValue) -> misuraGommeField
-						.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !anyPattern
-								.matcher(newValue)
-								.matches()));
+		Node doneButton = getDialogPane().lookupButton(this.doneButton);
+		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
+		validate(doneButton);
 
+		targaField.textProperty().addListener(listener);
+		kmField.textProperty().addListener(listener);
+		modelloField.textProperty().addListener(listener);
+		misuraGommeField.textProperty().addListener(listener);
+
+	}
+
+	private void validate(Node disableable) {
+		targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, targaError = !targaPattern
+				.matcher(targaField.getText())
+				.matches());
+		kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, kmError = !kmPattern
+				.matcher(kmField.getText())
+				.matches());
+		modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, modelloError = !anyPattern
+				.matcher(modelloField.getText())
+				.matches());
+		misuraGommeField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, misuraGommeError = !anyPattern
+				.matcher(misuraGommeField.getText())
+				.matches());
+
+		disableable.setDisable(targaError || kmError || modelloError || misuraGommeError);
 	}
 
 }

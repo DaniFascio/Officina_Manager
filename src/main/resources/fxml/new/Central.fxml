@@ -74,10 +74,19 @@
 							</tooltip>
 						</Button>
 
-						<Button fx:id="removeAutoButton"
-								styleClass="icon,icon-remove">
+						<Button fx:id="deleteAutoButton"
+								styleClass="icon,icon-delete"
+								onAction="#onDeleteAuto">
 							<tooltip>
 								<Tooltip text="Rimuovi l'auto selezionata"/>
+							</tooltip>
+						</Button>
+
+						<Button fx:id="refreshAutoButton"
+								styleClass="icon,icon-refresh"
+								onAction="#onRefreshAuto">
+							<tooltip>
+								<Tooltip text="Aggiorna la lista delle auto"/>
 							</tooltip>
 						</Button>
 
@@ -93,8 +102,7 @@
 						<HBox fx:id="searchBox"
 								alignment="CENTER_LEFT">
 							<Label styleClass="icon,icon-search"/>
-							<TextField fx:id="searchAutoField"
-									styleClass="searchField"/>
+							<TextField fx:id="searchAutoField"/>
 						</HBox>
 
 					</FlowPane>
@@ -108,12 +116,12 @@
 
 					<!-- DETAILS AUTO -->
 
-					<ScrollPane fitToWidth="true">
+					<ScrollPane fitToWidth="true"
+							minHeight="256">
 						<padding>
 							<Insets topRightBottomLeft="20"/>
 						</padding>
-						<GridPane minHeight="256"
-								alignment="BOTTOM_LEFT"
+						<GridPane alignment="BOTTOM_LEFT"
 								hgap="20"
 								vgap="20">
 							<columnConstraints>
@@ -135,6 +143,7 @@
 								<Label text="Targa"
 										styleClass="i,em1_2"/>
 								<TextField fx:id="targaLabel"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -144,6 +153,7 @@
 								<Label text="Modello"
 										styleClass="i,em1_2"/>
 								<TextField fx:id="modelloLabel"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -152,6 +162,7 @@
 								<Label text="Km"
 										styleClass="i,em1_2"/>
 								<TextField fx:id="kmLabel"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -160,6 +171,7 @@
 								<Label text="Misura Gomme"
 										styleClass="i,em1_2"/>
 								<TextField fx:id="misuraGommeLabel"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -168,6 +180,7 @@
 								<Label text="Tipo Gomme"
 										styleClass="i,em1_2"/>
 								<TextField fx:id="tipoGommeLabel"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -177,6 +190,7 @@
 								<Label text="Note"
 										styleClass="i,em1_2"/>
 								<TextArea fx:id="noteArea"
+										styleClass="left_border,blank-field"
 										editable="false"/>
 							</VBox>
 
@@ -206,7 +220,14 @@
 									styleClass="icon,icon-edit"/>
 
 							<Button fx:id="removeLavorazioneButton"
-									styleClass="icon,icon-remove"/>
+									styleClass="icon,icon-delete"/>
+
+							<Button fx:id="refreshLavorazioneButton"
+									styleClass="icon,icon-refresh">
+								<tooltip>
+									<Tooltip text="Aggiorna la lista delle lavorazioni per l'auto corrente"/>
+								</tooltip>
+							</Button>
 
 							<Button fx:id="sortLavorazioneButton"
 									styleClass="icon,icon-sort"/>
@@ -216,7 +237,6 @@
 							<HBox alignment="CENTER_LEFT">
 								<Label styleClass="icon,icon-search"/>
 								<TextField fx:id="searchLavorazioneField"
-										styleClass="searchField"
 										HBox.hgrow="ALWAYS"/>
 							</HBox>
 

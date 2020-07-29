@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class AutoDao implements Dao<Auto> {
 
@@ -20,6 +19,7 @@ public class AutoDao implements Dao<Auto> {
 	public Auto get(Object key) {
 
 		Auto auto = null;
+		errorMessage = "";
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
@@ -44,10 +44,10 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public @NotNull List<Auto> getAll() {
 		List<Auto> list = new LinkedList<>();
-
+		errorMessage = "";
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
+			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
 
 			while(rs.next())
 				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
@@ -69,6 +69,7 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public @NotNull List<Auto> getAll(int page, int limit) {
 		List<Auto> list = new LinkedList<>();
+		errorMessage = "";
 
 		// TODO: Select per tutte (con max)
 
@@ -78,6 +79,7 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public int save(Auto auto) {
 
+		errorMessage = "";
 		int res = 0;
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
@@ -98,6 +100,7 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public int update(Auto auto, Object[] params) {
 
+		errorMessage = "";
 		int res = 0;
 
 		try {
@@ -119,6 +122,7 @@ public class AutoDao implements Dao<Auto> {
 	@Override
 	public int delete(Auto auto) {
 
+		errorMessage = "";
 		int res = 0;
 
 		try {
@@ -133,8 +137,12 @@ public class AutoDao implements Dao<Auto> {
 		return res;
 	}
 
-	public @NotNull String getErrorMessage() {
+	public @NotNull String errorMessage() {
 		return errorMessage;
+	}
+
+	public boolean error() {
+		return errorMessage != null;
 	}
 
 }

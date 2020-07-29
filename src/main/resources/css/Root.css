@@ -6,7 +6,7 @@
 
 }
 
-.text-field {
+.custom-textfield {
 
 	-fx-border-radius: 0;
 	-fx-border-width: 0 0 2;
@@ -18,10 +18,22 @@
 
 }
 
-.text-field:focused {
+.custom-textfield:focused {
 
 	-fx-border-width: 0 0 2;
 	-fx-border-color: -color-secondary;
+
+}
+
+.blank-field {
+
+	-fx-padding: 0;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-border-insets: 0;
+	-fx-background-insets: 0;
+	-fx-background-color: -color-background;
+	-fx-font-size: 15;
 
 }
 
@@ -36,4 +48,12 @@
 .searchField:focused {
 	-fx-border-color: #c8c8c8;
 	-fx-border-width: 1;
+}
+
+.left_border {
+
+	-fx-border-color: -color-secondary;
+	-fx-border-width: 0 0 0 2;
+	-fx-padding: 0 0 0 6;
+
 }

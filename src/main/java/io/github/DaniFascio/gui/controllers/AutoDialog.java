@@ -21,7 +21,8 @@ public class AutoDialog extends Dialog<Auto> {
 	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
-
+	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
+	private final boolean editable;
 	@FXML
 	private TextField targaField;
 	private boolean targaError;
@@ -41,16 +42,13 @@ public class AutoDialog extends Dialog<Auto> {
 	@FXML
 	private ButtonType doneButton;
 
-	private final boolean editable;
-
-	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
-
 	public AutoDialog(boolean editable, @Nullable Auto auto) {
 		this.editable = editable;
 		targaError = true;
 		modelloError = true;
 		kmError = true;
 		misuraGommeError = true;
+		Button doneButton;
 
 		try {
 
@@ -60,6 +58,7 @@ public class AutoDialog extends Dialog<Auto> {
 			loader.setRoot(getDialogPane());
 			loader.load();
 			getDialogPane().setMinSize(640, 480);
+			doneButton = (Button) getDialogPane().lookupButton(this.doneButton);
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -102,6 +101,7 @@ public class AutoDialog extends Dialog<Auto> {
 		// FIELD INIT (FOR EDIT DIALOG)
 		if(editable) {
 			Objects.requireNonNull(auto);
+			doneButton.setText("Modifica");
 
 			targaField.setText(auto.getTarga());
 			modelloField.setText(auto.getModello());
@@ -113,7 +113,6 @@ public class AutoDialog extends Dialog<Auto> {
 		}
 
 		// DATA VALIDATORS
-		Node doneButton = getDialogPane().lookupButton(this.doneButton);
 		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
 		validate(doneButton);
 

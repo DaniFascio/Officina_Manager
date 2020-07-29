@@ -11,9 +11,11 @@ import java.util.List;
 public class LavorazioneDao implements Dao<Lavorazione> {
 
 	private final Auto auto;
+	private String errorMessage;
 
 	public LavorazioneDao(Auto auto) {
 		this.auto = auto;
+		errorMessage = "";
 	}
 
 	@Nullable
@@ -21,6 +23,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 	public Lavorazione get(Object key) {
 
 		Lavorazione lavorazione = null;
+		errorMessage = "";
 
 		try {
 
@@ -37,6 +40,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		} catch(Exception e) {
 			e.printStackTrace();
+			errorMessage = e.getMessage();
 		}
 
 		return lavorazione;
@@ -85,6 +89,14 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		// TODO: LavorazioneDao.delete(lavorazione)
 
 		return result;
+	}
+
+	public @NotNull String errorMessage() {
+		return errorMessage;
+	}
+
+	public boolean error() {
+		return errorMessage.length() != 0;
 	}
 
 }

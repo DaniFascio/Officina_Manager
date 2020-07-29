@@ -142,7 +142,7 @@ public class AutoDao implements Dao<Auto> {
 	}
 
 	public boolean error() {
-		return errorMessage != null;
+		return errorMessage.length() != 0;
 	}
 
 }

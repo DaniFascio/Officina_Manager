@@ -29,7 +29,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 			String targa = auto.getTarga();
 			DatabaseManager dbm = DatabaseManager.fromConfig(true);
-			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM tipi_lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
+			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
 
 			if(rs.next())
 				lavorazione = new Lavorazione.Builder().setAuto(auto)
@@ -50,7 +50,22 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 	public @NotNull List<Lavorazione> getAll() {
 		List<Lavorazione> list = new LinkedList<>();
 
-		// TODO: LavorazioneDao::getAll()
+		errorMessage = "";
+
+		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
+			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
+
+			while(rs.next())
+				list.add(new Lavorazione.Builder().setAuto(auto)
+						.setDescrizione(rs.getString("descrizione"))
+						.setId(rs.getInt("id"))
+						.setSpesa(rs.getFloat("spesa"))
+						.build());
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
 
 		return list;
 	}
@@ -66,11 +81,20 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	@Override
 	public int save(Lavorazione lavorazione) {
-		int result = 0;
+		errorMessage = "";
+		int res = 0;
 
-		// TODO: LavorazioneDao.save(lavorazione)
+		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-		return result;
+			res = dm.executeUpdate("INSERT INTO lavorazioni () VALUES (?, ?, ?, ?)", lavorazione
+					.getId(), lavorazione.getDescrizione(), lavorazione.getSpesa(), lavorazione.getNote());
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
+
+		return res;
 	}
 
 	@Override

@@ -1,38 +1,37 @@
-package io.github.DaniFascio.gui;
+package io.github.danifascio;
 
-import io.github.DaniFascio.gui.anew.LoginPane;
-import io.github.DaniFascio.gui.controllers.LoginScreen;
-import io.github.DaniFascio.gui.controllers.ManagerScreen;
+import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.awt.*;
 
 public class Gui extends Application {
 
-	public static void main(String[] args) {
-		launch();
-	}
-
 	private static Gui instance;
 	private Scene scene;
 	private Stage stage;
+
+	public static void main(String[] args) {
+		launch();
+	}
 
 	public static Gui getInstance() {
 		return instance;
 	}
 
+	@FXML
+	private static void quit(Event event) {
+		Platform.exit();
+	}
+
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		instance = this;
 		stage = primaryStage;
 //		stage.initStyle(StageStyle.UNDECORATED);
@@ -61,28 +60,6 @@ public class Gui extends Application {
 		stage.setWidth(pane.getPrefWidth());
 		scene.setRoot(pane);
 
-	}
-
-	public enum Screen {
-
-		LOGIN(LoginScreen.class),
-		MANAGER(ManagerScreen.class);
-
-		private final Class<? extends io.github.DaniFascio.gui.Screen> aClass;
-
-		Screen(Class<? extends io.github.DaniFascio.gui.Screen> aClass) {
-			this.aClass = aClass;
-		}
-
-		public Pane loadView() throws IllegalAccessException, InstantiationException {
-			return aClass.newInstance().getView();
-		}
-
-	}
-
-	@FXML
-	private static void quit(Event event) {
-		Platform.exit();
 	}
 
 }

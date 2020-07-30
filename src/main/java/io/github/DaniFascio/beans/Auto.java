@@ -1,4 +1,4 @@
-package io.github.DaniFascio;
+package io.github.danifascio.beans;
 
 import java.util.Objects;
 

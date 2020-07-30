@@ -1,7 +1,7 @@
-package io.github.DaniFascio.gui.controllers;
+package io.github.danifascio.gui;
 
-import io.github.DaniFascio.Auto;
-import io.github.DaniFascio.TipoGomme;
+import io.github.danifascio.beans.Auto;
+import io.github.danifascio.beans.TipoGomme;
 import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class AutoDialog extends Dialog<Auto> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/AutoAddDialog.fxml"));
+			loader.setLocation(getClass().getResource("/fxml/AutoDialog.fxml"));
 			loader.setController(this);
 			loader.setRoot(getDialogPane());
 			loader.load();

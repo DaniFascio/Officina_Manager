@@ -1,4 +1,6 @@
-package io.github.DaniFascio;
+package io.github.danifascio.beans;
+
+import io.github.danifascio.DatabaseManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

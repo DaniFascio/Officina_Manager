@@ -1,10 +1,11 @@
-package io.github.DaniFascio;
+package io.github.danifascio.dao;
 
-import io.github.DaniFascio.gui.controllers.Lavorazione;
+import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.beans.Auto;
+import io.github.danifascio.beans.Lavorazione;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;

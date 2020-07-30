@@ -1,10 +1,9 @@
-package io.github.DaniFascio.gui.anew;
+package io.github.danifascio.gui;
 
-import io.github.DaniFascio.Auto;
-import io.github.DaniFascio.AutoDao;
-import io.github.DaniFascio.DatabaseManager;
-import io.github.DaniFascio.gui.components.AutoCell;
-import io.github.DaniFascio.gui.controllers.AutoDialog;
+import io.github.danifascio.beans.Auto;
+import io.github.danifascio.dao.AutoDao;
+import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.gui.components.AutoCell;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +45,7 @@ public class CentralPane extends AnchorPane {
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/new/Central.fxml"));
+			loader.setLocation(getClass().getResource("/fxml/Central.fxml"));
 			loader.setRoot(this);
 			loader.setController(this);
 			loader.load();

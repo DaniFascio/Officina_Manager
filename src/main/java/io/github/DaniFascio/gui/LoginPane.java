@@ -1,8 +1,8 @@
-package io.github.DaniFascio.gui.anew;
+package io.github.danifascio.gui;
 
-import io.github.DaniFascio.DatabaseManager;
-import io.github.DaniFascio.TipoGomme;
-import io.github.DaniFascio.gui.Gui;
+import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.Gui;
+import io.github.danifascio.beans.TipoGomme;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ public class LoginPane extends BorderPane {
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/new/LoginPane.fxml"));
+			loader.setLocation(getClass().getResource("/fxml/LoginPane.fxml"));
 			loader.setRoot(this);
 			loader.setController(this);
 			loader.load();

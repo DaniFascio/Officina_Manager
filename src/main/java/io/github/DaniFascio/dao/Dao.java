@@ -1,4 +1,4 @@
-package io.github.DaniFascio;
+package io.github.danifascio.dao;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

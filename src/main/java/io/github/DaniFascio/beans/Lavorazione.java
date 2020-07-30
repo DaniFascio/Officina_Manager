@@ -1,6 +1,4 @@
-package io.github.DaniFascio.gui.controllers;
-
-import io.github.DaniFascio.Auto;
+package io.github.danifascio.beans;
 
 import java.util.Objects;
 

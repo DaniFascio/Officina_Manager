@@ -1,4 +1,4 @@
-package io.github.DaniFascio;
+package io.github.danifascio;
 
 import java.sql.*;
 

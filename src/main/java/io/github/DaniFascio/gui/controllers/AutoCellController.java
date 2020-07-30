@@ -1,27 +1,23 @@
-package io.github.DaniFascio.gui.controllers;
+package io.github.danifascio.gui.controllers;
 
-import io.github.DaniFascio.Auto;
-import io.github.DaniFascio.gui.Screen;
+import io.github.danifascio.beans.Auto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-public class AutoCellController implements Screen {
+public class AutoCellController {
 
+	private final Pane view;
 	@FXML
 	private Label modelLabel;
 	@FXML
 	private Label plateLabel;
 	@FXML
 	private Label ownerLabel;
-
-	private final Pane view;
 	private Auto auto;
 
 	public AutoCellController() {

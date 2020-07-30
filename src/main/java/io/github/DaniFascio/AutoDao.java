@@ -127,7 +127,7 @@ public class AutoDao implements Dao<Auto> {
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ? ", auto
+			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto
 					.getTarga());
 		} catch(SQLException e) {
 			e.printStackTrace();

@@ -4,6 +4,7 @@ import io.github.DaniFascio.gui.controllers.Lavorazione;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,17 +20,14 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		errorMessage = "";
 	}
 
-	@Nullable
 	@Override
-	public Lavorazione get(Object key) {
+	public @Nullable Lavorazione get(Object key) {
 
 		Lavorazione lavorazione = null;
 		errorMessage = "";
 
-		try {
-
+		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 			String targa = auto.getTarga();
-			DatabaseManager dbm = DatabaseManager.fromConfig(true);
 			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
 
 			if(rs.next())
@@ -49,15 +47,14 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	@Override
 	public @NotNull List<Lavorazione> getAll() {
-		List<Lavorazione> list = new LinkedList<>();
 
+		List<Lavorazione> list = new LinkedList<>();
 		errorMessage = "";
 
-		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
+		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 
 			String targa = auto.getTarga();
-
-			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_lavorazione , descrizione, spesa FROM lavorazioni WHERE targa_auto = ?", targa);
+			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE targa_auto = ?", targa);
 
 			while(rs.next())
 				list.add(new Lavorazione.Builder().setAuto(auto)
@@ -85,6 +82,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	@Override
 	public int save(Lavorazione lavorazione) {
+
 		errorMessage = "";
 		int res = 0;
 
@@ -103,13 +101,28 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		return res;
 	}
 
+	/**
+	 * @param lavorazione Lavorazione da modificare
+	 * @param params      Parametri da modificare. In ordine: descrizione, spesa
+	 * @return 1 se modificato, altrimenti 0
+	 */
 	@Override
 	public int update(Lavorazione lavorazione, Object[] params) {
-		int result = 0;
 
-		// TODO: LavorazioneDao.update(lavorazione, args...)
+		errorMessage = "";
+		int res = 0;
 
-		return result;
+		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
+
+			int id = lavorazione.getId();
+			res = dbm.executeUpdate("UPDATE lavorazioni SET descrizione = ?, spesa = ? WHERE id_tipo_lavorazione = ?", params[0], params[1], id);
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
+
+		return res;
 	}
 
 	@Override
@@ -119,9 +132,11 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		int res = 0;
 
 		try {
+
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ? ", lavorazione
+			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione
 					.getId());
+
 		} catch(SQLException e) {
 			e.printStackTrace();
 			errorMessage = e.getMessage();

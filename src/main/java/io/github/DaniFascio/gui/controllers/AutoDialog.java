@@ -22,7 +22,7 @@ public class AutoDialog extends Dialog<Auto> {
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
-	private final boolean editable;
+
 	@FXML
 	private TextField targaField;
 	private boolean targaError;
@@ -40,10 +40,11 @@ public class AutoDialog extends Dialog<Auto> {
 	@FXML
 	private TextArea noteArea;
 	@FXML
+	private Label mainLabel;
+	@FXML
 	private ButtonType doneButton;
 
 	public AutoDialog(boolean editable, @Nullable Auto auto) {
-		this.editable = editable;
 		targaError = true;
 		modelloError = true;
 		kmError = true;
@@ -102,6 +103,7 @@ public class AutoDialog extends Dialog<Auto> {
 		if(editable) {
 			Objects.requireNonNull(auto);
 			doneButton.setText("Modifica");
+			mainLabel.setText("Modifica un'auto");
 
 			targaField.setText(auto.getTarga());
 			modelloField.setText(auto.getModello());

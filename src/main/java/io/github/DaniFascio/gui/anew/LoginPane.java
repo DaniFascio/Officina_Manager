@@ -57,7 +57,7 @@ public class LoginPane extends BorderPane {
 
 		formPane.setDisable(true);
 
-		DatabaseManager.setUsername(usernameField.getText());
+		DatabaseManager.setUsername(usernameField.getText().toLowerCase());
 		DatabaseManager.setPassword(passwordField.getText());
 
 		Platform.runLater(() -> {

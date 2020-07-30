@@ -12,13 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
-import java.util.Optional;
 
 public class CentralPane extends AnchorPane {
 
@@ -192,9 +189,10 @@ public class CentralPane extends AnchorPane {
 		listaAutoView.getItems().clear();
 		listaAutoView.getItems().addAll(list);
 
-		if(listaAutoView.getItems().size() != 0)
-			Platform.runLater(() -> listaAutoView.getSelectionModel()
-					.select(0));
+		if(listaAutoView.getSelectionModel().getSelectedItem() == null)
+			if(listaAutoView.getItems().size() != 0)
+				Platform.runLater(() -> listaAutoView.getSelectionModel()
+						.select(0));
 
 	}
 

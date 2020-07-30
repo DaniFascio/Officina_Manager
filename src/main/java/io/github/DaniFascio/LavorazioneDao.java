@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,7 +54,10 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		errorMessage = "";
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
+
+			String targa = auto.getTarga();
+
+			ResultSet rs = dm.executePreparedQuery("SELECT id_tipo_lavorazione , descrizione, spesa FROM lavorazioni WHERE targa_auto = ?", targa);
 
 			while(rs.next())
 				list.add(new Lavorazione.Builder().setAuto(auto)
@@ -86,8 +90,10 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			res = dm.executeUpdate("INSERT INTO lavorazioni () VALUES (?, ?, ?, ?)", lavorazione
-					.getId(), lavorazione.getDescrizione(), lavorazione.getSpesa(), lavorazione.getNote());
+			res = dm.executeUpdate("INSERT INTO lavorazioni (id_tipo_lavorazione,descrizione,spesa,targa_auto) VALUES (?, ?, ?, ?)", lavorazione
+					.getId(), lavorazione.getDescrizione(), lavorazione.getSpesa(), lavorazione
+					.getAuto()
+					.getTarga());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -108,11 +114,20 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	@Override
 	public int delete(Lavorazione lavorazione) {
-		int result = 0;
 
-		// TODO: LavorazioneDao.delete(lavorazione)
+		errorMessage = "";
+		int res = 0;
 
-		return result;
+		try {
+			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
+			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ? ", lavorazione
+					.getId());
+		} catch(SQLException e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
+
+		return res;
 	}
 
 	public @NotNull String errorMessage() {

@@ -4,13 +4,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox prefHeight="60"
-	  styleClass="view-item"
-	  xmlns="http://javafx.com/javafx/10.0.2-internal"
-	  xmlns:fx="http://javafx.com/fxml/1">
+		prefWidth="180"
+		styleClass="view-item"
+		xmlns="http://javafx.com/javafx/10.0.2-internal"
+		xmlns:fx="http://javafx.com/fxml/1">
 
 	<HBox alignment="CENTER_LEFT"
-		  styleClass="itemMainInfo"
-		  spacing="6">
+			styleClass="itemMainInfo"
+			spacing="6">
+
 		<Label fx:id="modelLabel"/>
 		<Label fx:id="plateLabel"/>
 

@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class AutoDialog extends Dialog<Auto> {
 
-	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
+	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2} +\\d{3}[a-zA-Z]{2}");
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
@@ -85,7 +85,9 @@ public class AutoDialog extends Dialog<Auto> {
 
 			if(btnType.getButtonData().equals(ButtonBar.ButtonData.OK_DONE))
 				try {
-					auto1 = new Auto.Builder().setTarga(targaField.getText())
+					auto1 = new Auto.Builder().setTarga(targaField.getText()
+							.toUpperCase()
+							.replaceAll(" ", ""))
 							.setModello(modelloField.getText())
 							.setKm(Integer.parseInt(kmField.getText()))
 							.setMisuraGomme(misuraGommeField.getText())

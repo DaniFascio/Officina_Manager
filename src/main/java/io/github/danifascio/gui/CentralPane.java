@@ -1,9 +1,8 @@
 package io.github.danifascio.gui;
 
+import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.dao.AutoDao;
-import io.github.danifascio.DatabaseManager;
-import io.github.danifascio.gui.components.AutoCell;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -8,32 +8,61 @@
 	<content>
 
 		<AnchorPane>
-			<VBox spacing="10"
-					AnchorPane.bottomAnchor="10"
+			<GridPane AnchorPane.bottomAnchor="10"
 					AnchorPane.leftAnchor="10"
 					AnchorPane.rightAnchor="10"
-					AnchorPane.topAnchor="10">
+					AnchorPane.topAnchor="10"
+					hgap="10"
+					vgap="10">
 
-				<HBox alignment="BOTTOM_LEFT">
-					<Label text="Lavorzione: "/>
+				<columnConstraints>
+					<ColumnConstraints percentWidth="50"/>
+					<ColumnConstraints percentWidth="50"/>
+				</columnConstraints>
+
+				<HBox alignment="BOTTOM_LEFT"
+						GridPane.rowIndex="0"
+						GridPane.columnSpan="2">
+					<Label text="Lavorazione: "/>
 					<Label fx:id="targaLabel"/>
 				</HBox>
 
-				<Separator AnchorPane.leftAnchor="5"
-						AnchorPane.rightAnchor="5"/>
+				<Separator GridPane.rowIndex="1"
+						GridPane.columnIndex="0"
+						GridPane.columnSpan="2"
+						GridPane.vgrow="NEVER"/>
 
-				<VBox>
-					<Label text="Costo "/>
-					<TextField fx:id="costoField"/>
+				<VBox GridPane.rowIndex="2"
+						GridPane.columnIndex="0"
+						GridPane.columnSpan="1">
+					<Label text="Spesa"/>
+					<TextField fx:id="spesaField"/>
 				</VBox>
 
-				<VBox>
+				<VBox GridPane.rowIndex="2"
+						GridPane.columnIndex="1"
+						GridPane.columnSpan="1">
+					<Label text="Data"/>
+					<DatePicker fx:id="datePicker"/>
+				</VBox>
+
+				<VBox GridPane.rowIndex="3"
+						GridPane.columnIndex="0"
+						GridPane.columnSpan="2">
 					<Label text="Descrizione"/>
 					<TextArea fx:id="descrizioneArea"/>
 				</VBox>
+
+
+			</GridPane>
+			<VBox spacing="10">
+
 
 			</VBox>
 		</AnchorPane>
 
 	</content>
+
+	<ButtonType text="Cancella"
+			buttonData="CANCEL_CLOSE"/>
 </fx:root>

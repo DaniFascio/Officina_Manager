@@ -104,8 +104,7 @@
 
 	<ButtonType text="_Aggiungi"
 			buttonData="OK_DONE"
-			fx:id="doneButton">
-	</ButtonType>
+			fx:id="doneButton"/>
 	<ButtonType text="_Cancella"
 			buttonData="CANCEL_CLOSE"/>
 </fx:root>

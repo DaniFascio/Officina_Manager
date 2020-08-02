@@ -4,35 +4,26 @@ import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class LavorazioneDialog extends Dialog<Lavorazione> {
 
-	private static final Pattern datePattern = Pattern.compile("^(?:\\d{1,2}/){2}\\d{4}");
-
 	@FXML
-	private TextField costoField;
+	private TextField spesaField;
+	@FXML
+	private DatePicker datePicker;
 	@FXML
 	private TextArea descrizioneArea;
-	@FXML
-	private TextField dataField;
 
-	private boolean dataError;
+	public LavorazioneDialog(@NotNull Auto auto, @Nullable Lavorazione lavorazione, ViewMode viewMode) {
 
-	public LavorazioneDialog(@NotNull Auto auto, @Nullable Lavorazione lavorazione, State state) {
-		dataError = true;
-
-		if(!state.equals(State.NEW))
+		if(!viewMode.equals(ViewMode.NEW))
 			if(!Objects.requireNonNull(lavorazione).getAuto().equals(auto))
 				throw new RuntimeException("Auto and Lavorazione::auto mismatch");
 
@@ -54,8 +45,9 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 			if(btnType.getButtonData().equals(ButtonBar.ButtonData.OK_DONE))
 				try {
 					lavorazione1 = new Lavorazione.Builder().setAuto(auto)
+							.setData(datePicker.getValue())
 							.setDescrizione(descrizioneArea.getText())
-							.setSpesa(Float.parseFloat(costoField.getText()))
+							.setSpesa(Float.parseFloat(spesaField.getText()))
 							.build();
 				} catch(Exception e) {
 					e.printStackTrace();
@@ -64,9 +56,24 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 			return lavorazione1;
 		});
 
+
+		if(!viewMode.equals(ViewMode.NEW)) {
+
+			spesaField.setText(lavorazione.getSpesa().toString());
+			datePicker.setValue(lavorazione.getData());
+			descrizioneArea.setText(lavorazione.getDescrizione());
+
+			if(viewMode.equals(ViewMode.VIEW)) {
+				spesaField.setDisable(true);
+				datePicker.setDisable(true);
+				descrizioneArea.setDisable(true);
+			}
+
+		}
+
 	}
 
-	public enum State {
+	public enum ViewMode {
 		NEW,
 		EDIT,
 		VIEW,

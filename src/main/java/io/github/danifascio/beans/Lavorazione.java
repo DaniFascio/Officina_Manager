@@ -2,17 +2,20 @@ package io.github.danifascio.beans;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Lavorazione {
 
 	private final Integer id;
 	private final Float spesa;
+	private final LocalDate data;
 	private final String descrizione;
 	private final Auto auto;
 
-	private Lavorazione(int id, float spesa, String descrizione, Auto auto) {
+	private Lavorazione(int id, float spesa, LocalDate data, String descrizione, Auto auto) {
 		this.id = id;
+		this.data = data;
 		this.descrizione = descrizione;
 		this.spesa = spesa;
 		this.auto = Objects.requireNonNull(auto);
@@ -24,6 +27,10 @@ public class Lavorazione {
 
 	public Float getSpesa() {
 		return spesa;
+	}
+
+	public LocalDate getData() {
+		return data;
 	}
 
 	public String getDescrizione() {
@@ -49,6 +56,7 @@ public class Lavorazione {
 		private Float spesa;
 		private String descrizione;
 		private Auto auto;
+		private LocalDate data;
 
 		public Builder() {
 
@@ -63,11 +71,16 @@ public class Lavorazione {
 				throw new Exception("Non-initialized argument in Lavorazione.Builder", e);
 			}
 
-			return new Lavorazione(id != null ? id : -1, spesa, descrizione, auto);
+			return new Lavorazione(id != null ? id : -1, spesa, data, descrizione, auto);
 		}
 
 		public Builder setAuto(Auto auto) {
 			this.auto = auto;
+			return this;
+		}
+
+		public Builder setData(LocalDate data) {
+			this.data = data;
 			return this;
 		}
 

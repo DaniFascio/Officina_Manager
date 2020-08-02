@@ -2,6 +2,7 @@ package io.github.danifascio.gui;
 
 import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.beans.Auto;
+import io.github.danifascio.beans.Lavorazione;
 import io.github.danifascio.dao.AutoDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ public class CentralPane extends AnchorPane {
 	private AnchorPane root;
 	@FXML
 	private ListView<Auto> listaAutoView;
+	@FXML
+	private ListView<Lavorazione> listaLavorazioniView;
 	@FXML
 	private Label welcomeLabel;
 	@FXML
@@ -68,8 +71,10 @@ public class CentralPane extends AnchorPane {
 								.getDescrizione());
 						noteArea.setText(newValue.getNote());
 					});
-			onRefreshAuto(null);
 
+			listaLavorazioniView.setCellFactory(listView -> new LavorazioneCell());
+
+			onRefreshAuto(null);
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}

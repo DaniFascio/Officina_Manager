@@ -89,10 +89,9 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			res = dm.executeUpdate("INSERT INTO lavorazioni (id_tipo_lavorazione,descrizione,spesa,targa_auto) VALUES (?, ?, ?, ?)", lavorazione
-					.getId(), lavorazione.getDescrizione(), lavorazione.getSpesa(), lavorazione
-					.getAuto()
-					.getTarga());
+			res = dm.executeUpdate("INSERT INTO lavorazioni (descrizione, spesa, targa_auto, data) VALUES (?, ?, ?, ?)", lavorazione
+					.getDescrizione(), lavorazione.getSpesa(), auto.getTarga(), lavorazione
+					.getData());
 
 		} catch(Exception e) {
 			e.printStackTrace();

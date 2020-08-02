@@ -4,6 +4,7 @@ import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import io.github.danifascio.dao.AutoDao;
+import io.github.danifascio.dao.LavorazioneDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Optional;
 
 public class CentralPane extends AnchorPane {
 
@@ -41,6 +44,8 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private HBox searchBox;
 
+	private Auto selectedAuto;
+
 	public CentralPane() {
 		super();
 
@@ -63,6 +68,8 @@ public class CentralPane extends AnchorPane {
 						if(listaAutoView.getItems().size() == 0)
 							return;
 
+						selectedAuto = newValue;
+
 						targaLabel.setText(newValue.getTarga());
 						modelloLabel.setText(newValue.getModello());
 						kmLabel.setText(newValue.getKm().toString());
@@ -70,6 +77,8 @@ public class CentralPane extends AnchorPane {
 						tipoGommeLabel.setText(newValue.getTipoGomme()
 								.getDescrizione());
 						noteArea.setText(newValue.getNote());
+
+						onRefreshLavorazione(null);
 					});
 
 			listaLavorazioniView.setCellFactory(listView -> new LavorazioneCell());
@@ -197,6 +206,36 @@ public class CentralPane extends AnchorPane {
 				Platform.runLater(() -> listaAutoView.getSelectionModel()
 						.select(0));
 
+	}
+
+	@FXML
+	private void onRefreshLavorazione(ActionEvent event) {
+		LavorazioneDao dao = new LavorazioneDao(selectedAuto);
+		listaLavorazioniView.getItems().clear();
+
+		for(Lavorazione lavorazione : dao.getAll())
+			listaLavorazioniView.getItems().addAll(lavorazione);
+
+		if(dao.error())
+			new Alert(Alert.AlertType.ERROR, dao.errorMessage()).showAndWait();
+	}
+
+	@FXML
+	private void onAddLavorazione(ActionEvent event) {
+
+		new LavorazioneDialog(selectedAuto, null, LavorazioneDialog.ViewMode.NEW)
+				.showAndWait()
+				.ifPresent(lavorazione -> {
+
+					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
+					dao.save(lavorazione);
+
+					if(dao.error())
+						throw new RuntimeException(dao.errorMessage());
+
+				});
+
+		onRefreshLavorazione(event);
 	}
 
 }

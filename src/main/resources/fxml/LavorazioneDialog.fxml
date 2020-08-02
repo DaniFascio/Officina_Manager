@@ -63,6 +63,6 @@
 
 	</content>
 
-	<ButtonType text="Cancella"
+	<ButtonType text="Annulla"
 			buttonData="CANCEL_CLOSE"/>
 </fx:root>

@@ -5,6 +5,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -34,7 +37,12 @@ public class Gui extends Application {
 	public void start(Stage primaryStage) {
 		instance = this;
 		stage = primaryStage;
-//		stage.initStyle(StageStyle.UNDECORATED);
+
+		// TODO: Default uncaught exception handler
+		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
+			e.printStackTrace();
+			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+		});
 
 		Pane pane = new LoginPane();
 
@@ -42,6 +50,7 @@ public class Gui extends Application {
 		stage.setMinHeight(pane.getMinHeight());
 		stage.setMinWidth(pane.getMinWidth());
 		stage.setTitle("Officina Manager");
+		stage.setOnCloseRequest(event -> Platform.exit());
 
 		stage.show();
 	}

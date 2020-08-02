@@ -74,4 +74,11 @@ public class TipoGomme {
 		return descrizione;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof TipoGomme)
+			return ((TipoGomme) obj).id == id && ((TipoGomme) obj).descrizione.equals(descrizione);
+		return false;
+	}
+
 }

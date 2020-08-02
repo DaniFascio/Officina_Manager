@@ -53,6 +53,15 @@ public class Auto {
 
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Auto)
+			return ((Auto) obj).targa.equals(targa) && ((Auto) obj).modello.equals(modello) && ((Auto) obj).km
+					.equals(km) && ((Auto) obj).misuraGomme.equals(misuraGomme) && ((Auto) obj).tipoGomme
+					.equals(tipoGomme) && ((Auto) obj).note.equals(note);
+		return false;
+	}
+
 	public static class Builder {
 
 		private String targa;

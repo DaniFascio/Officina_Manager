@@ -22,10 +22,10 @@
 				<Separator AnchorPane.leftAnchor="5"
 						AnchorPane.rightAnchor="5"/>
 
-				<HBox>
+				<VBox>
 					<Label text="Costo "/>
 					<TextField fx:id="costoField"/>
-				</HBox>
+				</VBox>
 
 				<VBox>
 					<Label text="Descrizione"/>

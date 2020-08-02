@@ -1,5 +1,7 @@
 package io.github.danifascio.beans;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public class Lavorazione {
@@ -13,7 +15,7 @@ public class Lavorazione {
 		this.id = id;
 		this.descrizione = descrizione;
 		this.spesa = spesa;
-		this.auto = auto;
+		this.auto = Objects.requireNonNull(auto);
 	}
 
 	public Integer getId() {
@@ -28,8 +30,17 @@ public class Lavorazione {
 		return descrizione;
 	}
 
-	public Auto getAuto() {
+	public @NotNull Auto getAuto() {
 		return auto;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Lavorazione)
+			return ((Lavorazione) obj).id.equals(id) && ((Lavorazione) obj).spesa
+					.equals(spesa) && ((Lavorazione) obj).descrizione.equals(descrizione) && ((Lavorazione) obj).auto
+					.equals(auto);
+		return false;
 	}
 
 	public static class Builder {
@@ -45,7 +56,6 @@ public class Lavorazione {
 
 		public Lavorazione build() throws Exception {
 			try {
-				Objects.requireNonNull(id);
 				Objects.requireNonNull(spesa);
 				Objects.requireNonNull(descrizione);
 				Objects.requireNonNull(auto);
@@ -53,7 +63,7 @@ public class Lavorazione {
 				throw new Exception("Non-initialized argument in Lavorazione.Builder", e);
 			}
 
-			return new Lavorazione(id, spesa, descrizione, auto);
+			return new Lavorazione(id != null ? id : -1, spesa, descrizione, auto);
 		}
 
 		public Builder setAuto(Auto auto) {

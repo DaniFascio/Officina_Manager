@@ -9,15 +9,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
-import java.util.Optional;
 
 public class CentralPane extends AnchorPane {
 
@@ -236,6 +235,31 @@ public class CentralPane extends AnchorPane {
 				});
 
 		onRefreshLavorazione(event);
+	}
+
+	@FXML
+	private void onEditLavorazione(ActionEvent event) {
+
+		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel()
+				.getSelectedItem();
+
+		if(selectedLavorazione == null)
+			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!")
+					.showAndWait();
+		else
+			// TODO: CONFERMA / REJECT MODIFICA
+			new LavorazioneDialog(selectedAuto, selectedLavorazione, LavorazioneDialog.ViewMode.EDIT)
+					.showAndWait()
+					.ifPresent(lavorazione -> {
+
+						LavorazioneDao dao = new LavorazioneDao(selectedAuto);
+						dao.update(selectedLavorazione, lavorazione.values());
+
+						if(dao.error())
+							throw new RuntimeException(dao.errorMessage());
+
+					});
+
 	}
 
 }

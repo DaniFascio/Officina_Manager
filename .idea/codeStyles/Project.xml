@@ -14,12 +14,6 @@
       <option name="XML_ATTRIBUTE_WRAP" value="2" />
       <option name="XML_ALIGN_ATTRIBUTES" value="false" />
     </XML>
-    <codeStyleSettings language="CSS">
-      <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
-        <option name="SMART_TABS" value="true" />
-      </indentOptions>
-    </codeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="RIGHT_MARGIN" value="80" />
       <option name="KEEP_LINE_BREAKS" value="false" />
@@ -60,10 +54,6 @@
           </group>
         </groups>
       </arrangement>
-    </codeStyleSettings>
-    <codeStyleSettings language="Markdown">
-      <option name="RIGHT_MARGIN" value="120" />
-      <option name="WRAP_ON_TYPING" value="0" />
     </codeStyleSettings>
     <codeStyleSettings language="XML">
       <indentOptions>

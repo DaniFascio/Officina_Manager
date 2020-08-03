@@ -21,7 +21,10 @@
 				<Insets topRightBottomLeft="5"/>
 			</padding>
 
-			<Label fx:id="spesaLabel"/>
+			<HBox>
+				<Label fx:id="spesaLabel"/>
+				<Label text=" €"/>
+			</HBox>
 			<Label fx:id="descrizioneLabel"/>
 
 		</HBox>

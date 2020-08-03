@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
+<?import com.jfoenix.controls.JFXTextField?>
 <fx:root type="BorderPane"
 		minHeight="480"
 		minWidth="640"

@@ -218,6 +218,7 @@
 									styleClass="icon,icon-add"/>
 
 							<Button fx:id="editLavorazioneButton"
+									onAction="#onEditLavorazione"
 									styleClass="icon,icon-edit"/>
 
 							<Button fx:id="removeLavorazioneButton"

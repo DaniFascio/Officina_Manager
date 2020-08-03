@@ -41,6 +41,13 @@ public class Lavorazione {
 		return auto;
 	}
 
+	// descrizione, spesa, data, targa_auto
+	public Object[] values() {
+		return new Object[] {
+				descrizione, spesa, data, auto.getTarga()
+		};
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Lavorazione)

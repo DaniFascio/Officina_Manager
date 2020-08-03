@@ -11,6 +11,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 
@@ -53,6 +54,10 @@ public class Gui extends Application {
 		stage.setOnCloseRequest(event -> Platform.exit());
 
 		stage.show();
+	}
+
+	public Stage getStage() {
+		return stage;
 	}
 
 	public void changeScreen(Region pane) {

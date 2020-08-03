@@ -29,13 +29,14 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 			String targa = auto.getTarga();
-			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
+			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa, data FROM lavorazioni WHERE id_tipo_lavorazione = ? AND targa_auto = ?", key, targa);
 
 			if(rs.next())
 				lavorazione = new Lavorazione.Builder().setAuto(auto)
 						.setDescrizione(rs.getString("descrizione"))
 						.setId(rs.getInt("id"))
 						.setSpesa(rs.getFloat("spesa"))
+						.setData(rs.getDate("data").toLocalDate())
 						.build();
 
 		} catch(Exception e) {
@@ -55,13 +56,14 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 
 			String targa = auto.getTarga();
-			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa FROM lavorazioni WHERE targa_auto = ?", targa);
+			ResultSet rs = dbm.executePreparedQuery("SELECT id_tipo_lavorazione id, descrizione, spesa, data FROM lavorazioni WHERE targa_auto = ?", targa);
 
 			while(rs.next())
 				list.add(new Lavorazione.Builder().setAuto(auto)
 						.setDescrizione(rs.getString("descrizione"))
 						.setId(rs.getInt("id"))
 						.setSpesa(rs.getFloat("spesa"))
+						.setData(rs.getDate("data").toLocalDate())
 						.build());
 
 		} catch(Exception e) {
@@ -89,9 +91,9 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			res = dm.executeUpdate("INSERT INTO lavorazioni (descrizione, spesa, targa_auto, data) VALUES (?, ?, ?, ?)", lavorazione
-					.getDescrizione(), lavorazione.getSpesa(), auto.getTarga(), lavorazione
-					.getData());
+			res = dm.executeUpdate("INSERT INTO lavorazioni (descrizione, spesa, data, targa_auto) VALUES (?, ?, ?, ?)", lavorazione
+					.getDescrizione(), lavorazione.getSpesa(), lavorazione.getData(), auto
+					.getTarga());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -103,7 +105,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	/**
 	 * @param lavorazione Lavorazione da modificare
-	 * @param params      Parametri da modificare. In ordine: descrizione, spesa
+	 * @param params      Parametri da modificare. In ordine: descrizione, spesa, data
 	 * @return 1 se modificato, altrimenti 0
 	 */
 	@Override
@@ -115,7 +117,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		try(DatabaseManager dbm = DatabaseManager.fromConfig(true)) {
 
 			int id = lavorazione.getId();
-			res = dbm.executeUpdate("UPDATE lavorazioni SET descrizione = ?, spesa = ? WHERE id_tipo_lavorazione = ?", params[0], params[1], id);
+			res = dbm.executeUpdate("UPDATE lavorazioni SET descrizione = ?, spesa = ?, data = ?, targa_auto = ? WHERE id_tipo_lavorazione = ?", params[0], params[1], params[2], params[3], id);
 
 		} catch(Exception e) {
 			e.printStackTrace();

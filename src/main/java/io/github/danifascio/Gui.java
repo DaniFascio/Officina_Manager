@@ -1,14 +1,13 @@
 package io.github.danifascio;
 
+import com.jfoenix.controls.JFXDecorator;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -17,16 +16,10 @@ import java.awt.*;
 
 public class Gui extends Application {
 
-	private static Gui instance;
-	private Scene scene;
-	private Stage stage;
+	private static Stage stage;
 
 	public static void main(String[] args) {
 		launch();
-	}
-
-	public static Gui getInstance() {
-		return instance;
 	}
 
 	@FXML
@@ -36,8 +29,6 @@ public class Gui extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		instance = this;
-		stage = primaryStage;
 
 		// TODO: Default uncaught exception handler
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
@@ -45,34 +36,29 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
-		Pane pane = new LoginPane();
-
-		stage.setScene(scene = new Scene(pane));
-		stage.setMinHeight(pane.getMinHeight());
-		stage.setMinWidth(pane.getMinWidth());
-		stage.setTitle("Officina Manager");
-		stage.setOnCloseRequest(event -> Platform.exit());
-
-		stage.show();
+		changeStage("Officina Manager", new LoginPane(), false);
 	}
 
-	public Stage getStage() {
+	public static Stage stage() {
 		return stage;
 	}
 
-	public void changeScreen(Region pane) {
+	public static void changeStage(String title, Region content, boolean resizable) {
 
-		double x = stage.getX(), y = stage.getY();
-		double w = pane.getPrefWidth(), h = pane.getPrefHeight();
+		Stage newStage = new Stage();
+		newStage.setScene(new Scene(new JFXDecorator(newStage, content, false, resizable, true)));
+		newStage.initStyle(StageStyle.UNDECORATED);
+		newStage.setResizable(resizable);
+		newStage.setTitle(title);
+		newStage.setOnCloseRequest(event -> new Alert(Alert.AlertType.CONFIRMATION, "Vuoi uscire?", ButtonType.YES, ButtonType.NO)
+				.showAndWait()
+				.filter(ButtonType.NO::equals)
+				.ifPresent(buttonType -> event.consume()));
 
-		stage.setX(x - (w - scene.getWidth()) / 2d);
-		stage.setY(y - (h - scene.getHeight()) / 2d);
-
-		stage.setMinHeight(pane.getMinHeight());
-		stage.setMinWidth(pane.getMinWidth());
-		stage.setHeight(pane.getPrefHeight());
-		stage.setWidth(pane.getPrefWidth());
-		scene.setRoot(pane);
+		if(stage != null)
+			stage.close();
+		stage = newStage;
+		stage.show();
 
 	}
 

@@ -39,7 +39,7 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 					try {
 
 						Lavorazione lavorazione = lavorazioneReference.get();
-						new LavorazioneDialog(lavorazione.getAuto(), lavorazione, LavorazioneDialog.ViewMode.VIEW)
+						new LavorazioneDialog(lavorazione.getAuto(), lavorazione, LavorazioneDialog.ViewMode.EDIT)
 								.show();
 
 					} catch(NullPointerException e) {

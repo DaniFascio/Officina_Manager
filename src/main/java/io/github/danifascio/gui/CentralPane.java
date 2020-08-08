@@ -7,6 +7,7 @@ import io.github.danifascio.dao.AutoDao;
 import io.github.danifascio.dao.LavorazioneDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -261,5 +262,12 @@ public class CentralPane extends AnchorPane {
 					});
 
 	}
+
+	@FXML
+	private void quit(Event event){ {
+		Platform.exit();
+	}
+
+}
 
 }

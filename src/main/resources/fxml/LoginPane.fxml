@@ -33,9 +33,7 @@
 					<Insets topRightBottomLeft="0"/>
 				</padding>
 
-				<Menu text="_Tools">
-					<MenuItem text="_Impostazioni"
-							onAction="#toImplement"/>
+				<Menu text="_Impostazioni">
 					<MenuItem text="_Esci"
 							onAction="#quit"/>
 				</Menu>

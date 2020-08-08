@@ -24,13 +24,24 @@
 					<Insets topRightBottomLeft="0"/>
 				</padding>
 
-				<Menu text="_Tools">
-					<MenuItem text="_Impostazioni"/>
-					<MenuItem text="_Esci"/>
+				<Menu text="_Database">
+					<MenuItem text="_Esci"
+					onAction="#quit"/>
+
 				</Menu>
 
-				<Menu text="A_iuto">
-					<MenuItem text="Eh no, troppo presto"/>
+				<Menu text="_Auto">
+					<MenuItem text="_Aggiungi"/>
+<!--					onAction="onAddAuto"/>-->
+					<MenuItem text="_Modifica"/>
+<!--					onAction="onEditAuto"/>-->
+					<MenuItem text="_Elimina"/>
+<!--					onAction="onDeleteAuto"/>-->
+					<MenuItem text="_Aggiorna Lista"/>
+<!--					onAction="onRefreshAuto"/>-->
+					<MenuItem text="_Cerca Targa"/>
+<!--					onAction="on"/>-->
+
 				</Menu>
 
 			</MenuBar>

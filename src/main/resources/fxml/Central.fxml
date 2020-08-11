@@ -238,15 +238,6 @@
 									onAction="#onRemoveLavorazione"
 									styleClass="icon,icon-delete"/>
 
-
-							<Separator orientation="VERTICAL"/>
-
-							<HBox alignment="CENTER_LEFT">
-								<Label styleClass="icon,icon-search"/>
-								<TextField fx:id="searchLavorazioneField"
-										HBox.hgrow="ALWAYS"/>
-							</HBox>
-
 						</FlowPane>
 
 						<ListView fx:id="listaLavorazioniView"

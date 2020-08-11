@@ -248,6 +248,7 @@ public class CentralPane extends AnchorPane {
 			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!")
 					.showAndWait();
 		else
+
 			// TODO: CONFERMA / REJECT MODIFICA
 			new LavorazioneDialog(selectedAuto, selectedLavorazione, LavorazioneDialog.ViewMode.EDIT)
 					.showAndWait()

@@ -44,6 +44,7 @@ public class CustomDialog<T> extends Stage {
 
 		setTitle(title);
 		setScene(new Scene(decorator = new JFXDecorator(this, borderPane, false, false, true)));
+
 		if(iconSVGPath != null) {
 			glyph = new SVGGlyph(iconSVGPath, Color.WHITE);
 			glyph.setSize(12);

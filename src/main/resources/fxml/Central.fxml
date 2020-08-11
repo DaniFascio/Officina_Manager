@@ -54,58 +54,65 @@
 					</HBox>
 
 					<!-- LISTA AUTO CONTROLS -->
-					<!-- TODO: REFRESH BUTTON -->
 
-					<FlowPane styleClass="toolbar-icon">
-
-						<Button fx:id="addAutoButton"
-								styleClass="icon,icon-add"
-								onAction="#onAddAuto">
-							<tooltip>
-								<Tooltip text="Aggiungi una nuova auto"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="editAutoButton"
-								styleClass="icon,icon-edit"
-								onAction="#onEditAuto">
-							<tooltip>
-								<Tooltip text="Modifica l'auto selezionata"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="deleteAutoButton"
-								styleClass="icon,icon-delete"
-								onAction="#onDeleteAuto">
-							<tooltip>
-								<Tooltip text="Rimuovi l'auto selezionata"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="refreshAutoButton"
-								styleClass="icon,icon-refresh"
-								onAction="#onRefreshAuto">
-							<tooltip>
-								<Tooltip text="Aggiorna la lista delle auto"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="sortAutoButton"
-								styleClass="icon,icon-sort">
-							<tooltip>
-								<Tooltip text="Riordina per ordine alfabetico"/>
-							</tooltip>
-						</Button>
-
-						<Separator orientation="VERTICAL"/>
-
+					<VBox styleClass="toolbar-icon">
 						<HBox fx:id="searchBox"
-								alignment="CENTER_LEFT">
+								alignment="CENTER_LEFT"
+								VBox.vgrow="NEVER">
+
+							<padding>
+								<Insets right="6"/>
+							</padding>
+
 							<Label styleClass="icon,icon-search"/>
-							<TextField fx:id="searchAutoField"/>
+							<TextField fx:id="searchAutoField"
+									HBox.hgrow="ALWAYS"
+									promptText="Cerca per targa"/>
 						</HBox>
 
-					</FlowPane>
+						<HBox alignment="CENTER_LEFT">
+
+							<Button fx:id="addAutoButton"
+									styleClass="icon,icon-add"
+									onAction="#onAddAuto">
+								<tooltip>
+									<Tooltip text="Aggiungi una nuova auto"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="editAutoButton"
+									styleClass="icon,icon-edit"
+									onAction="#onEditAuto">
+								<tooltip>
+									<Tooltip text="Modifica l'auto selezionata"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="deleteAutoButton"
+									styleClass="icon,icon-delete"
+									onAction="#onDeleteAuto">
+								<tooltip>
+									<Tooltip text="Rimuovi l'auto selezionata"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="refreshAutoButton"
+									styleClass="icon,icon-refresh"
+									onAction="#onRefreshAuto">
+								<tooltip>
+									<Tooltip text="Aggiorna la lista delle auto"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="sortAutoButton"
+									styleClass="icon,icon-sort">
+								<tooltip>
+									<Tooltip text="Riordina per ordine alfabetico"/>
+								</tooltip>
+							</Button>
+
+						</HBox>
+					</VBox>
 
 					<ListView fx:id="listaAutoView"
 							VBox.vgrow="ALWAYS"/>

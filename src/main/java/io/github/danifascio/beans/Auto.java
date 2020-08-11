@@ -56,9 +56,8 @@ public class Auto {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Auto)
-			return ((Auto) obj).targa.equals(targa) && ((Auto) obj).modello.equals(modello) && ((Auto) obj).km
-					.equals(km) && ((Auto) obj).misuraGomme.equals(misuraGomme) && ((Auto) obj).tipoGomme
-					.equals(tipoGomme) && ((Auto) obj).note.equals(note);
+			return ((Auto) obj).targa.equals(targa) && ((Auto) obj).modello.equals(modello) && ((Auto) obj).km.equals(km) && ((Auto) obj).misuraGomme
+					.equals(misuraGomme) && ((Auto) obj).tipoGomme.equals(tipoGomme) && ((Auto) obj).note.equals(note);
 		return false;
 	}
 
@@ -75,19 +74,19 @@ public class Auto {
 
 		}
 
-		public Auto build() throws Exception {
+		public Auto build() {
 			try {
-				Objects.requireNonNull(targa);
-				Objects.requireNonNull(modello);
-				Objects.requireNonNull(misuraGomme);
-				Objects.requireNonNull(note);
-				Objects.requireNonNull(km);
-				Objects.requireNonNull(tipoGomme);
-			} catch(NullPointerException e) {
-				throw new Exception("Non-initialized argument in Auto.Builder", e);
-			}
 
-			return new Auto(targa, modello, km, misuraGomme, tipoGomme, note);
+				return new Auto(Objects.requireNonNull(targa).toUpperCase(),
+						Objects.requireNonNull(modello),
+						Objects.requireNonNull(km),
+						Objects.requireNonNull(misuraGomme),
+						Objects.requireNonNull(tipoGomme),
+						Objects.requireNonNull(note));
+
+			} catch(NullPointerException e) {
+				throw new RuntimeException("Non-initialized argument in Auto.Builder", e);
+			}
 		}
 
 		public Builder setTarga(String targa) {

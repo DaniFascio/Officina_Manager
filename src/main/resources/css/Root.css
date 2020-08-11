@@ -57,3 +57,18 @@
     -fx-padding: 0 0 0 6;
 
 }
+
+.button-raised {
+     -fx-padding: 0.7em 0.57em;
+     -fx-font-size: 14px;
+     -jfx-button-type: RAISED;
+     -fx-background-color: rgb(77,102,204);
+     -fx-pref-width: 120;
+     -fx-text-fill: WHITE;
+ }
+
+/*noinspection CssInvalidPseudoSelector*/
+.text-field:error {
+    -fx-text-box-border: red;
+    -fx-focus-color: red;
+}

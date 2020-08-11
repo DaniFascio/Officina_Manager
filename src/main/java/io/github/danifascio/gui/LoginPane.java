@@ -43,6 +43,8 @@ public class LoginPane extends BorderPane {
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+
+		Platform.runLater(this::requestFocus);
 	}
 
 	@FXML
@@ -98,7 +100,9 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"Da implementare",
+				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
 		alert.setHeaderText("Pazienta per favore");
 		alert.showAndWait();
 	}

@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -61,24 +60,21 @@ public class CentralPane extends AnchorPane {
 			Tooltip.install(searchBox, new Tooltip("Cerca per targa o modello"));
 
 			listaAutoView.setCellFactory(listView -> new AutoCell());
-			listaAutoView.getSelectionModel()
-					.selectedItemProperty()
-					.addListener((observable, oldValue, newValue) -> {
-						if(listaAutoView.getItems().size() == 0)
-							return;
+			listaAutoView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+				if(listaAutoView.getItems().size() == 0)
+					return;
 
-						selectedAuto = newValue;
+				selectedAuto = newValue;
 
-						targaLabel.setText(newValue.getTarga());
-						modelloLabel.setText(newValue.getModello());
-						kmLabel.setText(newValue.getKm().toString());
-						misuraGommeLabel.setText(newValue.getMisuraGomme());
-						tipoGommeLabel.setText(newValue.getTipoGomme()
-								.getDescrizione());
-						noteArea.setText(newValue.getNote());
+				targaLabel.setText(newValue.getTarga());
+				modelloLabel.setText(newValue.getModello());
+				kmLabel.setText(newValue.getKm().toString());
+				misuraGommeLabel.setText(newValue.getMisuraGomme());
+				tipoGommeLabel.setText(newValue.getTipoGomme().getDescrizione());
+				noteArea.setText(newValue.getNote());
 
-						onRefreshLavorazione(null);
-					});
+				onRefreshLavorazione(null);
+			});
 
 			listaLavorazioniView.setCellFactory(listView -> new LavorazioneCell());
 
@@ -91,33 +87,35 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private void onAddAuto(ActionEvent event) {
 
-		new AutoDialog(false, null).showAndWait().ifPresent(auto -> {
-			AutoDao autoDao = new AutoDao();
-			Dialog<ButtonType> dialog;
+		new AutoDialog(AutoDialog.ViewMode.ADD, null).onResult(auto -> {
+			if(auto != null) {
+				AutoDao autoDao = new AutoDao();
+				Dialog<ButtonType> dialog;
 
-			if(autoDao.save(auto) == 1) {
+				if(autoDao.save(auto) == 1) {
 
-				dialog = new Alert(Alert.AlertType.INFORMATION);
-				dialog.setHeaderText("Auto aggiunta con successo");
+					dialog = new Alert(Alert.AlertType.INFORMATION);
+					dialog.setHeaderText("Auto aggiunta con successo");
 
-			} else {
+				} else {
 
-				String message = autoDao.errorMessage();
-				int index = message.indexOf("Detail");
-				if(index != -1)
-					message = message.substring(index);
+					String message = autoDao.errorMessage();
+					int index = message.indexOf("Detail");
+					if(index != -1)
+						message = message.substring(index);
 
-				dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Errore nell'inserimento dell'auto");
-				dialog.setContentText(message);
+					dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Errore nell'inserimento dell'auto");
+					dialog.setContentText(message);
 
+				}
+
+				dialog.setTitle("Aggiungi auto");
+				dialog.showAndWait();
+
+				onRefreshAuto(event);
 			}
-
-			dialog.setTitle("Aggiungi auto");
-			dialog.showAndWait();
-
-			onRefreshAuto(event);
-		});
+		}).showAndWait();
 
 	}
 
@@ -125,34 +123,38 @@ public class CentralPane extends AnchorPane {
 	private void onEditAuto(ActionEvent event) {
 		Auto selectedAuto = listaAutoView.getSelectionModel().getSelectedItem();
 
-		new AutoDialog(true, selectedAuto).showAndWait().ifPresent(auto -> {
-			AutoDao dao = new AutoDao();
-			dao.update(selectedAuto, auto.values());
-			Dialog<ButtonType> dialog;
+		new AutoDialog(AutoDialog.ViewMode.EDIT, selectedAuto).onResult(auto -> {
 
-			if(!dao.error()) {
+			if(auto != null) {
+				AutoDao dao = new AutoDao();
+				System.out.println(dao.update(selectedAuto, auto.values()));
+				Alert alert;
 
-				dialog = new Alert(Alert.AlertType.INFORMATION);
-				dialog.setHeaderText("Auto modificata con successo");
+				if(!dao.error()) {
 
-			} else {
+					alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setHeaderText("Auto modificata con successo");
 
-				String message = dao.errorMessage();
-				int index = message.indexOf("Detail");
-				if(index != -1)
-					message = message.substring(index);
+				} else {
 
-				dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Errore nella modifica dell'auto");
-				dialog.setContentText(message);
+					String message = dao.errorMessage();
+					int index = message.indexOf("Detail");
+					if(index != -1)
+						message = message.substring(index);
 
-			}
+					alert = new Alert(Alert.AlertType.ERROR);
+					alert.setHeaderText("Errore nella modifica dell'auto");
+					alert.setContentText(message);
 
-			dialog.setTitle("Modifica auto");
-			dialog.showAndWait();
-			onRefreshAuto(event);
+				}
 
-		});
+				alert.setTitle("Modifica auto");
+				alert.showAndWait();
+				onRefreshAuto(event);
+			} else
+				System.out.println("Null auto");
+
+		}).showAndWait();
 
 	}
 
@@ -162,27 +164,27 @@ public class CentralPane extends AnchorPane {
 		Auto auto = listaAutoView.getSelectionModel().getSelectedItem();
 		String targa = auto.getTarga();
 
-		new Alert(Alert.AlertType.CONFIRMATION, "Confermi di voler rimuovere l'auto con targa " + targa + "?", ButtonType.YES, ButtonType.NO)
-				.showAndWait()
-				.filter(ButtonType.YES::equals)
-				.ifPresent(buttonType -> {
-					Alert alert;
-					AutoDao dao = new AutoDao();
+		new Alert(Alert.AlertType.CONFIRMATION,
+				"Confermi di voler rimuovere l'auto con targa " + targa + "?",
+				ButtonType.YES,
+				ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
+			Alert alert;
+			AutoDao dao = new AutoDao();
 
-					if(dao.delete(auto) == 1) {
-						alert = new Alert(Alert.AlertType.INFORMATION);
-						alert.setHeaderText("Auto rimossa con successo");
-					} else {
-						alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("Errore nella rimozione dell'auto");
-						alert.setContentText(dao.errorMessage());
-					}
+			if(dao.delete(auto) == 1) {
+				alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText("Auto rimossa con successo");
+			} else {
+				alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText("Errore nella rimozione dell'auto");
+				alert.setContentText(dao.errorMessage());
+			}
 
-					alert.setTitle("Elimina auto");
-					alert.showAndWait();
-					onRefreshAuto(event);
+			alert.setTitle("Elimina auto");
+			alert.showAndWait();
+			onRefreshAuto(event);
 
-				});
+		});
 	}
 
 	@FXML
@@ -202,18 +204,16 @@ public class CentralPane extends AnchorPane {
 
 		if(listaAutoView.getSelectionModel().getSelectedItem() == null)
 			if(listaAutoView.getItems().size() != 0)
-				Platform.runLater(() -> listaAutoView.getSelectionModel()
-						.select(0));
+				Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
 
 	}
 
 	@FXML
 	private void onRefreshLavorazione(ActionEvent event) {
 		LavorazioneDao dao = new LavorazioneDao(selectedAuto);
-		listaLavorazioniView.getItems().clear();
 
-		for(Lavorazione lavorazione : dao.getAll())
-			listaLavorazioniView.getItems().addAll(lavorazione);
+		listaLavorazioniView.getItems().clear();
+		listaLavorazioniView.getItems().addAll(dao.getAll());
 
 		if(dao.error())
 			new Alert(Alert.AlertType.ERROR, dao.errorMessage()).showAndWait();
@@ -222,8 +222,7 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private void onAddLavorazione(ActionEvent event) {
 
-		new LavorazioneDialog(selectedAuto, null, LavorazioneDialog.ViewMode.NEW)
-				.showAndWait()
+		new LavorazioneDialog(selectedAuto, null, LavorazioneDialog.ViewMode.NEW).showAndWait()
 				.ifPresent(lavorazione -> {
 
 					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
@@ -240,16 +239,13 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private void onEditLavorazione(ActionEvent event) {
 
-		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel()
-				.getSelectedItem();
+		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!")
-					.showAndWait();
+			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!").showAndWait();
 		else
 			// TODO: CONFERMA / REJECT MODIFICA
-			new LavorazioneDialog(selectedAuto, selectedLavorazione, LavorazioneDialog.ViewMode.EDIT)
-					.showAndWait()
+			new LavorazioneDialog(selectedAuto, selectedLavorazione, LavorazioneDialog.ViewMode.EDIT).showAndWait()
 					.ifPresent(lavorazione -> {
 
 						LavorazioneDao dao = new LavorazioneDao(selectedAuto);

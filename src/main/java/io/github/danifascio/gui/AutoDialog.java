@@ -7,59 +7,65 @@ import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
-public class AutoDialog extends Dialog<Auto> {
+public class AutoDialog extends CustomDialog<Auto> {
 
-	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2} +\\d{3}[a-zA-Z]{2}");
+	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2} *\\d{3}[a-zA-Z]{2}");
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
+	private static final Properties icons;
+
+	static {
+		icons = new Properties();
+
+		try(InputStream input = AutoDialog.class.getClassLoader().getResourceAsStream("glyphs.xml")) {
+
+			if(input != null)
+				icons.loadFromXML(input);
+			else
+				System.err.println("Couldn't load icons properties");
+
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private TextField targaField;
-	private boolean targaError;
 	@FXML
 	private TextField modelloField;
-	private boolean modelloError;
 	@FXML
 	private TextField kmField;
-	private boolean kmError;
 	@FXML
 	private TextField misuraGommeField;
-	private boolean misuraGommeError;
 	@FXML
 	private ChoiceBox<TipoGomme> tipoGommeBox;
 	@FXML
 	private TextArea noteArea;
-	@FXML
-	private Label mainLabel;
-	@FXML
-	private ButtonType doneButton;
 
-	public AutoDialog(boolean editable, @Nullable Auto auto) {
-		targaError = true;
-		modelloError = true;
-		kmError = true;
-		misuraGommeError = true;
-		Button doneButton;
+	public AutoDialog(ViewMode viewMode, @Nullable Auto auto) {
+		super(viewMode.equals(ViewMode.ADD) ? "Aggiungi auto" : "Modifica auto",
+				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : "edit"));
 
 		try {
 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/AutoDialog.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AutoDialog.fxml"));
 			loader.setController(this);
-			loader.setRoot(getDialogPane());
-			loader.load();
-			getDialogPane().setMinSize(640, 480);
-			doneButton = (Button) getDialogPane().lookupButton(this.doneButton);
+			setContent(loader.load());
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
@@ -79,44 +85,28 @@ public class AutoDialog extends Dialog<Auto> {
 			}
 		});
 
-		setResizable(true);
-		setResultConverter(btnType -> {
-			Auto auto1 = null;
-
-			if(btnType.getButtonData().equals(ButtonBar.ButtonData.OK_DONE))
-				try {
-					auto1 = new Auto.Builder().setTarga(targaField.getText()
-							.toUpperCase()
-							.replaceAll(" ", ""))
-							.setModello(modelloField.getText())
-							.setKm(Integer.parseInt(kmField.getText()))
-							.setMisuraGomme(misuraGommeField.getText())
-							.setNote(noteArea.getText())
-							.setTipoGomme(tipoGommeBox.getValue())
-							.build();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-
-			return auto1;
-		});
-
-		// FIELD INIT (FOR EDIT DIALOG)
-		if(editable) {
+		if(viewMode.equals(ViewMode.EDIT)) {
 			Objects.requireNonNull(auto);
-			doneButton.setText("Modifica");
-			mainLabel.setText("Modifica un'auto");
 
 			targaField.setText(auto.getTarga());
 			modelloField.setText(auto.getModello());
 			kmField.setText(auto.getKm().toString());
 			misuraGommeField.setText(auto.getMisuraGomme());
 			noteArea.setText(auto.getNote());
-			tipoGommeBox.setValue(TipoGomme.get(auto.getTipoGomme()
-					.getDescrizione()));
+			tipoGommeBox.setValue(TipoGomme.get(auto.getTipoGomme().getDescrizione()));
 		}
 
-		// DATA VALIDATORS
+		resultConverter(() -> new Auto.Builder().setTarga(targaField.getText().toUpperCase().replaceAll(" ", ""))
+				.setModello(modelloField.getText())
+				.setKm(Integer.parseInt(kmField.getText()))
+				.setMisuraGomme(misuraGommeField.getText())
+				.setNote(noteArea.getText())
+				.setTipoGomme(tipoGommeBox.getValue())
+				.build());
+
+		addButton("Cancella", event -> setResult(null));
+		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
+
 		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
 		validate(doneButton);
 
@@ -124,24 +114,28 @@ public class AutoDialog extends Dialog<Auto> {
 		kmField.textProperty().addListener(listener);
 		modelloField.textProperty().addListener(listener);
 		misuraGommeField.textProperty().addListener(listener);
-
 	}
 
 	private void validate(Node disableable) {
-		targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, targaError = !targaPattern
-				.matcher(targaField.getText())
-				.matches());
-		kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, kmError = !kmPattern
-				.matcher(kmField.getText())
-				.matches());
-		modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, modelloError = !anyPattern
-				.matcher(modelloField.getText())
-				.matches());
-		misuraGommeField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, misuraGommeError = !anyPattern
-				.matcher(misuraGommeField.getText())
-				.matches());
+		boolean targaError;
+		boolean kmError;
+		boolean modelloError;
+		boolean misuraGommeError;
+
+		targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS,
+				targaError = !targaPattern.matcher(targaField.getText()).matches());
+		kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, kmError = !kmPattern.matcher(kmField.getText()).matches());
+		modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS,
+				modelloError = !anyPattern.matcher(modelloField.getText()).matches());
+		misuraGommeField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, misuraGommeError = !anyPattern.matcher(
+				misuraGommeField.getText()).matches());
 
 		disableable.setDisable(targaError || kmError || modelloError || misuraGommeError);
+	}
+
+	public enum ViewMode {
+		ADD,
+		EDIT
 	}
 
 }

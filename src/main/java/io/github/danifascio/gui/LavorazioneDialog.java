@@ -1,11 +1,15 @@
 package io.github.danifascio.gui;
 
+import com.jfoenix.controls.JFXDecorator;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,16 +33,22 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 			if(!Objects.requireNonNull(lavorazione).getAuto().equals(auto))
 				throw new RuntimeException("Auto and Lavorazione::auto mismatch");
 
+		initStyle(StageStyle.UNDECORATED);
+		DialogPane dialogPane = getDialogPane();
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneDialog.fxml"));
-			loader.setRoot(getDialogPane());
+			loader.setRoot(new AnchorPane());
 			loader.setController(this);
-			loader.load();
+			dialogPane.setContent(new JFXDecorator((Stage) dialogPane.getScene()
+					.getWindow(), loader.load(), false, false, true));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+
+		dialogPane.getButtonTypes()
+				.add(new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE));
 
 		setResizable(true);
 		setResultConverter(btnType -> {

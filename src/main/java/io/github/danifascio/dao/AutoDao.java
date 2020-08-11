@@ -25,7 +25,9 @@ public class AutoDao implements Dao<Auto> {
 		errorMessage = "";
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executePreparedQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?", key);
+			ResultSet rs = dm.executePreparedQuery(
+					"SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme " + "FROM auto a LEFT JOIN tipi_gomme ON a.id_tipo_gomme = g.id_tipo_gomme WHERE targa = ?",
+					key);
 
 			if(rs.next())
 				auto = new Auto.Builder().setTarga(rs.getString("targa"))
@@ -50,7 +52,8 @@ public class AutoDao implements Dao<Auto> {
 		errorMessage = "";
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
-			ResultSet rs = dm.executeQuery("SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme");
+			ResultSet rs = dm.executeQuery(
+					"SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme ORDER BY targa ASC");
 
 			while(rs.next())
 				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
@@ -87,10 +90,14 @@ public class AutoDao implements Dao<Auto> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			res = dm.executeUpdate("INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)", auto
-					.getTarga(), auto.getModello(), auto.getKm(), auto.getNote(), auto
-					.getTipoGomme()
-					.getId(), auto.getMisuraGomme());
+			res = dm.executeUpdate(
+					"INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)",
+					auto.getTarga(),
+					auto.getModello(),
+					auto.getKm(),
+					auto.getNote(),
+					auto.getTipoGomme().getId(),
+					auto.getMisuraGomme());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -107,11 +114,14 @@ public class AutoDao implements Dao<Auto> {
 		int res = 0;
 
 		try {
+
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			Object[] objects = new Object[params.length + 1];
 			System.arraycopy(params, 0, objects, 0, params.length);
 			objects[objects.length - 1] = auto.getTarga();
-			res = databaseManager.executeUpdate("UPDATE auto SET targa = ?, modello = ?, km = ?, note = ?, id_tipo_gomme = ?, misura_gomme = ? WHERE targa = ?", objects);
+			res = databaseManager.executeUpdate(
+					"UPDATE auto SET targa = ?, modello = ?, km = ?, note = ?, id_tipo_gomme = ?, misura_gomme = ? WHERE targa = ?",
+					objects);
 
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -130,8 +140,7 @@ public class AutoDao implements Dao<Auto> {
 
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
-			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto
-					.getTarga());
+			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
 		} catch(SQLException e) {
 			e.printStackTrace();
 			errorMessage = e.getMessage();

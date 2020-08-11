@@ -7,29 +7,27 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.sql.SQLException;
 
 public class LoginPane extends BorderPane {
 
 	@FXML
-	private GridPane formPane;
+	private VBox formPane;
 	@FXML
 	private TextField usernameField;
 	@FXML
-	private TextField passwordField;
+	private PasswordField passwordField;
 
 	public LoginPane() {
 		super();
@@ -43,9 +41,10 @@ public class LoginPane extends BorderPane {
 			loader.load();
 
 		} catch(IOException e) {
-			Platform.exit();
 			throw new UncheckedIOException(e);
 		}
+
+		Platform.runLater(this::requestFocus);
 	}
 
 	@FXML
@@ -64,14 +63,14 @@ public class LoginPane extends BorderPane {
 			try {
 
 				TipoGomme.reload();
-				Gui.getInstance().changeScreen(new CentralPane());
+				Gui.changeStage("Officina Manager", new CentralPane(), true);
 
-			} catch(SQLException e) {
+			} catch(Exception e) {
+				e.printStackTrace();
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle("Errore");
 				alert.setHeaderText("Impossibile connettersi al database");
 				alert.setContentText(e.getMessage());
-				alert.setOnCloseRequest(event1 -> formPane.setDisable(false));
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}
@@ -101,14 +100,19 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"Da implementare",
+				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
 		alert.setHeaderText("Pazienta per favore");
 		alert.showAndWait();
 	}
 
 	@FXML
 	private void quit(Event event) {
-		Platform.exit();
+
+		Stage stage = Gui.stage();
+		stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+
 	}
 
 }

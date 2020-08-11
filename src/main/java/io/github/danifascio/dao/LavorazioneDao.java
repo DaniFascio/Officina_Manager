@@ -74,6 +74,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 		return list;
 	}
 
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	@Override
 	public @NotNull List<Lavorazione> getAll(int page, int limit) {
 		List<Lavorazione> list = new LinkedList<>();

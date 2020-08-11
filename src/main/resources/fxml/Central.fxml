@@ -24,33 +24,13 @@
 					<Insets topRightBottomLeft="0"/>
 				</padding>
 
-				<Menu text="Database">
-					<MenuItem text="Aggiorna"
-					onAction="#onRefreshAuto"/>
-					<MenuItem text="Exit"
-					onAction="#quit"/>
-
+				<Menu text="_Tools">
+					<MenuItem text="_Impostazioni"/>
+					<MenuItem text="_Esci"/>
 				</Menu>
 
-				<Menu text="Auto">
-					<MenuItem text="Aggiungi"
-					onAction="#onAddAuto"/>
-					<MenuItem text="Modifica"
-					onAction="#onEditAuto"/>
-					<MenuItem text="Elimina"
-					onAction="#onDeleteAuto"/>
-					<MenuItem text="Cerca Targa"/>
-<!--					onAction="on"/>-->
-
-				</Menu>
-
-				<Menu text="Lavorazione">
-					<MenuItem text="Aggiungi lavorazione"
-							onAction="#onAddLavorazione"/>
-					<MenuItem text="Modifica lavorazione"
-							onAction="#onEditLavorazione"/>
-					<MenuItem text="Rimuovi lavorazione"
-							onAction="#onRemoveLavorazione"/>
+				<Menu text="A_iuto">
+					<MenuItem text="Eh no, troppo presto"/>
 				</Menu>
 
 			</MenuBar>
@@ -74,51 +54,65 @@
 					</HBox>
 
 					<!-- LISTA AUTO CONTROLS -->
-					<!-- TODO: REFRESH BUTTON -->
 
-					<FlowPane styleClass="toolbar-icon">
-
-						<Button fx:id="addAutoButton"
-								styleClass="icon,icon-add"
-								onAction="#onAddAuto">
-							<tooltip>
-								<Tooltip text="Aggiungi una nuova auto"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="editAutoButton"
-								styleClass="icon,icon-edit"
-								onAction="#onEditAuto">
-							<tooltip>
-								<Tooltip text="Modifica l'auto selezionata"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="deleteAutoButton"
-								styleClass="icon,icon-delete"
-								onAction="#onDeleteAuto">
-							<tooltip>
-								<Tooltip text="Rimuovi l'auto selezionata"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="refreshAutoButton"
-								styleClass="icon,icon-refresh"
-								onAction="#onRefreshAuto">
-							<tooltip>
-								<Tooltip text="Aggiorna la lista delle auto"/>
-							</tooltip>
-						</Button>
-
-						<Separator orientation="VERTICAL"/>
-
+					<VBox styleClass="toolbar-icon">
 						<HBox fx:id="searchBox"
-								alignment="CENTER_LEFT">
+								alignment="CENTER_LEFT"
+								VBox.vgrow="NEVER">
+
+							<padding>
+								<Insets right="6"/>
+							</padding>
+
 							<Label styleClass="icon,icon-search"/>
-							<TextField fx:id="searchAutoField"/>
+							<TextField fx:id="searchAutoField"
+									HBox.hgrow="ALWAYS"
+									promptText="Cerca per targa"/>
 						</HBox>
 
-					</FlowPane>
+						<HBox alignment="CENTER_LEFT">
+
+							<Button fx:id="addAutoButton"
+									styleClass="icon,icon-add"
+									onAction="#onAddAuto">
+								<tooltip>
+									<Tooltip text="Aggiungi una nuova auto"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="editAutoButton"
+									styleClass="icon,icon-edit"
+									onAction="#onEditAuto">
+								<tooltip>
+									<Tooltip text="Modifica l'auto selezionata"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="deleteAutoButton"
+									styleClass="icon,icon-delete"
+									onAction="#onDeleteAuto">
+								<tooltip>
+									<Tooltip text="Rimuovi l'auto selezionata"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="refreshAutoButton"
+									styleClass="icon,icon-refresh"
+									onAction="#onRefreshAuto">
+								<tooltip>
+									<Tooltip text="Aggiorna la lista delle auto"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="sortAutoButton"
+									styleClass="icon,icon-sort">
+								<tooltip>
+									<Tooltip text="Riordina per ordine alfabetico"/>
+								</tooltip>
+							</Button>
+
+						</HBox>
+					</VBox>
 
 					<ListView fx:id="listaAutoView"
 							VBox.vgrow="ALWAYS"/>
@@ -235,8 +229,25 @@
 									styleClass="icon,icon-edit"/>
 
 							<Button fx:id="removeLavorazioneButton"
-									onAction="#onRemoveLavorazione"
 									styleClass="icon,icon-delete"/>
+
+							<Button fx:id="refreshLavorazioneButton"
+									styleClass="icon,icon-refresh">
+								<tooltip>
+									<Tooltip text="Aggiorna la lista delle lavorazioni per l'auto corrente"/>
+								</tooltip>
+							</Button>
+
+							<Button fx:id="sortLavorazioneButton"
+									styleClass="icon,icon-sort"/>
+
+							<Separator orientation="VERTICAL"/>
+
+							<HBox alignment="CENTER_LEFT">
+								<Label styleClass="icon,icon-search"/>
+								<TextField fx:id="searchLavorazioneField"
+										HBox.hgrow="ALWAYS"/>
+							</HBox>
 
 						</FlowPane>
 

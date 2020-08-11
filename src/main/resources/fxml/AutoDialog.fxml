@@ -1,110 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<fx:root type="DialogPane"
+<AnchorPane
 		xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
-		stylesheets="/css/FormStyle.css"
+		stylesheets="/css/Root.css"
 		prefHeight="480"
 		prefWidth="640"
-		minHeight="480"
+		minHeight="300"
 		minWidth="640">
-	<content>
-		<AnchorPane>
-			<GridPane hgap="20"
-					vgap="20"
-					AnchorPane.bottomAnchor="0"
-					AnchorPane.rightAnchor="0"
-					AnchorPane.topAnchor="0"
-					AnchorPane.leftAnchor="0">
 
-				<rowConstraints>
-					<RowConstraints percentHeight="10"/>
-					<RowConstraints percentHeight="1"/>
-				</rowConstraints>
-				<columnConstraints>
-					<ColumnConstraints percentWidth="50"/>
-					<ColumnConstraints percentWidth="50"/>
-				</columnConstraints>
+	<padding>
+		<Insets top="20"
+				right="20"
+				left="20"/>
+	</padding>
 
-				<Label fx:id="mainLabel"
-						text="Registra un'auto"
-						GridPane.rowIndex="0"
-						GridPane.columnIndex="0"
-						GridPane.columnSpan="2"
-						GridPane.halignment="CENTER">
-					<font>
-						<Font name="Cooper Black"
-								size="24"/>
-					</font>
-				</Label>
+	<GridPane hgap="20"
+			vgap="20"
+			AnchorPane.bottomAnchor="0"
+			AnchorPane.rightAnchor="0"
+			AnchorPane.topAnchor="0"
+			AnchorPane.leftAnchor="0">
 
-				<Separator GridPane.hgrow="ALWAYS"
-						GridPane.vgrow="NEVER"
-						GridPane.rowIndex="1"
-						GridPane.columnIndex="0"
-						GridPane.columnSpan="2"
-						GridPane.halignment="CENTER"/>
+		<columnConstraints>
+			<ColumnConstraints percentWidth="50"/>
+			<ColumnConstraints percentWidth="50"/>
+		</columnConstraints>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.rowIndex="2"
-						GridPane.columnIndex="0">
-					<Label text="Targa"/>
-					<TextField fx:id="targaField">
-						<tooltip>
-							<Tooltip text="La targa deve avere formato XX000XX"/>
-						</tooltip>
-					</TextField>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="0"
+				GridPane.columnIndex="0">
+			<Label text="Targa"/>
+			<TextField fx:id="targaField">
+				<tooltip>
+					<Tooltip text="La targa deve avere formato XX000XX"/>
+				</tooltip>
+			</TextField>
+		</VBox>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.rowIndex="2"
-						GridPane.columnIndex="1">
-					<Label text="Modello"/>
-					<TextField fx:id="modelloField"/>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="0"
+				GridPane.columnIndex="1">
+			<Label text="Modello"/>
+			<TextField fx:id="modelloField"/>
+		</VBox>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.rowIndex="3"
-						GridPane.columnIndex="0">
-					<Label text="Km"/>
-					<TextField fx:id="kmField"/>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="1"
+				GridPane.columnIndex="0">
+			<Label text="Km"/>
+			<TextField fx:id="kmField"/>
+		</VBox>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.rowIndex="3"
-						GridPane.columnIndex="1">
-					<Label text="Misura gomme"/>
-					<TextField fx:id="misuraGommeField"/>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="1"
+				GridPane.columnIndex="1">
+			<Label text="Misura gomme"/>
+			<TextField fx:id="misuraGommeField"/>
+		</VBox>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.rowIndex="4"
-						GridPane.columnIndex="0">
-					<Label text="Tipo gomme"/>
-					<ChoiceBox fx:id="tipoGommeBox"
-							maxWidth="Infinity"/>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="2"
+				GridPane.columnIndex="0">
+			<Label text="Tipo gomme"/>
+			<ChoiceBox fx:id="tipoGommeBox"
+					maxWidth="Infinity"/>
+		</VBox>
 
-				<VBox alignment="CENTER_LEFT"
-						GridPane.vgrow="ALWAYS"
-						GridPane.rowIndex="5"
-						GridPane.columnIndex="0"
-						GridPane.columnSpan="2">
-					<Label text="Note"/>
-					<TextArea fx:id="noteArea"/>
-				</VBox>
+		<VBox alignment="CENTER_LEFT"
+				GridPane.rowIndex="3"
+				GridPane.columnIndex="0"
+				GridPane.columnSpan="2">
+			<Label text="Note"/>
+			<TextArea fx:id="noteArea"/>
+		</VBox>
 
-
-			</GridPane>
-		</AnchorPane>
-	</content>
-
-	<ButtonType text="_Aggiungi"
-			buttonData="OK_DONE"
-			fx:id="doneButton"/>
-	<ButtonType text="_Cancella"
-			buttonData="CANCEL_CLOSE"/>
-</fx:root>
+	</GridPane>
+</AnchorPane>

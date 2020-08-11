@@ -1,105 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import java.lang.String?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<fx:root type="BorderPane"
-		minHeight="480"
-		minWidth="640"
-		prefHeight="480"
-		prefWidth="640"
-		stylesheets="@/css/Root.css"
-		xmlns="http://javafx.com/javafx/10.0.2-internal"
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root stylesheets="@/css/Root.css"
+		type="BorderPane"
+		xmlns="http://javafx.com/javafx/"
 		xmlns:fx="http://javafx.com/fxml/1">
 
+	<top>
+		<MenuBar>
+			<padding>
+				<Insets topRightBottomLeft="0"/>
+			</padding>
+
+			<Menu text="_Tools">
+				<MenuItem onAction="#toImplement"
+						text="_Impostazioni"/>
+				<MenuItem onAction="#quit"
+						text="_Esci"/>
+			</Menu>
+
+			<Menu text="A_iuto">
+				<MenuItem onAction="#toImplement"
+						text="Eh no, troppo presto"/>
+			</Menu>
+
+		</MenuBar>
+	</top>
+
 	<center>
-		<GridPane alignment="CENTER">
+		<VBox fx:id="formPane"
+				alignment="CENTER"
+				minWidth="360"
+				spacing="20">
 
-			<rowConstraints>
-				<RowConstraints/>
-				<RowConstraints percentHeight="12.0"/>
-				<RowConstraints percentHeight="20.0"/>
-				<RowConstraints/>
-			</rowConstraints>
+			<padding>
+				<Insets topRightBottomLeft="30"/>
+			</padding>
 
-			<MenuBar GridPane.rowIndex="0"
-					GridPane.columnIndex="0"
-					GridPane.columnSpan="2"
-					GridPane.vgrow="NEVER">
-				<padding>
-					<Insets topRightBottomLeft="0"/>
-				</padding>
-
-				<Menu text="_Impostazioni">
-					<MenuItem text="_Esci"
-							onAction="#quit"/>
-				</Menu>
-
-				<Menu text="A_iuto">
-					<MenuItem text="Eh no, troppo presto"
-							onAction="#toImplement"/>
-				</Menu>
-
-			</MenuBar>
-
-			<Pane GridPane.rowIndex="1"/>
-
-			<Label alignment="CENTER"
-					textAlignment="CENTER"
-					GridPane.rowIndex="2"
-					GridPane.halignment="CENTER"
-					GridPane.valignment="CENTER"
-					GridPane.hgrow="ALWAYS"
-					GridPane.vgrow="ALWAYS">
-				<String fx:value="LA BELLOFFICINA"/>
+			<Label text="BELLOFFICINA">
 				<font>
 					<Font name="Cooper Black"
-							size="36.0"/>
+							size="32.0"/>
 				</font>
-				<GridPane.margin>
-					<Insets top="20"/>
-				</GridPane.margin>
+				<padding>
+					<Insets topRightBottomLeft="20"/>
+				</padding>
 			</Label>
 
-			<GridPane fx:id="formPane"
-					alignment="CENTER"
-					hgap="10"
-					vgap="10"
-					GridPane.hgrow="ALWAYS"
-					GridPane.rowIndex="3"
-					GridPane.vgrow="ALWAYS">
+			<JFXTextField fx:id="usernameField"
+					focusColor="brown"
+					labelFloat="true"
+					promptText="Username"
+					unFocusColor="cadetblue">
+				<font>
+					<Font size="14.0"/>
+				</font>
+			</JFXTextField>
 
-				<Label text="Username"
-						GridPane.columnIndex="0"
-						GridPane.rowIndex="0"/>
-				<TextField fx:id="usernameField"
-						styleClass="custom-textfield"
-						onAction="#login"
-						GridPane.columnIndex="1"
-						GridPane.rowIndex="0"/>
-				<Label text="Password"
-						GridPane.columnIndex="0"
-						GridPane.rowIndex="1"/>
-				<PasswordField fx:id="passwordField"
-						styleClass="custom-textfield"
-						onAction="#login"
-						onKeyPressed="#ctrlDelete"
-						GridPane.columnIndex="1"
-						GridPane.rowIndex="1"/>
-				<Button onAction="#login"
-						onKeyPressed="#login"
-						text="_ACCEDI"
-						GridPane.columnIndex="0"
-						GridPane.columnSpan="2"
-						GridPane.halignment="CENTER"
-						GridPane.rowIndex="2"/>
+			<JFXPasswordField fx:id="passwordField"
+					focusColor="brown"
+					labelFloat="true"
+					promptText="Password"
+					unFocusColor="cadetblue">
+				<font>
+					<Font size="14.0"/>
+				</font>
+			</JFXPasswordField>
 
-			</GridPane>
 
-		</GridPane>
+			<JFXButton alignment="CENTER"
+					buttonType="RAISED"
+					contentDisplay="CENTER"
+					onAction="#login"
+					onKeyPressed="#login"
+					ripplerFill="#558bf8"
+					style="-fx-background-color: #11a7cd; -fx-text-fill: white;"
+					text="_ACCEDI">
+				<font>
+					<Font size="16.0"/>
+				</font>
+			</JFXButton>
+
+		</VBox>
 	</center>
 
 </fx:root>

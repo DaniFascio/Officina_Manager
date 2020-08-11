@@ -1,18 +1,18 @@
 .root {
 
 	-icon-size: 32px;
-	-icon-color: grey;
-	-icon-hover-color: darkgrey;
+	-icon-color: #808080;
+	-icon-hover-color: #a9a9a9;
 
 }
 
 .icon {
 
-	-fx-min-width: -icon-size;
-	-fx-min-height: -icon-size;
-	-fx-pref-width: -icon-size;
-	-fx-pref-height: -icon-size;
-	-fx-background-color: -icon-color;
+	-fx-min-width: 32;
+	-fx-min-height: 32;
+	-fx-pref-width: 32;
+	-fx-pref-height: 32;
+	-fx-background-color: #808080;
 	-fx-background-position: center;
 	-fx-background-size: auto;
 	-fx-background-insets: 8;
@@ -21,7 +21,7 @@
 }
 
 .icon:hover {
-	-fx-background-color: -icon-hover-color;
+	-fx-background-color: #a9a9a9;
 }
 
 .toolbar-icon {

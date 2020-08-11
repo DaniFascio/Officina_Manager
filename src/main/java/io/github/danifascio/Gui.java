@@ -1,32 +1,55 @@
 package io.github.danifascio;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDecorator;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.svg.SVGGlyph;
+import io.github.danifascio.gui.AutoDialog;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Gui extends Application {
 
-	private static Gui instance;
-	private Scene scene;
-	private Stage stage;
+	private static Stage stage;
+	private static final Properties icons;
+
+	static {
+		icons = new Properties();
+
+		try(InputStream input = AutoDialog.class.getClassLoader().getResourceAsStream("glyphs.xml")) {
+
+			if(input != null)
+				icons.loadFromXML(input);
+			else
+				System.err.println("Couldn't load icons properties");
+
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		launch();
-	}
-
-	public static Gui getInstance() {
-		return instance;
 	}
 
 	@FXML
@@ -36,8 +59,6 @@ public class Gui extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		instance = this;
-		stage = primaryStage;
 
 		// TODO: Default uncaught exception handler
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
@@ -45,34 +66,65 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
-		Pane pane = new LoginPane();
-
-		stage.setScene(scene = new Scene(pane));
-		stage.setMinHeight(pane.getMinHeight());
-		stage.setMinWidth(pane.getMinWidth());
-		stage.setTitle("Officina Manager");
-		stage.setOnCloseRequest(event -> Platform.exit());
-
-		stage.show();
+		changeStage("Officina Manager", new LoginPane(), false);
 	}
 
-	public Stage getStage() {
+	public static Stage stage() {
 		return stage;
 	}
 
-	public void changeScreen(Region pane) {
+	public static void changeStage(String title, Region content, boolean resizable) {
 
-		double x = stage.getX(), y = stage.getY();
-		double w = pane.getPrefWidth(), h = pane.getPrefHeight();
+		Stage newStage = new Stage();
+		StackPane rootPane = new StackPane(content);
+		rootPane.setId("rootPane");
 
-		stage.setX(x - (w - scene.getWidth()) / 2d);
-		stage.setY(y - (h - scene.getHeight()) / 2d);
+		SVGGlyph glyph = new SVGGlyph(icons.getProperty("gear-fill"), Color.WHITE);
+		glyph.setSize(16);
 
-		stage.setMinHeight(pane.getMinHeight());
-		stage.setMinWidth(pane.getMinWidth());
-		stage.setHeight(pane.getPrefHeight());
-		stage.setWidth(pane.getPrefWidth());
-		scene.setRoot(pane);
+		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);
+		decorator.setGraphic(glyph);
+
+		newStage.setScene(new Scene(decorator));
+		newStage.initStyle(StageStyle.UNDECORATED);
+		newStage.setResizable(resizable);
+		newStage.setTitle(title);
+		newStage.setOnCloseRequest(event -> {
+			event.consume();
+			JFXDialogLayout dialogLayout = new JFXDialogLayout();
+			JFXDialog dialog = new JFXDialog(rootPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
+			dialog.setOverlayClose(true);
+			dialog.getStylesheets().add("/css/Root.css");
+
+			JFXButton yesButton = new JFXButton("Sì");
+			JFXButton noButton = new JFXButton("No");
+
+			AtomicReference<JFXButton> buttonReference = new AtomicReference<>();
+			EventHandler<ActionEvent> eventHandler = event1 -> {
+				buttonReference.set((JFXButton) event1.getSource());
+				dialog.close();
+			};
+
+			yesButton.setOnAction(eventHandler);
+			noButton.setOnAction(eventHandler);
+			dialog.setOnDialogClosed(event1 -> Optional.ofNullable(buttonReference.get())
+					.filter(yesButton::equals)
+					.ifPresent(button -> Platform.exit()));
+
+			dialogLayout.setBody(new Label("Vuoi uscire?"));
+			dialogLayout.setActions(yesButton, noButton);
+
+			dialog.show();
+		});
+//		newStage.setOnCloseRequest(event -> new Alert(Alert.AlertType.CONFIRMATION,
+//				"Vuoi uscire?",
+//				ButtonType.YES,
+//				ButtonType.NO).showAndWait().filter(ButtonType.NO::equals).ifPresent(buttonType -> event.consume()));
+
+		if(stage != null)
+			stage.close();
+		stage = newStage;
+		stage.show();
 
 	}
 

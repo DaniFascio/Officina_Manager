@@ -26,21 +26,21 @@
 
 				<Menu text="Database">
 					<MenuItem text="Aggiorna"
-					onAction="#onRefreshAuto"/>
+							onAction="#onRefreshAuto"/>
 					<MenuItem text="Exit"
-					onAction="#quit"/>
+							onAction="#quit"/>
 
 				</Menu>
 
 				<Menu text="Auto">
 					<MenuItem text="Aggiungi"
-					onAction="#onAddAuto"/>
+							onAction="#onAddAuto"/>
 					<MenuItem text="Modifica"
-					onAction="#onEditAuto"/>
+							onAction="#onEditAuto"/>
 					<MenuItem text="Elimina"
-					onAction="#onDeleteAuto"/>
+							onAction="#onDeleteAuto"/>
 					<MenuItem text="Cerca Targa"/>
-<!--					onAction="on"/>-->
+					<!--					onAction="on"/>-->
 
 				</Menu>
 
@@ -124,10 +124,6 @@
 								</tooltip>
 							</Button>
 
-						<HBox fx:id="searchBox"
-								alignment="CENTER_LEFT">
-							<Label styleClass="icon,icon-search"/>
-							<TextField fx:id="searchAutoField"/>
 						</HBox>
 					</VBox>
 

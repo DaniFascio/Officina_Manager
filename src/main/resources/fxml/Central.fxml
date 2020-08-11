@@ -45,12 +45,12 @@
 				</Menu>
 
 				<Menu text="Lavorazione">
-					<MenuItem text="_Aggiungi lavorazione"
+					<MenuItem text="Aggiungi lavorazione"
 							onAction="#onAddLavorazione"/>
-					<MenuItem text="_Modifica lavorazione"
+					<MenuItem text="Modifica lavorazione"
 							onAction="#onEditLavorazione"/>
-					<MenuItem text="_Rimuovi lavorazione"/>
-<!--							onAction="#onDeleteLavorazione"/>-->
+					<MenuItem text="Rimuovi lavorazione"
+							onAction="#onRemoveLavorazione"/>
 				</Menu>
 
 			</MenuBar>
@@ -235,6 +235,7 @@
 									styleClass="icon,icon-edit"/>
 
 							<Button fx:id="removeLavorazioneButton"
+									onAction="#onRemoveLavorazione"
 									styleClass="icon,icon-delete"/>
 
 

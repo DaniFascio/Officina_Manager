@@ -263,6 +263,42 @@ public class CentralPane extends AnchorPane {
 
 	}
 
+
+	@FXML
+	private void onRemoveLavorazione(ActionEvent event){
+
+		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
+
+		if(selectedLavorazione == null)
+			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!")
+					.showAndWait();
+		else
+
+
+	new Alert(Alert.AlertType.CONFIRMATION, "Confermi di voler rimuovere la lavorazione selezionata?", ButtonType.YES, ButtonType.NO)
+					.showAndWait()
+					.filter(ButtonType.YES::equals)
+					.ifPresent(buttonType -> {
+						Alert alert;
+						LavorazioneDao dao = new LavorazioneDao(selectedAuto);
+
+						if(dao.delete(selectedLavorazione) == 1) {
+							alert = new Alert(Alert.AlertType.INFORMATION);
+							alert.setHeaderText("lavorazione rimossa con successo");
+						} else {
+							alert = new Alert(Alert.AlertType.ERROR);
+							alert.setHeaderText("Errore nella rimozione della lavorazione");
+							alert.setContentText(dao.errorMessage());
+						}
+
+						alert.setTitle("Elimina Lavorazione");
+						alert.showAndWait();
+						onRefreshAuto(event);
+
+					});
+
+	}
+
 	@FXML
 	private void quit(Event event){ {
 		Platform.exit();

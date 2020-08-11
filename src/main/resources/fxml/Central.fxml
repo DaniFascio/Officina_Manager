@@ -24,24 +24,33 @@
 					<Insets topRightBottomLeft="0"/>
 				</padding>
 
-				<Menu text="_Database">
-					<MenuItem text="_Exit"
+				<Menu text="Database">
+					<MenuItem text="Aggiorna"
+					onAction="#onRefreshAuto"/>
+					<MenuItem text="Exit"
 					onAction="#quit"/>
 
 				</Menu>
 
-				<Menu text="_Auto">
-					<MenuItem text="_Aggiungi"/>
-<!--					onAction="onAddAuto"/>-->
-					<MenuItem text="_Modifica"/>
-<!--					onAction="onEditAuto"/>-->
-					<MenuItem text="_Elimina"/>
-<!--					onAction="onDeleteAuto"/>-->
-					<MenuItem text="_Aggiorna Lista"/>
-<!--					onAction="onRefreshAuto"/>-->
-					<MenuItem text="_Cerca Targa"/>
+				<Menu text="Auto">
+					<MenuItem text="Aggiungi"
+					onAction="#onAddAuto"/>
+					<MenuItem text="Modifica"
+					onAction="#onEditAuto"/>
+					<MenuItem text="Elimina"
+					onAction="#onDeleteAuto"/>
+					<MenuItem text="Cerca Targa"/>
 <!--					onAction="on"/>-->
 
+				</Menu>
+
+				<Menu text="Lavorazione">
+					<MenuItem text="_Aggiungi lavorazione"
+							onAction="#onAddLavorazione"/>
+					<MenuItem text="_Modifica lavorazione"
+							onAction="#onEditLavorazione"/>
+					<MenuItem text="_Rimuovi lavorazione"/>
+<!--							onAction="#onDeleteLavorazione"/>-->
 				</Menu>
 
 			</MenuBar>
@@ -98,13 +107,6 @@
 								onAction="#onRefreshAuto">
 							<tooltip>
 								<Tooltip text="Aggiorna la lista delle auto"/>
-							</tooltip>
-						</Button>
-
-						<Button fx:id="sortAutoButton"
-								styleClass="icon,icon-sort">
-							<tooltip>
-								<Tooltip text="Riordina per ordine alfabetico"/>
 							</tooltip>
 						</Button>
 
@@ -235,15 +237,6 @@
 							<Button fx:id="removeLavorazioneButton"
 									styleClass="icon,icon-delete"/>
 
-							<Button fx:id="refreshLavorazioneButton"
-									styleClass="icon,icon-refresh">
-								<tooltip>
-									<Tooltip text="Aggiorna la lista delle lavorazioni per l'auto corrente"/>
-								</tooltip>
-							</Button>
-
-							<Button fx:id="sortLavorazioneButton"
-									styleClass="icon,icon-sort"/>
 
 							<Separator orientation="VERTICAL"/>
 

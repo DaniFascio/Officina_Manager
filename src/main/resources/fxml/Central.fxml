@@ -24,13 +24,33 @@
 					<Insets topRightBottomLeft="0"/>
 				</padding>
 
-				<Menu text="_Tools">
-					<MenuItem text="_Impostazioni"/>
-					<MenuItem text="_Esci"/>
+				<Menu text="Database">
+					<MenuItem text="Aggiorna"
+					onAction="#onRefreshAuto"/>
+					<MenuItem text="Exit"
+					onAction="#quit"/>
+
 				</Menu>
 
-				<Menu text="A_iuto">
-					<MenuItem text="Eh no, troppo presto"/>
+				<Menu text="Auto">
+					<MenuItem text="Aggiungi"
+					onAction="#onAddAuto"/>
+					<MenuItem text="Modifica"
+					onAction="#onEditAuto"/>
+					<MenuItem text="Elimina"
+					onAction="#onDeleteAuto"/>
+					<MenuItem text="Cerca Targa"/>
+<!--					onAction="on"/>-->
+
+				</Menu>
+
+				<Menu text="Lavorazione">
+					<MenuItem text="Aggiungi lavorazione"
+							onAction="#onAddLavorazione"/>
+					<MenuItem text="Modifica lavorazione"
+							onAction="#onEditLavorazione"/>
+					<MenuItem text="Rimuovi lavorazione"
+							onAction="#onRemoveLavorazione"/>
 				</Menu>
 
 			</MenuBar>
@@ -104,13 +124,10 @@
 								</tooltip>
 							</Button>
 
-							<Button fx:id="sortAutoButton"
-									styleClass="icon,icon-sort">
-								<tooltip>
-									<Tooltip text="Riordina per ordine alfabetico"/>
-								</tooltip>
-							</Button>
-
+						<HBox fx:id="searchBox"
+								alignment="CENTER_LEFT">
+							<Label styleClass="icon,icon-search"/>
+							<TextField fx:id="searchAutoField"/>
 						</HBox>
 					</VBox>
 
@@ -229,25 +246,8 @@
 									styleClass="icon,icon-edit"/>
 
 							<Button fx:id="removeLavorazioneButton"
+									onAction="#onRemoveLavorazione"
 									styleClass="icon,icon-delete"/>
-
-							<Button fx:id="refreshLavorazioneButton"
-									styleClass="icon,icon-refresh">
-								<tooltip>
-									<Tooltip text="Aggiorna la lista delle lavorazioni per l'auto corrente"/>
-								</tooltip>
-							</Button>
-
-							<Button fx:id="sortLavorazioneButton"
-									styleClass="icon,icon-sort"/>
-
-							<Separator orientation="VERTICAL"/>
-
-							<HBox alignment="CENTER_LEFT">
-								<Label styleClass="icon,icon-search"/>
-								<TextField fx:id="searchLavorazioneField"
-										HBox.hgrow="ALWAYS"/>
-							</HBox>
 
 						</FlowPane>
 

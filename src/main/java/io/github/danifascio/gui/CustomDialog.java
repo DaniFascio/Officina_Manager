@@ -52,7 +52,7 @@ public class CustomDialog<T> extends Stage {
 		}
 	}
 
-	protected void resultConverter(ResultConverter<T> converter) {
+	protected void setResultConverter(ResultConverter<T> converter) {
 		resultConverter = converter;
 	}
 

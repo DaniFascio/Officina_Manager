@@ -51,9 +51,8 @@ public class Lavorazione {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Lavorazione)
-			return ((Lavorazione) obj).id.equals(id) && ((Lavorazione) obj).spesa
-					.equals(spesa) && ((Lavorazione) obj).descrizione.equals(descrizione) && ((Lavorazione) obj).auto
-					.equals(auto);
+			return ((Lavorazione) obj).id.equals(id) && ((Lavorazione) obj).spesa.equals(spesa) && ((Lavorazione) obj).descrizione
+					.equals(descrizione) && ((Lavorazione) obj).auto.equals(auto);
 		return false;
 	}
 
@@ -69,13 +68,13 @@ public class Lavorazione {
 
 		}
 
-		public Lavorazione build() throws Exception {
+		public Lavorazione build() {
 			try {
 				Objects.requireNonNull(spesa);
 				Objects.requireNonNull(descrizione);
 				Objects.requireNonNull(auto);
 			} catch(NullPointerException e) {
-				throw new Exception("Non-initialized argument in Lavorazione.Builder", e);
+				throw new RuntimeException("Non-initialized argument in Lavorazione.Builder", e);
 			}
 
 			return new Lavorazione(id != null ? id : -1, spesa, data, descrizione, auto);

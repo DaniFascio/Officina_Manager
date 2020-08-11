@@ -96,7 +96,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 			tipoGommeBox.setValue(TipoGomme.get(auto.getTipoGomme().getDescrizione()));
 		}
 
-		resultConverter(() -> new Auto.Builder().setTarga(targaField.getText().toUpperCase().replaceAll(" ", ""))
+		setResultConverter(() -> new Auto.Builder().setTarga(targaField.getText().toUpperCase().replaceAll(" ", ""))
 				.setModello(modelloField.getText())
 				.setKm(Integer.parseInt(kmField.getText()))
 				.setMisuraGomme(misuraGommeField.getText())

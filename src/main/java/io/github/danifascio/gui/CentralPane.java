@@ -138,7 +138,7 @@ public class CentralPane extends AnchorPane implements Initializable {
 
 					dialog = new Alert(Alert.AlertType.ERROR);
 					dialog.setHeaderText("Errore nell'inserimento dell'auto");
-					dialog.setContentText(message);
+					dialog.setContentText("Un auto con la stessa targa è già presente");
 
 				}
 
@@ -176,7 +176,7 @@ public class CentralPane extends AnchorPane implements Initializable {
 
 					alert = new Alert(Alert.AlertType.ERROR);
 					alert.setHeaderText("Errore nella modifica dell'auto");
-					alert.setContentText(message);
+					alert.setContentText("Un auto con la stessa targa è già presente");
 
 				}
 

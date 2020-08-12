@@ -1,21 +1,17 @@
 package io.github.danifascio;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDecorator;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.AutoDialog;
+import io.github.danifascio.gui.LightDialog;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -99,33 +95,27 @@ public class Gui extends Application {
 		newStage.setTitle(title);
 		newStage.setOnCloseRequest(event -> {
 			event.consume();
-			JFXDialogLayout dialogLayout = new JFXDialogLayout();
-			JFXDialog dialog = new JFXDialog(rootPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
-			dialog.setOverlayClose(true);
-			dialog.getStylesheets().add("/css/Root.css");
 
-			JFXButton yesButton = new JFXButton("Sì");
-			JFXButton noButton = new JFXButton("No");
+			AtomicReference<Button> buttonReference = new AtomicReference<>(), yesButton = new AtomicReference<>();
 
-			AtomicReference<JFXButton> buttonReference = new AtomicReference<>();
-			EventHandler<ActionEvent> eventHandler = event1 -> {
-				buttonReference.set((JFXButton) event1.getSource());
-				dialog.close();
-			};
-
-			yesButton.setOnAction(eventHandler);
-			yesButton.getStyleClass().add("button-raised");
-			noButton.setOnAction(eventHandler);
-			noButton.getStyleClass().add("button-raised");
-			dialog.setOnDialogClosed(event1 -> Optional.ofNullable(buttonReference.get())
-					.filter(yesButton::equals)
-					.ifPresent(button -> Platform.exit()));
-
-			dialogLayout.setHeading(new Label("Chiudi applicazione"));
-			dialogLayout.setBody(new Label("Confermi di volere uscire?"));
-			dialogLayout.setActions(yesButton, noButton);
-
-			dialog.show();
+			LightDialog lightDialog = new LightDialog(rootPane, true);
+			lightDialog.heading("Chiudi Applicazione")
+					.content("Confermi di voler uscire?")
+					.onClose(event1 -> Optional.ofNullable(buttonReference.get())
+							.filter(yesButton.get()::equals)
+							.ifPresent(button -> Platform.exit()))
+					.addButton("Sì", button -> {
+						yesButton.set(button);
+						return actionEvent -> {
+							buttonReference.set(button);
+							lightDialog.close();
+						};
+					})
+					.addButton("No", button -> actionEvent -> {
+						buttonReference.set(button);
+						lightDialog.close();
+					})
+					.show();
 		});
 
 		if(stage != null)

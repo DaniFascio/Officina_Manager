@@ -6,10 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseButton;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class LavorazioneCell extends ListCell<Lavorazione> {
@@ -34,19 +36,14 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneCell.fxml"));
 			loader.setController(this);
 			view = loader.load();
-			setOnMouseClicked(event -> {
-				// TODO: APERTURA LAVORAZIONEDIALOG CON DOPPIO CLICK
-				if(event.getClickCount() == 2)
-					try {
 
-						Lavorazione lavorazione = lavorazioneReference.get();
-
-						new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.VIEW, lavorazione.getAuto(), lavorazione).show();
-
-					} catch(NullPointerException e) {
-						throw new RuntimeException("Lavorazione null in ListCell", e);
-					}
-			});
+			setOnMouseClicked(event -> Optional.of(event.getButton())
+					.filter(MouseButton.PRIMARY::equals)
+					.filter(mouseButton -> event.getClickCount() == 2)
+					.flatMap(mouseButton -> Optional.ofNullable(lavorazioneReference.get()))
+					.ifPresent(lavorazione -> new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.VIEW,
+							lavorazione.getAuto(),
+							lavorazione).show()));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);

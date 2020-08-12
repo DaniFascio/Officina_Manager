@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import com.jfoenix.svg.SVGGlyph?>
+<?import com.jfoenix.controls.JFXButton?>
 <fx:root xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
 		prefHeight="720"
@@ -11,7 +12,7 @@
 		minHeight="640"
 		minWidth="800"
 		type="AnchorPane"
-		stylesheets="@/css/Text.css,@/css/Icons.css,@/css/Root.css"
+		stylesheets="@/css/Text.css,@/css/Root.css"
 		fx:id="root">
 
 	<BorderPane AnchorPane.bottomAnchor="0"
@@ -43,7 +44,6 @@
 					<MenuItem text="Elimina"
 							onAction="#onDeleteAuto"/>
 					<MenuItem text="Cerca Targa"/>
-					<!--					onAction="on"/>-->
 
 				</Menu>
 
@@ -53,7 +53,7 @@
 					<MenuItem text="Modifica"
 							onAction="#onEditLavorazione"/>
 					<MenuItem text="Rimuovi"
-							onAction="#onRemoveLavorazione"/>
+							onAction="#onDeleteLavorazione"/>
 				</Menu>
 
 			</MenuBar>
@@ -87,7 +87,8 @@
 								<Insets right="6"/>
 							</padding>
 
-							<Label styleClass="icon,icon-search"/>
+							<JFXButton fx:id="searchAutoButton"
+									styleClass="jfx-icon"/>
 							<TextField fx:id="searchAutoField"
 									HBox.hgrow="ALWAYS"
 									promptText="Cerca per targa"/>
@@ -95,37 +96,37 @@
 
 						<HBox alignment="CENTER_LEFT">
 
-							<Button fx:id="addAutoButton"
-									styleClass="icon,icon-add"
+							<JFXButton fx:id="addAutoButton"
+									styleClass="jfx-icon"
 									onAction="#onAddAuto">
 								<tooltip>
 									<Tooltip text="Aggiungi una nuova auto"/>
 								</tooltip>
-							</Button>
+							</JFXButton>
 
-							<Button fx:id="editAutoButton"
-									styleClass="icon,icon-edit"
+							<JFXButton fx:id="editAutoButton"
+									styleClass="jfx-icon"
 									onAction="#onEditAuto">
 								<tooltip>
 									<Tooltip text="Modifica l'auto selezionata"/>
 								</tooltip>
-							</Button>
+							</JFXButton>
 
-							<Button fx:id="deleteAutoButton"
-									styleClass="icon,icon-delete"
+							<JFXButton fx:id="deleteAutoButton"
+									styleClass="jfx-icon"
 									onAction="#onDeleteAuto">
 								<tooltip>
 									<Tooltip text="Rimuovi l'auto selezionata"/>
 								</tooltip>
-							</Button>
+							</JFXButton>
 
-							<Button fx:id="refreshAutoButton"
-									styleClass="icon,icon-refresh"
+							<JFXButton fx:id="refreshAutoButton"
+									styleClass="jfx-icon"
 									onAction="#onRefreshAuto">
 								<tooltip>
 									<Tooltip text="Aggiorna la lista delle auto"/>
 								</tooltip>
-							</Button>
+							</JFXButton>
 
 						</HBox>
 					</VBox>
@@ -236,25 +237,37 @@
 
 						<FlowPane styleClass="toolbar-icon">
 
-							<Button fx:id="addLavorazioneButton"
+							<JFXButton fx:id="addLavorazioneButton"
 									onAction="#onAddLavorazione"
-									styleClass="icon,icon-add"/>
+									styleClass="jfx-icon">
+								<tooltip>
+									<Tooltip text="Aggiungi una nuova lavorazione sull'auto corrente"/>
+								</tooltip>
+							</JFXButton>
 
-							<Button fx:id="editLavorazioneButton"
+							<JFXButton fx:id="editLavorazioneButton"
 									onAction="#onEditLavorazione"
-									styleClass="icon,icon-edit"/>
+									styleClass="jfx-icon">
+								<tooltip>
+									<Tooltip text="Modifica la lavorazione selezionata"/>
+								</tooltip>
+							</JFXButton>
 
-							<Button fx:id="removeLavorazioneButton"
-									onAction="#onRemoveLavorazione"
-									styleClass="icon,icon-delete"/>
+							<JFXButton fx:id="deleteLavorazioneButton"
+									onAction="#onDeleteLavorazione"
+									styleClass="jfx-icon">
+								<tooltip>
+									<Tooltip text="Rimuovi la lavorazione selezionata"/>
+								</tooltip>
+							</JFXButton>
 
-							<Button fx:id="refreshLavorazioneButton"
-									styleClass="icon,icon-refresh"
+							<JFXButton fx:id="refreshLavorazioneButton"
+									styleClass="jfx-icon"
 									onAction="#onRefreshLavorazione">
 								<tooltip>
 									<Tooltip text="Aggiorna la lista delle lavorazioni"/>
 								</tooltip>
-							</Button>
+							</JFXButton>
 
 						</FlowPane>
 

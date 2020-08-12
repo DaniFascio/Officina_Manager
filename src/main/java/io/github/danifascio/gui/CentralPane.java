@@ -1,8 +1,8 @@
 package io.github.danifascio.gui;
 
 import com.jfoenix.controls.JFXSnackbar;
-import com.jfoenix.controls.JFXSnackbarLayout;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
+import com.jfoenix.controls.JFXSnackbarLayout;
 import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
@@ -14,18 +14,22 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CentralPane extends AnchorPane {
+public class CentralPane extends AnchorPane implements Initializable {
 
 	@FXML
 	private AnchorPane root;
@@ -49,6 +53,25 @@ public class CentralPane extends AnchorPane {
 	private TextArea noteArea;
 	@FXML
 	private HBox searchBox;
+
+	@FXML
+	private Button searchAutoButton;
+	@FXML
+	private Button addAutoButton;
+	@FXML
+	private Button editAutoButton;
+	@FXML
+	private Button deleteAutoButton;
+	@FXML
+	private Button refreshAutoButton;
+	@FXML
+	private Button addLavorazioneButton;
+	@FXML
+	private Button editLavorazioneButton;
+	@FXML
+	private Button deleteLavorazioneButton;
+	@FXML
+	private Button refreshLavorazioneButton;
 
 	private Auto selectedAuto;
 
@@ -275,7 +298,7 @@ public class CentralPane extends AnchorPane {
 	}
 
 	@FXML
-	private void onRemoveLavorazione(ActionEvent event) {
+	private void onDeleteLavorazione(ActionEvent event) {
 
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
@@ -323,6 +346,26 @@ public class CentralPane extends AnchorPane {
 
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
+		GlyphFactory.init();
+
+		ResourceBundle glyphs = BundleManager.get("glyphs");
+		if(glyphs == null)
+			return;
+
+		searchAutoButton.setGraphic(GlyphFactory.create("search", Color.DIMGRAY, 18));
+
+		addAutoButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
+		editAutoButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
+		deleteAutoButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		refreshAutoButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+
+		addLavorazioneButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
+		editLavorazioneButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
+		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+	}
 
 }

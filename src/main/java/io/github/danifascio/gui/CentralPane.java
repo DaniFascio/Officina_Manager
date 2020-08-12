@@ -3,6 +3,7 @@ package io.github.danifascio.gui;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXSnackbarLayout;
+import io.github.danifascio.BundleManager;
 import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
@@ -339,10 +340,9 @@ public class CentralPane extends AnchorPane implements Initializable {
 	}
 
 	@FXML
-	private void backToLogin(Event event){
+	private void backToLogin(Event event) {
 
 		Gui.changeStage("Officina Manager", new LoginPane(), false);
-
 
 	}
 

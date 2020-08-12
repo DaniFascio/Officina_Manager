@@ -15,12 +15,12 @@ public class DatabaseManager implements AutoCloseable {
 	static {
 		properties = new Properties();
 
-		try(InputStream input = DatabaseManager.class.getClassLoader()
-				.getResourceAsStream("conn.properties")) {
+		try(InputStream input = DatabaseManager.class.getClassLoader().getResourceAsStream("conn.properties")) {
 
 			if(input == null)
-				throw new MissingResourceException("Cannot load db configs from default properties file", DatabaseManager.class
-						.getCanonicalName(), "conn.properties");
+				throw new MissingResourceException("Cannot load db configs from default properties file",
+						DatabaseManager.class.getCanonicalName(),
+						"conn.properties");
 
 			properties.load(input);
 

@@ -1,6 +1,5 @@
-package io.github.danifascio.gui;
+package io.github.danifascio;
 
-import io.github.danifascio.XMLResourceBundleControl;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

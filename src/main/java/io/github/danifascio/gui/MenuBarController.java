@@ -19,8 +19,7 @@ public class MenuBarController {
 	@FXML
 	private void quit(Event event) {
 
-		new Alert(Alert.AlertType.CONFIRMATION, "Vuoi uscire?", ButtonType.YES, ButtonType.NO)
-				.showAndWait()
+		new Alert(Alert.AlertType.CONFIRMATION, "Vuoi uscire?", ButtonType.YES, ButtonType.NO).showAndWait()
 				.filter(ButtonType.YES::equals)
 				.ifPresent(buttonType -> Platform.exit());
 

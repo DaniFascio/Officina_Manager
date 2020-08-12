@@ -51,8 +51,8 @@ public class Lavorazione {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Lavorazione)
-			return ((Lavorazione) obj).id.equals(id) && ((Lavorazione) obj).spesa.equals(spesa) && ((Lavorazione) obj).descrizione
-					.equals(descrizione) && ((Lavorazione) obj).auto.equals(auto);
+			return ((Lavorazione) obj).id.equals(id) && ((Lavorazione) obj).spesa.equals(spesa) && ((Lavorazione) obj).descrizione.equals(
+					descrizione) && ((Lavorazione) obj).auto.equals(auto);
 		return false;
 	}
 

@@ -1,16 +1,9 @@
 package io.github.danifascio;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
-/**
- * XML Resource Bundle
- * @author slabbe
- */
 public class XMLResourceBundle extends ResourceBundle {
 
 	private Properties props;

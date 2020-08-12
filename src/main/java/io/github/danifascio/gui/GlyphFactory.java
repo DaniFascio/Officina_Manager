@@ -1,11 +1,9 @@
 package io.github.danifascio.gui;
 
 import com.jfoenix.svg.SVGGlyph;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.binding.IntegerBinding;
+import io.github.danifascio.BundleManager;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.Nullable;

@@ -90,8 +90,7 @@ public class AutoDao implements Dao<Auto> {
 
 		try(DatabaseManager dm = DatabaseManager.fromConfig(true)) {
 
-			res = dm.executeUpdate(
-					"INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)",
+			res = dm.executeUpdate("INSERT INTO auto (targa, modello, km, note, id_tipo_gomme, misura_gomme) VALUES (?, ?, ?, ?, ?, ?)",
 					auto.getTarga(),
 					auto.getModello(),
 					auto.getKm(),

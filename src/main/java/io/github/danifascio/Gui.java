@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.AutoDialog;
-import io.github.danifascio.gui.BundleManager;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;

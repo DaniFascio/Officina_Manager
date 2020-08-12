@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <fx:root xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
 		type="AnchorPane">

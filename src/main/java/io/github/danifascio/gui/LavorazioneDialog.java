@@ -40,15 +40,13 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneDialog.fxml"));
 			loader.setRoot(new AnchorPane());
 			loader.setController(this);
-			dialogPane.setContent(new JFXDecorator((Stage) dialogPane.getScene()
-					.getWindow(), loader.load(), false, false, true));
+			dialogPane.setContent(new JFXDecorator((Stage) dialogPane.getScene().getWindow(), loader.load(), false, false, true));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
 
-		dialogPane.getButtonTypes()
-				.add(new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dialogPane.getButtonTypes().add(new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE));
 
 		setResizable(true);
 		setResultConverter(btnType -> {
@@ -77,8 +75,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 			if(viewMode.equals(ViewMode.EDIT)) {
 				initModality(Modality.WINDOW_MODAL);
-				getDialogPane().getButtonTypes()
-						.addAll(new ButtonType("Modifica", ButtonBar.ButtonData.APPLY));
+				getDialogPane().getButtonTypes().addAll(new ButtonType("Modifica", ButtonBar.ButtonData.APPLY));
 
 			} else {
 				// BUTTON: VIEW
@@ -90,8 +87,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 		} else {
 			// BUTTON: NEW
-			getDialogPane().getButtonTypes()
-					.addAll(new ButtonType("Aggiungi", ButtonBar.ButtonData.OK_DONE));
+			getDialogPane().getButtonTypes().addAll(new ButtonType("Aggiungi", ButtonBar.ButtonData.OK_DONE));
 			initModality(Modality.WINDOW_MODAL);
 		}
 	}

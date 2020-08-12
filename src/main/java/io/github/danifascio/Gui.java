@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.AutoDialog;
+import io.github.danifascio.gui.BundleManager;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -67,6 +68,12 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
+		BundleManager.load("glyphs", true);
+		if(BundleManager.get("glyphs") != null)
+			System.out.println("Glyphs bundle loaded");
+		else
+			System.err.println("Couldn't load Glyphs bundle");
+
 		changeStage("Officina Manager", new LoginPane(), false);
 	}
 
@@ -82,7 +89,7 @@ public class Gui extends Application {
 		rootPane.setId("rootPane");
 
 		SVGGlyph glyph = new SVGGlyph(icons.getProperty("gear-fill"), Color.WHITE);
-		glyph.setSize(16);
+		glyph.setSize(18);
 
 		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);
 		decorator.setGraphic(glyph);
@@ -115,7 +122,8 @@ public class Gui extends Application {
 					.filter(yesButton::equals)
 					.ifPresent(button -> Platform.exit()));
 
-			dialogLayout.setBody(new Label("Vuoi uscire?"));
+			dialogLayout.setHeading(new Label("Chiudi applicazione"));
+			dialogLayout.setBody(new Label("Confermi di volere uscire?"));
 			dialogLayout.setActions(yesButton, noButton);
 
 			dialog.show();

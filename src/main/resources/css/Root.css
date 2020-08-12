@@ -1,87 +1,103 @@
 .root {
 
-    -color-primary: #f4f4f4;
-    -color-secondary: #4949ea;
-    -color-background: #f4f4f4;
+	-color-primary: #f4f4f4;
+	-color-secondary: #4949ea;
+	-color-background: #f4f4f4;
 
 }
 
 .custom-textfield {
 
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2;
-    -fx-border-insets: 0;
-    -fx-background-insets: 0;
-    -fx-padding: 5;
-    -fx-background-color: #f4f4f4;
-    -fx-border-color: #f4f4f4;
+	-fx-border-radius: 0;
+	-fx-border-width: 0 0 2;
+	-fx-border-insets: 0;
+	-fx-background-insets: 0;
+	-fx-padding: 5;
+	-fx-background-color: #f4f4f4;
+	-fx-border-color: #f4f4f4;
 
 }
 
 .custom-textfield:focused {
 
-    -fx-border-width: 0 0 2;
-    -fx-border-color: #4949ea;
+	-fx-border-width: 0 0 2;
+	-fx-border-color: #4949ea;
 
 }
 
 .blank-field {
 
-    -fx-padding: 0;
-    -fx-border-width: 0;
-    -fx-border-radius: 0;
-    -fx-border-insets: 0;
-    -fx-background-insets: 0;
-    -fx-background-color: #f4f4f4;
-    -fx-font-size: 15;
+	-fx-padding: 0;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-border-insets: 0;
+	-fx-background-insets: 0;
+	-fx-background-color: #f4f4f4;
+	-fx-font-size: 15;
 
 }
 
 .searchField {
-    -fx-border-radius: 4;
-    -fx-border-width: 1;
-    -fx-border-color: #c8c8c8;
-    -fx-padding: 4;
-    -fx-background-color: white;
+	-fx-border-radius: 4;
+	-fx-border-width: 1;
+	-fx-border-color: #c8c8c8;
+	-fx-padding: 4;
+	-fx-background-color: white;
 }
 
 .searchField:focused {
-    -fx-border-color: #c8c8c8;
-    -fx-border-width: 1;
+	-fx-border-color: #c8c8c8;
+	-fx-border-width: 1;
 }
 
 .left_border {
 
-    -fx-border-color: #4949ea;
-    -fx-border-width: 0 0 0 2;
-    -fx-padding: 0 0 0 6;
+	-fx-border-color: #4949ea;
+	-fx-border-width: 0 0 0 2;
+	-fx-padding: 0 0 0 6;
 
+}
+
+.toolbar-icon {
+	-fx-border-width: 1px;
+	-fx-border-color: #c8c8c8;
 }
 
 .button-raised {
-    -fx-padding: 0.7em 0.57em;
-    -fx-font-size: 14px;
-    -jfx-button-type: RAISED;
-    -fx-background-color: rgb(77, 102, 204);
-    -fx-pref-width: 120;
-    -fx-text-fill: WHITE;
+	-fx-padding: 0.7em 0.57em;
+	-fx-font-size: 14px;
+	-jfx-button-type: RAISED;
+	-fx-background-color: rgb(77, 102, 204);
+	-fx-pref-width: 120;
+	-fx-text-fill: WHITE;
 }
 
 .jfx-snackbar-content {
-    -fx-background-color: #323232;
+	-fx-background-color: #323232;
 }
 
 .jfx-snackbar-toast {
-    -fx-text-fill: WHITE;
-    -fx-font-size: 18;
+	-fx-text-fill: WHITE;
+	-fx-font-size: 18;
 }
 
 .jfx-snackbar-action {
-    -fx-text-fill: #4949ea;
+	-fx-text-fill: #4949ea;
+}
+
+.jfx-icon {
+
+	-fx-padding: 6;
+	-fx-border-radius: 0;
+
+	-jfx-button-type: FLAT;
+	-jfx-rippler-fill: #c8c8c8;
+	-jfx-rippler-recenter: true;
+
 }
 
 /*noinspection CssInvalidPseudoSelector*/
 .text-field:error {
-    -fx-text-box-border: red;
-    -fx-focus-color: red;
+	-fx-text-box-border: red;
+	-fx-focus-color: red;
 }

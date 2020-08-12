@@ -1,6 +1,12 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <option name="AUTODETECT_INDENTS" value="false" />
+    <option name="OTHER_INDENT_OPTIONS">
+      <value>
+        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="SMART_TABS" value="true" />
+      </value>
+    </option>
     <option name="LINE_SEPARATOR" value="&#10;" />
     <JavaCodeStyleSettings>
       <option name="JD_KEEP_EMPTY_EXCEPTION" value="false" />
@@ -14,6 +20,12 @@
       <option name="XML_ATTRIBUTE_WRAP" value="2" />
       <option name="XML_ALIGN_ATTRIBUTES" value="false" />
     </XML>
+    <codeStyleSettings language="CSS">
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="SMART_TABS" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="RIGHT_MARGIN" value="140" />
       <option name="KEEP_LINE_BREAKS" value="false" />

@@ -92,7 +92,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 			spesaField.textProperty().addListener(listener);
 
 		} else {
-			// TODO: UNEDITABLE FIELDS
+			// TODO: UNEDITABLE FIELDS FOR VIEW VIEWMODE
 			addButton("Chiudi", event -> setResult(null));
 		}
 	}

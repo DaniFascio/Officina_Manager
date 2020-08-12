@@ -23,16 +23,14 @@
 				<Insets topRightBottomLeft="0"/>
 			</padding>
 
-			<Menu text="_Tools">
-				<MenuItem onAction="#toImplement"
-						text="_Impostazioni"/>
+			<Menu text="Impostazioni">
 				<MenuItem onAction="#quit"
 						text="_Esci"/>
 			</Menu>
 
-			<Menu text="A_iuto">
+			<Menu text="Altro">
 				<MenuItem onAction="#toImplement"
-						text="Eh no, troppo presto"/>
+						text="Segnala un problema"/>
 			</Menu>
 
 		</MenuBar>

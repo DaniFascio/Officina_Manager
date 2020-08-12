@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbarLayout;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import io.github.danifascio.dao.AutoDao;
@@ -17,6 +18,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -307,10 +310,19 @@ public class CentralPane extends AnchorPane {
 
 	@FXML
 	private void quit(Event event) {
-		{
-			Platform.exit();
-		}
+		Stage stage = Gui.stage();
+		stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
 
 	}
+
+	@FXML
+	private void backToLogin(Event event){
+
+		Gui.changeStage("Officina Manager", new LoginPane(), false);
+
+
+	}
+
+
 
 }

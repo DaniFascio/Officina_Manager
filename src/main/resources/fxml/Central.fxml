@@ -28,6 +28,8 @@
 				<Menu text="Database">
 					<MenuItem text="Aggiorna"
 							onAction="#onRefreshAuto"/>
+					<MenuItem text="Torna al menu"
+							onAction="#backToLogin"/>
 					<MenuItem text="Exit"
 							onAction="#quit"/>
 
@@ -46,11 +48,11 @@
 				</Menu>
 
 				<Menu text="Lavorazione">
-					<MenuItem text="Aggiungi lavorazione"
+					<MenuItem text="Aggiungi"
 							onAction="#onAddLavorazione"/>
-					<MenuItem text="Modifica lavorazione"
+					<MenuItem text="Modifica"
 							onAction="#onEditLavorazione"/>
-					<MenuItem text="Rimuovi lavorazione"
+					<MenuItem text="Rimuovi"
 							onAction="#onRemoveLavorazione"/>
 				</Menu>
 

@@ -99,6 +99,9 @@ public class LoginPane extends BorderPane {
 	}
 
 	@FXML
+	/*TODO:
+	    COMANDO PER REPORTARE UN PROBLEMA CHE PERMETTE DI INVIARE UN EMAIL ALL'INDIRIZZO danifascio02@gmail.com.
+	*/
 	private void toImplement(Event event) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION,
 				"Da implementare",

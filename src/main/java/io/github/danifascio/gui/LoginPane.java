@@ -70,7 +70,7 @@ public class LoginPane extends BorderPane {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle("Errore");
 				alert.setHeaderText("Impossibile connettersi al database");
-				alert.setContentText(e.getMessage());
+				alert.setContentText("Inserire correttamente le credenziali");
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}
@@ -78,7 +78,8 @@ public class LoginPane extends BorderPane {
 	}
 
 	@FXML
-	private void ctrlDelete(KeyEvent event) {
+	private void handleKey(KeyEvent event) {
+
 		KeyCombination kc1 = new KeyCodeCombination(KeyCode.BACK_SPACE, KeyCombination.CONTROL_DOWN);
 		KeyCombination kc2 = new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN);
 		if(kc1.match(event)) {
@@ -95,8 +96,12 @@ public class LoginPane extends BorderPane {
 
 			field.setText(text.substring(0, pos));
 			event.consume();
+		}   else if(event.getCode().equals(KeyCode.ENTER)){
+			login(event);
+
 		}
 	}
+
 
 	//TODO: COMANDO PER REPORTARE UN PROBLEMA CHE PERMETTE DI INVIARE UN EMAIL ALL'INDIRIZZO danifascio02@gmail.com.
 	@FXML

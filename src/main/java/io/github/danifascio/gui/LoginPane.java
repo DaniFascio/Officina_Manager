@@ -98,14 +98,10 @@ public class LoginPane extends BorderPane {
 		}
 	}
 
+	//TODO: COMANDO PER REPORTARE UN PROBLEMA CHE PERMETTE DI INVIARE UN EMAIL ALL'INDIRIZZO danifascio02@gmail.com.
 	@FXML
-	/*TODO:
-	    COMANDO PER REPORTARE UN PROBLEMA CHE PERMETTE DI INVIARE UN EMAIL ALL'INDIRIZZO danifascio02@gmail.com.
-	*/
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION,
-				"Da implementare",
-				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
 		alert.setHeaderText("Pazienta per favore");
 		alert.showAndWait();
 	}

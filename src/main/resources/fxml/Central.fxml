@@ -30,7 +30,7 @@
 							onAction="#onRefreshAuto"/>
 					<MenuItem text="Torna al menu"
 							onAction="#backToLogin"/>
-					<MenuItem text="Exit"
+					<MenuItem text="Esci"
 							onAction="#quit"/>
 
 				</Menu>
@@ -53,6 +53,8 @@
 							onAction="#onEditLavorazione"/>
 					<MenuItem text="Rimuovi"
 							onAction="#onDeleteLavorazione"/>
+					<MenuItem text="Aggiorna"
+							onAction="#onRefreshLavorazione"/>
 				</Menu>
 
 			</MenuBar>

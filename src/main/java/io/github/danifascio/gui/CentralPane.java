@@ -342,7 +342,9 @@ public class CentralPane extends AnchorPane implements Initializable {
 	@FXML
 	private void backToLogin(Event event) {
 
+
 		Gui.changeStage("Officina Manager", new LoginPane(), false);
+
 
 	}
 

@@ -2,12 +2,17 @@ package io.github.danifascio.gui;
 
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
+import javafx.beans.value.ChangeListener;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -19,6 +24,8 @@ import java.util.Properties;
 
 public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 
+	// TODO: MOVE ERROR_PSEUDO_CLASS TO Gui CLASS
+	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	private static final Properties icons;
 
 	@FXML
@@ -44,8 +51,9 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 	}
 
 	public CustomLavorazioneDialog(ViewMode viewMode, Auto auto, @Nullable Lavorazione lavorazione) {
-		super(viewMode.equals(ViewMode.ADD) ? "Aggiungi lavorazione" : "Modifica lavorazione",
-				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : "edit"));
+		super((viewMode.equals(ViewMode.ADD) ? "Aggiungi" : viewMode.equals(ViewMode.EDIT) ? "Modifica" : "Visualizza") + " lavorazione",
+				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : viewMode.equals(ViewMode.EDIT) ? "edit" : "view"),
+				viewMode.equals(ViewMode.ADD) || viewMode.equals(ViewMode.EDIT) ? Modality.APPLICATION_MODAL : Modality.NONE);
 
 		try {
 
@@ -58,7 +66,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 			throw new UncheckedIOException(e);
 		}
 
-		if(viewMode.equals(ViewMode.EDIT)) {
+		if(!viewMode.equals(ViewMode.ADD)) {
 			if(!auto.equals(Objects.requireNonNull(lavorazione).getAuto()))
 				throw new RuntimeException("Auto & Auto lavorazione mismatch");
 
@@ -69,16 +77,44 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 		} else
 			datePicker.setValue(LocalDate.now());
 
-		setResultConverter(() -> new Lavorazione.Builder().setData(datePicker.getValue())
-				.setSpesa(Float.parseFloat(spesaField.getText()))
-				.setDescrizione(descrizioneArea.getText())
-				.build());
+		if(!viewMode.equals(ViewMode.VIEW)) {
+			setResultConverter(() -> new Lavorazione.Builder().setData(datePicker.getValue())
+					.setSpesa(Float.parseFloat(spesaField.getText()))
+					.setDescrizione(descrizioneArea.getText())
+					.setAuto(auto)
+					.build());
 
+			addButton("Cancella", event -> setResult(null));
+			Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
+
+			ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
+			validate(doneButton);
+			spesaField.textProperty().addListener(listener);
+
+		} else {
+			// TODO: UNEDITABLE FIELDS
+			addButton("Chiudi", event -> setResult(null));
+		}
+	}
+
+	private void validate(Node disableable) {
+		boolean spesaError;
+
+		try {
+			spesaError = Float.parseFloat(spesaField.getText()) < 0;
+		} catch(NumberFormatException e) {
+			spesaError = true;
+		}
+
+		spesaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, spesaError);
+
+		disableable.setDisable(spesaError);
 	}
 
 	public enum ViewMode {
 		ADD,
-		EDIT
+		EDIT,
+		VIEW
 	}
 
 }

@@ -1,5 +1,8 @@
 package io.github.danifascio.gui;
 
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbarLayout;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
@@ -13,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -152,9 +156,7 @@ public class CentralPane extends AnchorPane {
 				alert.setTitle("Modifica auto");
 				alert.showAndWait();
 				onRefreshAuto(event);
-			} else
-				System.out.println("Null auto");
-
+			}
 		}).showAndWait();
 
 	}
@@ -223,16 +225,17 @@ public class CentralPane extends AnchorPane {
 	@FXML
 	private void onAddLavorazione(ActionEvent event) {
 
-		new LavorazioneDialog(selectedAuto, null, LavorazioneDialog.ViewMode.NEW).showAndWait()
-				.ifPresent(lavorazione -> {
+		new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.ADD, selectedAuto, null).onResult(lavorazione -> {
+			if(lavorazione != null) {
 
-					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
-					dao.save(lavorazione);
+				LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
+				dao.save(lavorazione);
 
-					if(dao.error())
-						throw new RuntimeException(dao.errorMessage());
+				if(dao.error())
+					throw new RuntimeException(dao.errorMessage());
 
-				});
+			}
+		}).showAndWait();
 
 		onRefreshLavorazione(event);
 	}
@@ -243,64 +246,71 @@ public class CentralPane extends AnchorPane {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!").showAndWait();
+			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(
+					"Seleziona una lavorazione prima!")));
+
 		else
+			new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
 
-			// TODO: CONFERMA / REJECT MODIFICA
-			new LavorazioneDialog(selectedAuto, selectedLavorazione, LavorazioneDialog.ViewMode.EDIT).showAndWait()
-					.ifPresent(lavorazione -> {
+				if(lavorazione != null) {
+					JFXSnackbarLayout toastLayout;
 
-						LavorazioneDao dao = new LavorazioneDao(selectedAuto);
-						dao.update(selectedLavorazione, lavorazione.values());
+					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
+					if(dao.update(selectedLavorazione, lavorazione.values()) == 1)
+						toastLayout = new JFXSnackbarLayout("Lavorazione aggiornata con successo");
+					else
+						toastLayout = new JFXSnackbarLayout("Non sono riuscito ad aggiornare la lavorazione :(");
 
-						if(dao.error())
-							throw new RuntimeException(dao.errorMessage());
+					if(dao.error())
+						throw new RuntimeException(dao.errorMessage());
 
-					});
+					new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(toastLayout));
+				}
+
+			}).showAndWait();
 
 	}
 
-
 	@FXML
-	private void onRemoveLavorazione(ActionEvent event){
+	private void onRemoveLavorazione(ActionEvent event) {
 
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!")
-					.showAndWait();
+			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!").showAndWait();
 		else
 
 
-	new Alert(Alert.AlertType.CONFIRMATION, "Confermi di voler rimuovere la lavorazione selezionata?", ButtonType.YES, ButtonType.NO)
-					.showAndWait()
-					.filter(ButtonType.YES::equals)
-					.ifPresent(buttonType -> {
-						Alert alert;
-						LavorazioneDao dao = new LavorazioneDao(selectedAuto);
+			new Alert(Alert.AlertType.CONFIRMATION,
+					"Confermi di voler rimuovere la lavorazione selezionata?",
+					ButtonType.YES,
+					ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
+				Alert alert;
+				LavorazioneDao dao = new LavorazioneDao(selectedAuto);
 
-						if(dao.delete(selectedLavorazione) == 1) {
-							alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setHeaderText("lavorazione rimossa con successo");
-						} else {
-							alert = new Alert(Alert.AlertType.ERROR);
-							alert.setHeaderText("Errore nella rimozione della lavorazione");
-							alert.setContentText(dao.errorMessage());
-						}
+				if(dao.delete(selectedLavorazione) == 1) {
+					alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setHeaderText("lavorazione rimossa con successo");
+				} else {
+					alert = new Alert(Alert.AlertType.ERROR);
+					alert.setHeaderText("Errore nella rimozione della lavorazione");
+					alert.setContentText(dao.errorMessage());
+				}
 
-						alert.setTitle("Elimina Lavorazione");
-						alert.showAndWait();
-						onRefreshAuto(event);
+				alert.setTitle("Elimina Lavorazione");
+				alert.showAndWait();
+				onRefreshAuto(event);
 
-					});
+			});
 
 	}
 
 	@FXML
-	private void quit(Event event){ {
-		Platform.exit();
-	}
+	private void quit(Event event) {
+		{
+			Platform.exit();
+		}
 
-}
+	}
 
 }

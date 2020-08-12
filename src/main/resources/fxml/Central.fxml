@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.jfoenix.svg.SVGGlyph?>
 <fx:root xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
 		prefHeight="720"
@@ -244,6 +245,14 @@
 							<Button fx:id="removeLavorazioneButton"
 									onAction="#onRemoveLavorazione"
 									styleClass="icon,icon-delete"/>
+
+							<Button fx:id="refreshLavorazioneButton"
+									styleClass="icon,icon-refresh"
+									onAction="#onRefreshLavorazione">
+								<tooltip>
+									<Tooltip text="Aggiorna la lista delle lavorazioni"/>
+								</tooltip>
+							</Button>
 
 						</FlowPane>
 

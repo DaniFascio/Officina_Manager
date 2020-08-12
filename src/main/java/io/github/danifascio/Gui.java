@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Gui extends Application {
 
+	// TODO: STRING RESOURCE BUNDLE
 	private static Stage stage;
 	private static final Properties icons;
 
@@ -77,6 +78,7 @@ public class Gui extends Application {
 
 		Stage newStage = new Stage();
 		StackPane rootPane = new StackPane(content);
+		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
 		SVGGlyph glyph = new SVGGlyph(icons.getProperty("gear-fill"), Color.WHITE);
@@ -106,7 +108,9 @@ public class Gui extends Application {
 			};
 
 			yesButton.setOnAction(eventHandler);
+			yesButton.getStyleClass().add("button-raised");
 			noButton.setOnAction(eventHandler);
+			noButton.getStyleClass().add("button-raised");
 			dialog.setOnDialogClosed(event1 -> Optional.ofNullable(buttonReference.get())
 					.filter(yesButton::equals)
 					.ifPresent(button -> Platform.exit()));
@@ -116,10 +120,6 @@ public class Gui extends Application {
 
 			dialog.show();
 		});
-//		newStage.setOnCloseRequest(event -> new Alert(Alert.AlertType.CONFIRMATION,
-//				"Vuoi uscire?",
-//				ButtonType.YES,
-//				ButtonType.NO).showAndWait().filter(ButtonType.NO::equals).ifPresent(buttonType -> event.consume()));
 
 		if(stage != null)
 			stage.close();

@@ -1,6 +1,7 @@
 package io.github.danifascio.gui;
 
 import io.github.danifascio.beans.Lavorazione;
+import io.github.danifascio.dao.LavorazioneDao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,6 +24,7 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 
 	private final Node view;
 	private final AtomicReference<Lavorazione> lavorazioneReference;
+	private Lavorazione lav;
 
 	public LavorazioneCell() {
 		super();
@@ -39,8 +41,8 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 					try {
 
 						Lavorazione lavorazione = lavorazioneReference.get();
-						new LavorazioneDialog(lavorazione.getAuto(), lavorazione, LavorazioneDialog.ViewMode.EDIT)
-								.show();
+
+						new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.VIEW, lavorazione.getAuto(), lavorazione).show();
 
 					} catch(NullPointerException e) {
 						throw new RuntimeException("Lavorazione null in ListCell", e);
@@ -61,8 +63,7 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 			setGraphic(null);
 
 		else {
-			String descrizione = item.getDescrizione()
-					.replaceAll("[\n\r\t]+", " ");
+			String descrizione = item.getDescrizione().replaceAll("[\n\r\t]+", " ");
 			if(descrizione.length() > 30)
 				descrizione = descrizione.substring(0, 30);
 

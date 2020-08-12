@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
@@ -27,8 +28,9 @@ public class CustomDialog<T> extends Stage {
 	private final HBox buttonBox;
 	private final JFXDecorator decorator;
 
-	protected CustomDialog(String title, @Nullable String iconSVGPath) {
+	protected CustomDialog(String title, @Nullable String iconSVGPath, Modality modality) {
 		super(StageStyle.UNDECORATED);
+		initModality(modality);
 		SVGGlyph glyph;
 
 		resultConverter = () -> null;
@@ -41,6 +43,7 @@ public class CustomDialog<T> extends Stage {
 		borderPane = new BorderPane();
 		borderPane.setBottom(buttonBox);
 		borderPane.getStylesheets().add("/css/Root.css");
+		borderPane.requestFocus();
 
 		setTitle(title);
 		setScene(new Scene(decorator = new JFXDecorator(this, borderPane, false, false, true)));

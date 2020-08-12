@@ -25,7 +25,6 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 
 	private final Node view;
 	private final AtomicReference<Lavorazione> lavorazioneReference;
-	private Lavorazione lav;
 
 	public LavorazioneCell() {
 		super();

@@ -65,6 +65,8 @@ public class CentralPane extends AnchorPane implements Initializable {
 	@FXML
 	private Button searchAutoButton;
 	@FXML
+	private TextField searchAutoField;
+	@FXML
 	private Button addAutoButton;
 	@FXML
 	private Button editAutoButton;
@@ -246,6 +248,15 @@ public class CentralPane extends AnchorPane implements Initializable {
 	}
 
 	@FXML
+	private void onSearchAuto(ActionEvent event){
+		String Text = searchAutoField.getText();
+
+
+
+	}
+
+
+	@FXML
 	private void onRefreshLavorazione(ActionEvent event) {
 		LavorazioneDao dao = new LavorazioneDao(selectedAuto);
 
@@ -339,6 +350,9 @@ public class CentralPane extends AnchorPane implements Initializable {
 
 	}
 
+
+
+
 	@FXML
 	private void quit(Event event) {
 		Stage stage = Gui.stage();
@@ -388,5 +402,8 @@ public class CentralPane extends AnchorPane implements Initializable {
 		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
 		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 	}
+
+
+
 
 }

@@ -56,7 +56,9 @@
 					focusColor="brown"
 					labelFloat="true"
 					promptText="Username"
+					onKeyPressed="#handleKey"
 					unFocusColor="cadetblue">
+
 				<font>
 					<Font size="14.0"/>
 				</font>
@@ -66,6 +68,7 @@
 					focusColor="brown"
 					labelFloat="true"
 					promptText="Password"
+					onKeyPressed="#handleKey"
 					unFocusColor="cadetblue">
 				<font>
 					<Font size="14.0"/>

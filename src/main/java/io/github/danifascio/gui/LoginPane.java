@@ -98,6 +98,7 @@ public class LoginPane extends BorderPane {
 			int pos = field.getCaretPosition();
 
 			field.setText(text.substring(0, pos));
+			field.positionCaret(pos);
 			event.consume();
 		} else if(event.getCode().equals(KeyCode.ENTER)) {
 			login(event);
@@ -105,7 +106,6 @@ public class LoginPane extends BorderPane {
 		}
 	}
 
-	// TODO: mailto message in string bundle
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();

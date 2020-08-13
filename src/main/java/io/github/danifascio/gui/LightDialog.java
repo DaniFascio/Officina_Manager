@@ -6,30 +6,36 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class LightDialog {
 
-	private final JFXDialog dialog;
-	private final JFXDialogLayout layout;
+	private static final Map<StackPane, LightDialog> dialogMap = Collections.synchronizedMap(new HashMap<>());
+
 	private final List<Button> actions;
+	private final JFXDialogLayout layout;
+	private final JFXDialog dialog;
+	private final StackPane root;
 
 	public LightDialog(StackPane rootPane, String heading, String content, boolean unfocusable) {
-		layout = new JFXDialogLayout();
-		dialog = new JFXDialog(rootPane, layout, DialogTransition.CENTER);
+		root = rootPane;
 		actions = new LinkedList<>();
+		layout = new JFXDialogLayout();
+		dialog = new JFXDialog(root, layout, DialogTransition.CENTER);
 
 		dialog.setOverlayClose(unfocusable);
 		dialog.getStyleClass().add("/css/Root.css");
+		dialog.setOnDialogClosed(event -> dialogMap.remove(root));
 
 		Label headingLabel = new Label(heading), contentLabel = new Label(content);
 		headingLabel.setFont(Font.font(18));
@@ -81,13 +87,30 @@ public class LightDialog {
 	}
 
 	public LightDialog onClose(EventHandler<? super JFXDialogEvent> handler) {
-		dialog.setOnDialogClosed(handler);
+
+		EventHandler<? super JFXDialogEvent> eventHandler = event -> {
+			dialogMap.remove(root);
+			try {
+
+				Method method = handler.getClass().getMethod("handle", Event.class);
+				method.setAccessible(true);
+				method.invoke(handler, event);
+
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		dialog.setOnDialogClosed(eventHandler);
 		return this;
 	}
 
 	public void show() {
 		layout.setActions(actions);
-		dialog.show();
+		if(!dialogMap.containsKey(root)) {
+			dialogMap.put(root, this);
+			dialog.show();
+		}
 	}
 
 	public void close() {

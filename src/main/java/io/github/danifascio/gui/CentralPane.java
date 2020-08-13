@@ -17,6 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -24,8 +29,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -341,11 +348,23 @@ public class CentralPane extends AnchorPane implements Initializable {
 
 	@FXML
 	private void backToLogin(Event event) {
-
-
 		Gui.changeStage("Officina Manager", new LoginPane(), false);
+	}
 
+	// TODO: mailto message in string bundle
+	@FXML
+	private void reportBug(Event event) {
+		Desktop desktop = Desktop.getDesktop();
+		String message = "mailto:danifascio02@gmail.com?cc=dev_excale@hotmail.com&subject=%27db_officina%27%20Bug%20Report";
+		URI uri = URI.create(message);
 
+		try {
+
+			desktop.mail(uri);
+
+		} catch(IOException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 
 	@Override

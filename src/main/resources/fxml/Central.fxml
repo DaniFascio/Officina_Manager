@@ -57,6 +57,11 @@
 							onAction="#onRefreshLavorazione"/>
 				</Menu>
 
+				<Menu text="Altro">
+					<MenuItem onAction="#reportBug"
+							text="Segnala un problema"/>
+				</Menu>
+
 			</MenuBar>
 		</top>
 

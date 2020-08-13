@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -17,8 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URI;
 
 public class LoginPane extends BorderPane {
 
@@ -96,14 +99,28 @@ public class LoginPane extends BorderPane {
 
 			field.setText(text.substring(0, pos));
 			event.consume();
-		}   else if(event.getCode().equals(KeyCode.ENTER)){
+		} else if(event.getCode().equals(KeyCode.ENTER)) {
 			login(event);
 
 		}
 	}
 
+	// TODO: mailto message in string bundle
+	@FXML
+	private void reportBug(Event event) {
+		Desktop desktop = Desktop.getDesktop();
+		String message = "mailto:danifascio02@gmail.com?cc=dev_excale@hotmail.com&subject=%27db_officina%27%20Bug%20Report";
+		URI uri = URI.create(message);
 
-	//TODO: COMANDO PER REPORTARE UN PROBLEMA CHE PERMETTE DI INVIARE UN EMAIL ALL'INDIRIZZO danifascio02@gmail.com.
+		try {
+
+			desktop.mail(uri);
+
+		} catch(IOException e) {
+			throw new UncheckedIOException(e);
+		}
+	}
+
 	@FXML
 	private void toImplement(Event event) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));

@@ -22,6 +22,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -34,8 +36,10 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class CentralPane extends AnchorPane implements Initializable {
 
@@ -83,10 +87,12 @@ public class CentralPane extends AnchorPane implements Initializable {
 	@FXML
 	private Button refreshLavorazioneButton;
 
+	private final List<Auto> autoList;
 	private Auto selectedAuto;
 
 	public CentralPane() {
 		super();
+		autoList = Collections.synchronizedList(new LinkedList<>());
 
 		try {
 
@@ -238,23 +244,36 @@ public class CentralPane extends AnchorPane implements Initializable {
 			alert.setContentText(dao.errorMessage());
 		}
 
+		autoList.clear();
+		autoList.addAll(list);
 		listaAutoView.getItems().clear();
 		listaAutoView.getItems().addAll(list);
 
-		if(listaAutoView.getSelectionModel().getSelectedItem() == null)
-			if(listaAutoView.getItems().size() != 0)
-				Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
+		if(listaAutoView.getSelectionModel().getSelectedItem() == null && listaAutoView.getItems().size() != 0)
+			Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
 
 	}
 
 	@FXML
-	private void onSearchAuto(ActionEvent event){
-		String Text = searchAutoField.getText();
+	private void onSearchAuto(Event event) {
 
+		Platform.runLater(() -> {
 
+			String keyword = searchAutoField.getText().toUpperCase();
+			listaAutoView.getItems().clear();
+
+			if(keyword.length() != 0)
+				autoList.stream()
+						.filter(auto -> auto.getTarga().toUpperCase().contains(keyword) || auto.getModello()
+								.toUpperCase()
+								.contains(keyword))
+						.forEach(auto -> listaAutoView.getItems().add(auto));
+			else
+				listaAutoView.getItems().addAll(autoList);
+
+		});
 
 	}
-
 
 	@FXML
 	private void onRefreshLavorazione(ActionEvent event) {
@@ -350,9 +369,6 @@ public class CentralPane extends AnchorPane implements Initializable {
 
 	}
 
-
-
-
 	@FXML
 	private void quit(Event event) {
 		Stage stage = Gui.stage();
@@ -402,8 +418,5 @@ public class CentralPane extends AnchorPane implements Initializable {
 		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
 		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 	}
-
-
-
 
 }

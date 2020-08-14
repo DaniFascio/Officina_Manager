@@ -94,8 +94,10 @@
 							</padding>
 
 							<JFXButton fx:id="searchAutoButton"
+									onAction="#onSearchAuto"
 									styleClass="jfx-icon"/>
 							<TextField fx:id="searchAutoField"
+									onKeyTyped="#onSearchAuto"
 									HBox.hgrow="ALWAYS"
 									promptText="Cerca per targa o modello"/>
 						</HBox>

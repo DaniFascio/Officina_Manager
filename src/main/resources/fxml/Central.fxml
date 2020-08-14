@@ -42,7 +42,7 @@
 							onAction="#onEditAuto"/>
 					<MenuItem text="Elimina"
 							onAction="#onDeleteAuto"/>
-					<MenuItem text="Cerca Targa"/>
+					<MenuItem text="Cerca Targa o modello"/>
 
 				</Menu>
 
@@ -97,7 +97,7 @@
 									styleClass="jfx-icon"/>
 							<TextField fx:id="searchAutoField"
 									HBox.hgrow="ALWAYS"
-									promptText="Cerca per targa"/>
+									promptText="Cerca per targa o modello"/>
 						</HBox>
 
 						<HBox alignment="CENTER_LEFT">

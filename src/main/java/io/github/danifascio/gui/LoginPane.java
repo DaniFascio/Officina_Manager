@@ -82,17 +82,20 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void handleKey(KeyEvent event) {
-
 		KeyCombination kc1 = new KeyCodeCombination(KeyCode.BACK_SPACE, KeyCombination.CONTROL_DOWN);
 		KeyCombination kc2 = new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN);
+
 		if(kc1.match(event)) {
+
 			TextField field = (TextField) event.getSource();
 			String text = field.getText();
 			int pos = field.getCaretPosition();
 
 			field.setText(text.substring(pos));
 			event.consume();
+
 		} else if(kc2.match(event)) {
+
 			TextField field = (TextField) event.getSource();
 			String text = field.getText();
 			int pos = field.getCaretPosition();
@@ -100,10 +103,10 @@ public class LoginPane extends BorderPane {
 			field.setText(text.substring(0, pos));
 			field.positionCaret(pos);
 			event.consume();
-		} else if(event.getCode().equals(KeyCode.ENTER)) {
+
+		} else if(event.getCode().equals(KeyCode.ENTER))
 			login(event);
 
-		}
 	}
 
 	@FXML

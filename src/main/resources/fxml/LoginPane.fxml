@@ -10,6 +10,8 @@
 <?import javafx.scene.text.Font?>
 <fx:root stylesheets="@/css/Root.css"
 		type="BorderPane"
+		minHeight="350"
+		minWidth="340"
 		xmlns="http://javafx.com/javafx/"
 		xmlns:fx="http://javafx.com/fxml/1">
 

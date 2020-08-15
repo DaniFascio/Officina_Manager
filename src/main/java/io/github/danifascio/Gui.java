@@ -83,6 +83,7 @@ public class Gui extends Application {
 		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
+		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
 		SVGGlyph glyph = new SVGGlyph(icons.getProperty("gear-fill"), Color.WHITE);
 		glyph.setSize(18);
 
@@ -117,6 +118,10 @@ public class Gui extends Application {
 					})
 					.show();
 		});
+		newStage.setMinHeight(height);
+		newStage.setMinWidth(width);
+		newStage.setHeight(height);
+		newStage.setWidth(width);
 
 		if(stage != null)
 			stage.close();

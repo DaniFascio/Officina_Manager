@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -39,10 +40,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CentralPane extends AnchorPane implements Initializable {
+public class CentralPane extends BorderPane implements Initializable {
 
 	@FXML
-	private AnchorPane root;
+	private BorderPane root;
 	@FXML
 	private ListView<Auto> listaAutoView;
 	@FXML

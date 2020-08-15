@@ -6,304 +6,295 @@
 <?import javafx.scene.layout.*?>
 <fx:root xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
-		prefHeight="720"
-		prefWidth="960"
-		minHeight="640"
-		minWidth="800"
-		type="AnchorPane"
+		minHeight="740"
+		minWidth="840"
+		type="BorderPane"
 		stylesheets="@/css/Text.css,@/css/Root.css"
 		fx:id="root">
 
-	<BorderPane AnchorPane.bottomAnchor="0"
-			AnchorPane.topAnchor="0"
-			AnchorPane.leftAnchor="0"
-			AnchorPane.rightAnchor="0"
-			minWidth="640">
-		<top>
-			<MenuBar minWidth="640">
+	<top>
+		<MenuBar>
+			<padding>
+				<Insets topRightBottomLeft="0"/>
+			</padding>
+
+			<Menu text="Database">
+				<MenuItem text="Aggiorna"
+						onAction="#onRefreshAuto"/>
+				<MenuItem text="Torna al menu"
+						onAction="#backToLogin"/>
+				<MenuItem text="Esci"
+						onAction="#quit"/>
+
+			</Menu>
+
+			<Menu text="Auto">
+				<MenuItem text="Aggiungi"
+						onAction="#onAddAuto"/>
+				<MenuItem text="Modifica"
+						onAction="#onEditAuto"/>
+				<MenuItem text="Elimina"
+						onAction="#onDeleteAuto"/>
+				<MenuItem text="Cerca Targa o modello"/>
+
+			</Menu>
+
+			<Menu text="Lavorazione">
+				<MenuItem text="Aggiungi"
+						onAction="#onAddLavorazione"/>
+				<MenuItem text="Modifica"
+						onAction="#onEditLavorazione"/>
+				<MenuItem text="Rimuovi"
+						onAction="#onDeleteLavorazione"/>
+				<MenuItem text="Aggiorna"
+						onAction="#onRefreshLavorazione"/>
+			</Menu>
+
+			<Menu text="Altro">
+				<MenuItem onAction="#reportBug"
+						text="Segnala un problema"/>
+			</Menu>
+
+		</MenuBar>
+	</top>
+
+	<center>
+		<SplitPane dividerPositions="0.35">
+
+			<!-- LISTA AUTO -->
+
+			<VBox minWidth="256"
+					maxWidth="412">
 				<padding>
-					<Insets topRightBottomLeft="0"/>
+					<Insets topRightBottomLeft="20"/>
 				</padding>
 
-				<Menu text="Database">
-					<MenuItem text="Aggiorna"
-							onAction="#onRefreshAuto"/>
-					<MenuItem text="Torna al menu"
-							onAction="#backToLogin"/>
-					<MenuItem text="Esci"
-							onAction="#quit"/>
+				<HBox alignment="CENTER">
+					<Label text="Lista Auto"
+							HBox.hgrow="ALWAYS"
+							styleClass="main-label"/>
+				</HBox>
 
-				</Menu>
+				<!-- LISTA AUTO CONTROLS -->
 
-				<Menu text="Auto">
-					<MenuItem text="Aggiungi"
-							onAction="#onAddAuto"/>
-					<MenuItem text="Modifica"
-							onAction="#onEditAuto"/>
-					<MenuItem text="Elimina"
-							onAction="#onDeleteAuto"/>
-					<MenuItem text="Cerca Targa o modello"/>
+				<VBox styleClass="toolbar-icon">
+					<HBox fx:id="searchBox"
+							alignment="CENTER_LEFT"
+							VBox.vgrow="NEVER">
 
-				</Menu>
+						<padding>
+							<Insets right="6"/>
+						</padding>
 
-				<Menu text="Lavorazione">
-					<MenuItem text="Aggiungi"
-							onAction="#onAddLavorazione"/>
-					<MenuItem text="Modifica"
-							onAction="#onEditLavorazione"/>
-					<MenuItem text="Rimuovi"
-							onAction="#onDeleteLavorazione"/>
-					<MenuItem text="Aggiorna"
-							onAction="#onRefreshLavorazione"/>
-				</Menu>
+						<JFXButton fx:id="searchAutoButton"
+								onAction="#onSearchAuto"
+								styleClass="jfx-icon"/>
+						<TextField fx:id="searchAutoField"
+								onKeyTyped="#onSearchAuto"
+								HBox.hgrow="ALWAYS"
+								promptText="Cerca per targa o per modello"/>
+					</HBox>
 
-				<Menu text="Altro">
-					<MenuItem onAction="#reportBug"
-							text="Segnala un problema"/>
-				</Menu>
+					<HBox alignment="CENTER_LEFT">
 
-			</MenuBar>
-		</top>
+						<JFXButton fx:id="addAutoButton"
+								styleClass="jfx-icon"
+								onAction="#onAddAuto">
+							<tooltip>
+								<Tooltip text="Aggiungi una nuova auto"/>
+							</tooltip>
+						</JFXButton>
 
-		<center>
-			<SplitPane dividerPositions="0.35">
+						<JFXButton fx:id="editAutoButton"
+								styleClass="jfx-icon"
+								onAction="#onEditAuto">
+							<tooltip>
+								<Tooltip text="Modifica l'auto selezionata"/>
+							</tooltip>
+						</JFXButton>
 
-				<!-- LISTA AUTO -->
+						<JFXButton fx:id="deleteAutoButton"
+								styleClass="jfx-icon"
+								onAction="#onDeleteAuto">
+							<tooltip>
+								<Tooltip text="Rimuovi l'auto selezionata"/>
+							</tooltip>
+						</JFXButton>
 
-				<VBox minWidth="256"
-						maxWidth="412">
+						<JFXButton fx:id="refreshAutoButton"
+								styleClass="jfx-icon"
+								onAction="#onRefreshAuto">
+							<tooltip>
+								<Tooltip text="Aggiorna la lista delle auto"/>
+							</tooltip>
+						</JFXButton>
+
+					</HBox>
+				</VBox>
+
+				<ListView fx:id="listaAutoView"
+						VBox.vgrow="ALWAYS"/>
+
+			</VBox>
+
+			<SplitPane orientation="VERTICAL">
+
+				<!-- DETAILS AUTO -->
+
+				<ScrollPane fitToWidth="true"
+						minHeight="256">
+					<padding>
+						<Insets topRightBottomLeft="20"/>
+					</padding>
+					<GridPane alignment="BOTTOM_LEFT"
+							hgap="20"
+							vgap="20">
+						<columnConstraints>
+							<ColumnConstraints percentWidth="50"/>
+							<ColumnConstraints percentWidth="50"/>
+						</columnConstraints>
+
+						<Label text="Dettagli Auto"
+								styleClass="main-label"
+								GridPane.rowIndex="0"
+								GridPane.columnIndex="0"
+								GridPane.columnSpan="2"
+								GridPane.halignment="CENTER"
+								GridPane.hgrow="ALWAYS"/>
+
+						<VBox GridPane.hgrow="ALWAYS"
+								GridPane.rowIndex="1"
+								GridPane.columnIndex="0">
+							<Label text="Targa"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="targaLabel"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+						<VBox GridPane.hgrow="ALWAYS"
+								GridPane.rowIndex="1"
+								GridPane.columnIndex="1">
+							<Label text="Modello"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="modelloLabel"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="2"
+								GridPane.columnIndex="0">
+							<Label text="Km"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="kmLabel"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="2"
+								GridPane.columnIndex="1">
+							<Label text="Misura Gomme"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="misuraGommeLabel"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="3"
+								GridPane.columnIndex="0">
+							<Label text="Tipo Gomme"
+									styleClass="i,em1_2"/>
+							<TextField fx:id="tipoGommeLabel"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+						<VBox GridPane.rowIndex="4"
+								GridPane.columnIndex="0"
+								GridPane.columnSpan="2">
+							<Label text="Note"
+									styleClass="i,em1_2"/>
+							<TextArea fx:id="noteArea"
+									styleClass="left_border,blank-field"
+									editable="false"/>
+						</VBox>
+
+					</GridPane>
+				</ScrollPane>
+
+				<!-- LISTA LAVORAZIONI -->
+
+				<VBox minWidth="412"
+						minHeight="256">
 					<padding>
 						<Insets topRightBottomLeft="20"/>
 					</padding>
 
-					<HBox alignment="CENTER">
-						<Label text="Lista Auto"
-								HBox.hgrow="ALWAYS"
-								styleClass="main-label"/>
-					</HBox>
+					<Label text="Lavorazioni Auto"
+							styleClass="main-label"/>
 
-					<!-- LISTA AUTO CONTROLS -->
+					<!-- LISTA LAVORAZIONI CONTROLS -->
 
-					<VBox styleClass="toolbar-icon">
-						<HBox fx:id="searchBox"
-								alignment="CENTER_LEFT"
-								VBox.vgrow="NEVER">
+					<FlowPane styleClass="toolbar-icon">
 
-							<padding>
-								<Insets right="6"/>
-							</padding>
+						<JFXButton fx:id="addLavorazioneButton"
+								onAction="#onAddLavorazione"
+								styleClass="jfx-icon">
+							<tooltip>
+								<Tooltip text="Aggiungi una nuova lavorazione sull'auto corrente"/>
+							</tooltip>
+						</JFXButton>
 
-							<JFXButton fx:id="searchAutoButton"
-									onAction="#onSearchAuto"
-									styleClass="jfx-icon"/>
-							<TextField fx:id="searchAutoField"
-									onKeyTyped="#onSearchAuto"
-									HBox.hgrow="ALWAYS"
-									promptText="Cerca per targa o per modello"/>
-						</HBox>
+						<JFXButton fx:id="editLavorazioneButton"
+								onAction="#onEditLavorazione"
+								styleClass="jfx-icon">
+							<tooltip>
+								<Tooltip text="Modifica la lavorazione selezionata"/>
+							</tooltip>
+						</JFXButton>
 
-						<HBox alignment="CENTER_LEFT">
+						<JFXButton fx:id="deleteLavorazioneButton"
+								onAction="#onDeleteLavorazione"
+								styleClass="jfx-icon">
+							<tooltip>
+								<Tooltip text="Rimuovi la lavorazione selezionata"/>
+							</tooltip>
+						</JFXButton>
 
-							<JFXButton fx:id="addAutoButton"
-									styleClass="jfx-icon"
-									onAction="#onAddAuto">
-								<tooltip>
-									<Tooltip text="Aggiungi una nuova auto"/>
-								</tooltip>
-							</JFXButton>
+						<JFXButton fx:id="refreshLavorazioneButton"
+								styleClass="jfx-icon"
+								onAction="#onRefreshLavorazione">
+							<tooltip>
+								<Tooltip text="Aggiorna la lista delle lavorazioni"/>
+							</tooltip>
+						</JFXButton>
 
-							<JFXButton fx:id="editAutoButton"
-									styleClass="jfx-icon"
-									onAction="#onEditAuto">
-								<tooltip>
-									<Tooltip text="Modifica l'auto selezionata"/>
-								</tooltip>
-							</JFXButton>
+					</FlowPane>
 
-							<JFXButton fx:id="deleteAutoButton"
-									styleClass="jfx-icon"
-									onAction="#onDeleteAuto">
-								<tooltip>
-									<Tooltip text="Rimuovi l'auto selezionata"/>
-								</tooltip>
-							</JFXButton>
-
-							<JFXButton fx:id="refreshAutoButton"
-									styleClass="jfx-icon"
-									onAction="#onRefreshAuto">
-								<tooltip>
-									<Tooltip text="Aggiorna la lista delle auto"/>
-								</tooltip>
-							</JFXButton>
-
-						</HBox>
-					</VBox>
-
-					<ListView fx:id="listaAutoView"
+					<ListView fx:id="listaLavorazioniView"
 							VBox.vgrow="ALWAYS"/>
-
 				</VBox>
 
-				<SplitPane orientation="VERTICAL">
-
-					<!-- DETAILS AUTO -->
-
-					<ScrollPane fitToWidth="true"
-							minHeight="256">
-						<padding>
-							<Insets topRightBottomLeft="20"/>
-						</padding>
-						<GridPane alignment="BOTTOM_LEFT"
-								hgap="20"
-								vgap="20">
-							<columnConstraints>
-								<ColumnConstraints percentWidth="50"/>
-								<ColumnConstraints percentWidth="50"/>
-							</columnConstraints>
-
-							<Label text="Dettagli Auto"
-									styleClass="main-label"
-									GridPane.rowIndex="0"
-									GridPane.columnIndex="0"
-									GridPane.columnSpan="2"
-									GridPane.halignment="CENTER"
-									GridPane.hgrow="ALWAYS"/>
-
-							<VBox GridPane.hgrow="ALWAYS"
-									GridPane.rowIndex="1"
-									GridPane.columnIndex="0">
-								<Label text="Targa"
-										styleClass="i,em1_2"/>
-								<TextField fx:id="targaLabel"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-							<VBox GridPane.hgrow="ALWAYS"
-									GridPane.rowIndex="1"
-									GridPane.columnIndex="1">
-								<Label text="Modello"
-										styleClass="i,em1_2"/>
-								<TextField fx:id="modelloLabel"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-							<VBox GridPane.rowIndex="2"
-									GridPane.columnIndex="0">
-								<Label text="Km"
-										styleClass="i,em1_2"/>
-								<TextField fx:id="kmLabel"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-							<VBox GridPane.rowIndex="2"
-									GridPane.columnIndex="1">
-								<Label text="Misura Gomme"
-										styleClass="i,em1_2"/>
-								<TextField fx:id="misuraGommeLabel"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-							<VBox GridPane.rowIndex="3"
-									GridPane.columnIndex="0">
-								<Label text="Tipo Gomme"
-										styleClass="i,em1_2"/>
-								<TextField fx:id="tipoGommeLabel"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-							<VBox GridPane.rowIndex="4"
-									GridPane.columnIndex="0"
-									GridPane.columnSpan="2">
-								<Label text="Note"
-										styleClass="i,em1_2"/>
-								<TextArea fx:id="noteArea"
-										styleClass="left_border,blank-field"
-										editable="false"/>
-							</VBox>
-
-						</GridPane>
-					</ScrollPane>
-
-					<!-- LISTA LAVORAZIONI -->
-
-					<VBox minWidth="412"
-							minHeight="256">
-						<padding>
-							<Insets topRightBottomLeft="20"/>
-						</padding>
-
-						<Label text="Lavorazioni Auto"
-								styleClass="main-label"/>
-
-						<!-- LISTA LAVORAZIONI CONTROLS -->
-						<!-- TODO: REFRESH BUTTON -->
-
-						<FlowPane styleClass="toolbar-icon">
-
-							<JFXButton fx:id="addLavorazioneButton"
-									onAction="#onAddLavorazione"
-									styleClass="jfx-icon">
-								<tooltip>
-									<Tooltip text="Aggiungi una nuova lavorazione sull'auto corrente"/>
-								</tooltip>
-							</JFXButton>
-
-							<JFXButton fx:id="editLavorazioneButton"
-									onAction="#onEditLavorazione"
-									styleClass="jfx-icon">
-								<tooltip>
-									<Tooltip text="Modifica la lavorazione selezionata"/>
-								</tooltip>
-							</JFXButton>
-
-							<JFXButton fx:id="deleteLavorazioneButton"
-									onAction="#onDeleteLavorazione"
-									styleClass="jfx-icon">
-								<tooltip>
-									<Tooltip text="Rimuovi la lavorazione selezionata"/>
-								</tooltip>
-							</JFXButton>
-
-							<JFXButton fx:id="refreshLavorazioneButton"
-									styleClass="jfx-icon"
-									onAction="#onRefreshLavorazione">
-								<tooltip>
-									<Tooltip text="Aggiorna la lista delle lavorazioni"/>
-								</tooltip>
-							</JFXButton>
-
-						</FlowPane>
-
-						<ListView fx:id="listaLavorazioniView"
-								VBox.vgrow="ALWAYS"/>
-					</VBox>
-
-				</SplitPane>
-
 			</SplitPane>
-		</center>
 
-		<bottom>
-			<AnchorPane minWidth="720">
+		</SplitPane>
+	</center>
 
-				<HBox AnchorPane.rightAnchor="0"
-						alignment="CENTER_RIGHT">
-					<padding>
-						<Insets topRightBottomLeft="3"/>
-					</padding>
-					<Label text="Benvenuto, "/>
-					<Label fx:id="welcomeLabel"
-							styleClass="b"/>
-					<Label text="!"/>
-				</HBox>
+	<bottom>
+		<AnchorPane minWidth="720">
 
-			</AnchorPane>
-		</bottom>
+			<HBox AnchorPane.rightAnchor="0"
+					alignment="CENTER_RIGHT">
+				<padding>
+					<Insets topRightBottomLeft="3"/>
+				</padding>
+				<Label text="Benvenuto, "/>
+				<Label fx:id="welcomeLabel"
+						styleClass="b"/>
+				<Label text="!"/>
+			</HBox>
 
-	</BorderPane>
+		</AnchorPane>
+	</bottom>
+
 </fx:root>

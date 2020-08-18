@@ -20,17 +20,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Gui extends Application {
 
-	// TODO: STRING RESOURCE BUNDLE
 	private static Stage stage;
+	private static ResourceBundle strings;
 	private static final Properties icons;
 
 	static {
@@ -69,6 +71,12 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
+		strings = ResourceBundle.getBundle("Strings");
+		if(strings == null) {
+			throw new RuntimeException("Couldn't get String resources");
+			// TODO: CLOSE ON ERROR <--[HERE]
+		}
+
 		BundleManager.load("glyphs", true);
 		GlyphFactory.init();
 
@@ -82,6 +90,10 @@ public class Gui extends Application {
 
 	public static Stage stage() {
 		return stage;
+	}
+
+	public static ResourceBundle bundle() {
+		return strings;
 	}
 
 	public static void changeStage(String title, Region content, boolean resizable) {

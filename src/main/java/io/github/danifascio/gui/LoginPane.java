@@ -40,6 +40,7 @@ public class LoginPane extends BorderPane {
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/LoginPane.fxml"));
+			loader.setResources(Gui.bundle());
 			loader.setRoot(this);
 			loader.setController(this);
 			loader.load();

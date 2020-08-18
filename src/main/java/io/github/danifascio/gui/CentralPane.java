@@ -87,6 +87,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 	private final List<Auto> autoList;
 	private Auto selectedAuto;
+	private ResourceBundle rb;
 
 	public CentralPane() {
 		super();
@@ -96,13 +97,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Central.fxml"));
-			loader.setRoot(this);
+			loader.setResources(rb = Gui.bundle());
 			loader.setController(this);
+			loader.setRoot(this);
 			loader.load();
 
 			welcomeLabel.setText(DatabaseManager.getUsername());
 
-			Tooltip.install(searchBox, new Tooltip("Cerca per targa o modello"));
+			Tooltip.install(searchBox, new Tooltip(rb.getString("find_criteria")));
 
 			listaAutoView.setCellFactory(listView -> new AutoCell());
 			listaAutoView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -140,7 +142,7 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(autoDao.save(auto) == 1) {
 
 					dialog = new Alert(Alert.AlertType.INFORMATION);
-					dialog.setHeaderText("Auto aggiunta con successo");
+					dialog.setHeaderText(rb.getString("auto_added"));
 
 				} else {
 

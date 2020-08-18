@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -122,6 +123,11 @@ public class LoginPane extends BorderPane {
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+	}
+
+	@FXML
+	private void openSettings(Event event) {
+		Gui.createStage("Impostazioni", "settings", new SettingsPane(), false, Modality.APPLICATION_MODAL).showAndWait();
 	}
 
 	@FXML

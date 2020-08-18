@@ -3,6 +3,7 @@ package io.github.danifascio;
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.AutoDialog;
+import io.github.danifascio.gui.GlyphFactory;
 import io.github.danifascio.gui.LightDialog;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
@@ -15,9 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -57,13 +60,18 @@ public class Gui extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-		// TODO: Default uncaught exception handler
+		File dir = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DaniFascio\\db_officina");
+		if(!dir.exists())
+			dir.mkdirs();
+
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
 			e.printStackTrace();
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
 		BundleManager.load("glyphs", true);
+		GlyphFactory.init();
+
 		if(BundleManager.get("glyphs") != null)
 			System.out.println("Glyphs bundle loaded");
 		else
@@ -128,6 +136,31 @@ public class Gui extends Application {
 		stage = newStage;
 		stage.show();
 
+	}
+
+	public static Stage createStage(String title, String icon, Region content, boolean resizable, Modality modality) {
+
+		Stage stage = new Stage();
+		StackPane rootPane = new StackPane(content);
+		rootPane.getStylesheets().add("/css/Root.css");
+		rootPane.setId("rootPane");
+
+		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
+		JFXDecorator decorator = new JFXDecorator(stage, rootPane, false, resizable, true);
+		decorator.setGraphic(GlyphFactory.create(icon, Color.WHITE, 18));
+
+		stage.setScene(new Scene(decorator));
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.initModality(modality);
+		stage.setResizable(false);
+		stage.setTitle(title);
+
+		stage.setMinHeight(height);
+		stage.setMinWidth(width);
+		stage.setHeight(height);
+		stage.setWidth(width);
+
+		return stage;
 	}
 
 }

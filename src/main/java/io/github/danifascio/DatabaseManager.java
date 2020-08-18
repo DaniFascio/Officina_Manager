@@ -2,34 +2,28 @@ package io.github.danifascio;
 
 import org.intellij.lang.annotations.Language;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.*;
-import java.util.MissingResourceException;
 import java.util.Properties;
 
+@SuppressWarnings("unused")
 public class DatabaseManager implements AutoCloseable {
 
+	private static final String filePath;
 	private static final Properties properties;
 
 	static {
 		properties = new Properties();
+		filePath = System.getProperty("user.home") + "\\AppData\\Roaming\\DaniFascio\\db_officina\\conn.properties";
 
-		try(InputStream input = DatabaseManager.class.getClassLoader().getResourceAsStream("conn.properties")) {
-
-			if(input == null)
-				throw new MissingResourceException("Cannot load db configs from default properties file",
-						DatabaseManager.class.getCanonicalName(),
-						"conn.properties");
+		try(InputStream input = new FileInputStream(filePath)) {
 
 			properties.load(input);
 
-		} catch(MissingResourceException e) {
-			properties.setProperty("db.host", "localhost");
-			properties.setProperty("db.port", "5432");
-			e.printStackTrace();
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(Exception ignored) {
 		}
 	}
 
@@ -62,22 +56,6 @@ public class DatabaseManager implements AutoCloseable {
 		preparedStatement = null;
 		connection = DriverManager.getConnection(url, user, pass);
 		connection.setAutoCommit(autoCommit);
-	}
-
-	public static void setHostname(String hostname) {
-		properties.setProperty("db.host", hostname);
-	}
-
-	public static void setPort(String port) {
-		properties.setProperty("db.port", port);
-	}
-
-	public static void setUsername(String username) {
-		properties.setProperty("db.username", username);
-	}
-
-	public static void setPassword(String password) {
-		properties.setProperty("db.password", password);
 	}
 
 	public void commit() throws SQLException {
@@ -132,8 +110,43 @@ public class DatabaseManager implements AutoCloseable {
 		return connection.isClosed();
 	}
 
+	public static void save() {
+		try(PrintWriter printWriter = new PrintWriter(filePath)) {
+			properties.store(printWriter, "");
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public static String getUsername() {
-		return properties.getProperty("db.username");
+		String str = properties.getProperty("db.username");
+		return str != null ? str : "";
+	}
+
+	public static String getHostname() {
+		String str = properties.getProperty("db.host");
+		return str != null ? str : "";
+	}
+
+	public static String getPort() {
+		String str = properties.getProperty("db.port");
+		return str != null ? str : "";
+	}
+
+	public static void setHostname(String hostname) {
+		properties.setProperty("db.host", hostname);
+	}
+
+	public static void setPort(String port) {
+		properties.setProperty("db.port", port);
+	}
+
+	public static void setUsername(String username) {
+		properties.setProperty("db.username", username);
+	}
+
+	public static void setPassword(String password) {
+		properties.setProperty("db.password", password);
 	}
 
 }

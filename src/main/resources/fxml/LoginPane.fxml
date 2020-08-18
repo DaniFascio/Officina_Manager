@@ -22,6 +22,8 @@
 			</padding>
 
 			<Menu text="Impostazioni">
+				<MenuItem onAction="#openSettings"
+						text="Impostazioni"/>
 				<MenuItem onAction="#quit"
 						text="_Esci"/>
 			</Menu>

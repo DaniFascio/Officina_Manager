@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root xmlns="http://javafx.com/javafx"
+		xmlns:fx="http://javafx.com/fxml"
+		stylesheets="/css/Root.css"
+		prefHeight="350"
+		prefWidth="375"
+		type="BorderPane">
+
+	<center>
+		<VBox spacing="20">
+			<padding>
+				<Insets topRightBottomLeft="20"/>
+			</padding>
+
+			<Label text="Database"/>
+			<JFXTextField fx:id="hostField"
+					promptText="Hostname"
+					labelFloat="true"/>
+			<JFXTextField fx:id="portField"
+					promptText="Porta"
+					labelFloat="true"/>
+		</VBox>
+	</center>
+
+	<bottom>
+		<HBox alignment="CENTER_RIGHT">
+			<JFXButton text="Conferma"
+					onAction="#confirm"/>
+			<JFXButton text="Annulla"
+					onAction="#cancel"/>
+
+		</HBox>
+	</bottom>
+
+</fx:root>

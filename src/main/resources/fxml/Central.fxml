@@ -36,7 +36,7 @@
 				<MenuItem text="%delete"
 						onAction="#onDeleteAuto"/>
 				<MenuItem text="%find_criteria"
-						onAction="onRefreshAuto"/>
+						onAction="#onRefreshAuto"/>
 
 			</Menu>
 
@@ -71,7 +71,7 @@
 				</padding>
 
 				<HBox alignment="CENTER">
-					<Label text="%listauto"
+					<Label text="%auto.list"
 							HBox.hgrow="ALWAYS"
 							styleClass="main-label"/>
 				</HBox>
@@ -93,7 +93,7 @@
 						<TextField fx:id="searchAutoField"
 								onKeyTyped="#onSearchAuto"
 								HBox.hgrow="ALWAYS"
-								promptText="Cerca per targa o per modello"/>
+								promptText="%find_criteria"/>
 					</HBox>
 
 					<HBox alignment="CENTER_LEFT">
@@ -102,7 +102,7 @@
 								styleClass="jfx-icon"
 								onAction="#onAddAuto">
 							<tooltip>
-								<Tooltip text="Aggiungi una nuova auto"/>
+								<Tooltip text="%auto.add"/>
 							</tooltip>
 						</JFXButton>
 
@@ -110,7 +110,7 @@
 								styleClass="jfx-icon"
 								onAction="#onEditAuto">
 							<tooltip>
-								<Tooltip text="Modifica l'auto selezionata"/>
+								<Tooltip text="%auto.edit"/>
 							</tooltip>
 						</JFXButton>
 
@@ -118,7 +118,7 @@
 								styleClass="jfx-icon"
 								onAction="#onDeleteAuto">
 							<tooltip>
-								<Tooltip text="%remove_selectedAuto"/>
+								<Tooltip text="%auto.remove_selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -126,7 +126,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshAuto">
 							<tooltip>
-								<Tooltip text="%update_listaAuto"/>
+								<Tooltip text="%auto.update"/>
 							</tooltip>
 						</JFXButton>
 
@@ -155,7 +155,7 @@
 							<ColumnConstraints percentWidth="50"/>
 						</columnConstraints>
 
-						<Label text="%auto_details"
+						<Label text="%auto.details"
 								styleClass="main-label"
 								GridPane.rowIndex="0"
 								GridPane.columnIndex="0"
@@ -194,7 +194,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="1">
-							<Label text="%misura_gomme"
+							<Label text="%auto.misura_gomme"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="misuraGommeLabel"
 									styleClass="left_border,blank-field"
@@ -231,7 +231,7 @@
 						<Insets topRightBottomLeft="20"/>
 					</padding>
 
-					<Label text="%lavorazioni_auto"
+					<Label text="%auto.lavorazioni"
 							styleClass="main-label"/>
 
 					<!-- LISTA LAVORAZIONI CONTROLS -->

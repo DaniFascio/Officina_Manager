@@ -33,7 +33,7 @@ public class AutoDao implements Dao<Auto> {
 				auto = new Auto.Builder().setTarga(rs.getString("targa"))
 						.setModello(rs.getString("modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("misura_gomme"))
+						.setMisuraGomme(rs.getString("auto.misura_gomme"))
 						.setNote(rs.getString("note"))
 						.setTipoGomme(TipoGomme.get("tipo_gomme"))
 						.build();
@@ -59,7 +59,7 @@ public class AutoDao implements Dao<Auto> {
 				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
 						.setModello(rs.getString("modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("misura_gomme"))
+						.setMisuraGomme(rs.getString("auto.misura_gomme"))
 						.setNote(rs.getString("note"))
 						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
 						.build());

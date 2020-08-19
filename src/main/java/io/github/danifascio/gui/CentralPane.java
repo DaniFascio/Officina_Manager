@@ -142,7 +142,7 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(autoDao.save(auto) == 1) {
 
 					dialog = new Alert(Alert.AlertType.INFORMATION);
-					dialog.setHeaderText(rb.getString("auto_added"));
+					dialog.setHeaderText(rb.getString("auto.add.success"));
 
 				} else {
 

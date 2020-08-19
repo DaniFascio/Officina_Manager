@@ -20,7 +20,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -85,7 +84,7 @@ public class Gui extends Application {
 		else
 			System.err.println("Couldn't load Glyphs bundle");
 
-		changeStage("menu.secondary", new LoginPane(), false);
+		changeStage(strings.getString("menu.secondary"), new LoginPane(), false);
 	}
 
 	public static Stage stage() {
@@ -120,8 +119,8 @@ public class Gui extends Application {
 			AtomicReference<Button> buttonReference = new AtomicReference<>(), yesButton = new AtomicReference<>();
 
 			LightDialog lightDialog = new LightDialog(rootPane, true);
-			lightDialog.heading("menu.close")
-					.content("menu.exit_request.confirm")
+			lightDialog.heading(strings.getString("menu.close"))
+					.content(strings.getString("menu.exit_request.confirm"))
 					.onClose(event1 -> Optional.ofNullable(buttonReference.get())
 							.filter(yesButton.get()::equals)
 							.ifPresent(button -> Platform.exit()))

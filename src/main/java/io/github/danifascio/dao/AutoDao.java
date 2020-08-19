@@ -56,11 +56,11 @@ public class AutoDao implements Dao<Auto> {
 					"SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme ORDER BY targa ASC");
 
 			while(rs.next())
-				list.add(new Auto.Builder().setTarga(rs.getString("auto.details.targa"))
-						.setModello(rs.getString("auto.details.modello"))
+				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
+						.setModello(rs.getString("modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("auto.details.gomme.misura"))
-						.setNote(rs.getString("auto.details.note"))
+						.setMisuraGomme(rs.getString("misura_gomme"))
+						.setNote(rs.getString("note"))
 						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
 						.build());
 

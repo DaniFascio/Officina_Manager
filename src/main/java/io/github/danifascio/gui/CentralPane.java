@@ -310,8 +310,8 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(
-					rb.getString("auto.lavorazioni.select"))));
+			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(rb.getString(
+					"auto.lavorazioni.select"))));
 
 		else
 			new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
@@ -345,7 +345,8 @@ public class CentralPane extends BorderPane implements Initializable {
 		else
 
 
-			new Alert(Alert.AlertType.CONFIRMATION, rb.getString("auto.lavorazioni.confirm_remove"),
+			new Alert(Alert.AlertType.CONFIRMATION,
+					rb.getString("auto.lavorazioni.confirm_remove"),
 					ButtonType.YES,
 					ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 				Alert alert;
@@ -407,15 +408,15 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		searchAutoButton.setGraphic(GlyphFactory.create("search", Color.DIMGRAY, 18));
 
-		addAutoButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
-		editAutoButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
-		deleteAutoButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
-		refreshAutoButton.setGraphic(GlyphFactory.create("action.update", Color.DIMGRAY, 18));
+		addAutoButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
+		editAutoButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
+		deleteAutoButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		refreshAutoButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 
-		addLavorazioneButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
-		editLavorazioneButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
-		deleteLavorazioneButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
-		refreshLavorazioneButton.setGraphic(GlyphFactory.create("action.update", Color.DIMGRAY, 18));
+		addLavorazioneButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
+		editLavorazioneButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
+		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 	}
 
 }

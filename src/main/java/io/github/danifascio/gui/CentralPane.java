@@ -152,12 +152,12 @@ public class CentralPane extends BorderPane implements Initializable {
 						message = message.substring(index);
 
 					dialog = new Alert(Alert.AlertType.ERROR);
-					dialog.setHeaderText("Errore nell'inserimento dell'auto");
-					dialog.setContentText("Un auto con la stessa targa è già presente");
+					dialog.setHeaderText(rb.getString("auto.add.error"));
+					dialog.setContentText(rb.getString("auto.add.error_Targa"));
 
 				}
 
-				dialog.setTitle("Aggiungi auto");
+				dialog.setTitle(rb.getString("auto.add2"));
 				dialog.showAndWait();
 
 				onRefreshAuto(event);
@@ -180,18 +180,18 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(!dao.error()) {
 
 					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText("Auto modificata con successo");
+					alert.setHeaderText(rb.getString("auto.edit.success"));
 
 				} else {
 
 					String message = dao.errorMessage();
-					int index = message.indexOf("Detail");
+					int index = message.indexOf(rb.getString("menu.details"));
 					if(index != -1)
 						message = message.substring(index);
 
 					alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText("Errore nella modifica dell'auto");
-					alert.setContentText("Un auto con la stessa targa è già presente");
+					alert.setHeaderText(rb.getString("auto.edit.error"));
+					alert.setContentText(rb.getString("auto.add.error_Targa"));
 
 				}
 
@@ -210,7 +210,7 @@ public class CentralPane extends BorderPane implements Initializable {
 		String targa = auto.getTarga();
 
 		new Alert(Alert.AlertType.CONFIRMATION,
-				"Confermi di voler rimuovere l'auto con targa " + targa + "?",
+				rb.getString("auto.remove_selected.confirm") + targa + "?",
 				ButtonType.YES,
 				ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 			Alert alert;
@@ -218,14 +218,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			if(dao.delete(auto) == 1) {
 				alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText("Auto rimossa con successo");
+				alert.setHeaderText(rb.getString("auto.delete.success"));
 			} else {
 				alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("Errore nella rimozione dell'auto");
+				alert.setHeaderText(rb.getString("auto.delete.error"));
 				alert.setContentText(dao.errorMessage());
 			}
 
-			alert.setTitle("Elimina auto");
+			alert.setTitle(rb.getString("auto.delete"));
 			alert.showAndWait();
 			onRefreshAuto(event);
 
@@ -239,8 +239,8 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		if(dao.error()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Errore nel caricamento delle auto");
+			alert.setTitle(rb.getString("action.error"));
+			alert.setHeaderText(rb.getString("auto.update.error"));
 			alert.setContentText(dao.errorMessage());
 		}
 
@@ -311,7 +311,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		if(selectedLavorazione == null)
 			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(
-					"Seleziona una lavorazione prima!")));
+					rb.getString("auto.lavorazioni.select"))));
 
 		else
 			new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
@@ -321,9 +321,9 @@ public class CentralPane extends BorderPane implements Initializable {
 
 					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
 					if(dao.update(selectedLavorazione, lavorazione.values()) == 1)
-						toastLayout = new JFXSnackbarLayout("Lavorazione aggiornata con successo");
+						toastLayout = new JFXSnackbarLayout(rb.getString("auto.lavorazioni.update.success"));
 					else
-						toastLayout = new JFXSnackbarLayout("Non sono riuscito ad aggiornare la lavorazione :(");
+						toastLayout = new JFXSnackbarLayout(rb.getString("auto.lavorazioni.update.error"));
 
 					if(dao.error())
 						throw new RuntimeException(dao.errorMessage());
@@ -341,12 +341,11 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, "Seleziona una lavorazione prima!").showAndWait();
+			new Alert(Alert.AlertType.INFORMATION, rb.getString("auto.lavorazioni.select")).showAndWait();
 		else
 
 
-			new Alert(Alert.AlertType.CONFIRMATION,
-					"Confermi di voler rimuovere la lavorazione selezionata?",
+			new Alert(Alert.AlertType.CONFIRMATION, rb.getString("auto.lavorazioni.confirm_remove"),
 					ButtonType.YES,
 					ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 				Alert alert;
@@ -354,14 +353,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 				if(dao.delete(selectedLavorazione) == 1) {
 					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText("lavorazione rimossa con successo");
+					alert.setHeaderText(rb.getString("auto.lavorazioni.remove_success"));
 				} else {
 					alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText("Errore nella rimozione della lavorazione");
+					alert.setHeaderText(rb.getString("auto.lavorazioni.remove_error"));
 					alert.setContentText(dao.errorMessage());
 				}
 
-				alert.setTitle("Elimina Lavorazione");
+				alert.setTitle(rb.getString("auto.lavorazioni.remove"));
 				alert.showAndWait();
 				onRefreshAuto(event);
 
@@ -378,14 +377,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 	@FXML
 	private void backToLogin(Event event) {
-		Gui.changeStage("Officina Manager", new LoginPane(), false);
+		Gui.changeStage(rb.getString("menu.secondary"), new LoginPane(), false);
 	}
 
 	// TODO: mailto message in string bundle
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();
-		String message = "mailto:danifascio02@gmail.com?cc=dev_excale@hotmail.com&subject=%27db_officina%27%20Bug%20Report";
+		String message = rb.getString("action.reportBug.Mail");
 		URI uri = URI.create(message);
 
 		try {
@@ -411,12 +410,12 @@ public class CentralPane extends BorderPane implements Initializable {
 		addAutoButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
 		editAutoButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
 		deleteAutoButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
-		refreshAutoButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+		refreshAutoButton.setGraphic(GlyphFactory.create("action.update", Color.DIMGRAY, 18));
 
 		addLavorazioneButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
 		editLavorazioneButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
 		deleteLavorazioneButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
-		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+		refreshLavorazioneButton.setGraphic(GlyphFactory.create("action.update", Color.DIMGRAY, 18));
 	}
 
 }

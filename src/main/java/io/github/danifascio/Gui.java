@@ -85,7 +85,7 @@ public class Gui extends Application {
 		else
 			System.err.println("Couldn't load Glyphs bundle");
 
-		changeStage("Officina Manager", new LoginPane(), false);
+		changeStage("menu.secondary", new LoginPane(), false);
 	}
 
 	public static Stage stage() {
@@ -120,8 +120,8 @@ public class Gui extends Application {
 			AtomicReference<Button> buttonReference = new AtomicReference<>(), yesButton = new AtomicReference<>();
 
 			LightDialog lightDialog = new LightDialog(rootPane, true);
-			lightDialog.heading("Chiudi Applicazione")
-					.content("Confermi di voler uscire?")
+			lightDialog.heading("menu.close")
+					.content("menu.exit_request.confirm")
 					.onClose(event1 -> Optional.ofNullable(buttonReference.get())
 							.filter(yesButton.get()::equals)
 							.ifPresent(button -> Platform.exit()))

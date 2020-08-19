@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class AutoDialog extends CustomDialog<Auto> {
@@ -30,6 +31,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 	// TODO: MOVE ERROR_PSEUDO_CLASS TO Gui CLASS
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	private static final Properties icons;
+	private ResourceBundle rb;
 
 	static {
 		icons = new Properties();
@@ -107,8 +109,8 @@ public class AutoDialog extends CustomDialog<Auto> {
 				.setTipoGomme(tipoGommeBox.getValue())
 				.build());
 
-		addButton("Cancella", event -> setResult(null));
-		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
+		addButton(rb.getString("action.cancel"), event -> setResult(null));
+		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? rb.getString("auto.add") : rb.getString("auto.edit"), event -> done());
 
 		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
 		validate(doneButton);

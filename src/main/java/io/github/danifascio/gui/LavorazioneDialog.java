@@ -46,7 +46,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 			throw new UncheckedIOException(e);
 		}
 
-		dialogPane.getButtonTypes().add(new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dialogPane.getButtonTypes().add(new ButtonType("action.cancel2", ButtonBar.ButtonData.CANCEL_CLOSE));
 
 		setResizable(true);
 		setResultConverter(btnType -> {
@@ -75,7 +75,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 			if(viewMode.equals(ViewMode.EDIT)) {
 				initModality(Modality.WINDOW_MODAL);
-				getDialogPane().getButtonTypes().addAll(new ButtonType("Modifica", ButtonBar.ButtonData.APPLY));
+				getDialogPane().getButtonTypes().addAll(new ButtonType("action.edit", ButtonBar.ButtonData.APPLY));
 
 			} else {
 				// BUTTON: VIEW
@@ -87,7 +87,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 		} else {
 			// BUTTON: NEW
-			getDialogPane().getButtonTypes().addAll(new ButtonType("Aggiungi", ButtonBar.ButtonData.OK_DONE));
+			getDialogPane().getButtonTypes().addAll(new ButtonType("Action.edit", ButtonBar.ButtonData.OK_DONE));
 			initModality(Modality.WINDOW_MODAL);
 		}
 	}

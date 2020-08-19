@@ -11,15 +11,15 @@ public class MenuBarController {
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
-		alert.setHeaderText("Pazienta per favore");
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "action.toimplement", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		alert.setHeaderText("menu.patient");
 		alert.showAndWait();
 	}
 
 	@FXML
 	private void quit(Event event) {
 
-		new Alert(Alert.AlertType.CONFIRMATION, "Vuoi uscire?", ButtonType.YES, ButtonType.NO).showAndWait()
+		new Alert(Alert.AlertType.CONFIRMATION, "menu.exit_request", ButtonType.YES, ButtonType.NO).showAndWait()
 				.filter(ButtonType.YES::equals)
 				.ifPresent(buttonType -> Platform.exit());
 

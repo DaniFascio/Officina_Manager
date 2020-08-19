@@ -68,14 +68,14 @@ public class LoginPane extends BorderPane {
 			try {
 
 				TipoGomme.reload();
-				Gui.changeStage("Officina Manager", new CentralPane(), true);
+				Gui.changeStage("menu.secondary", new CentralPane(), true);
 
 			} catch(Exception e) {
 				e.printStackTrace();
 				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Errore");
-				alert.setHeaderText("Impossibile connettersi al database");
-				alert.setContentText("Inserire correttamente le credenziali");
+				alert.setTitle("action.error");
+				alert.setHeaderText("menu.connection.error");
+				alert.setContentText("menu.credentials.error");
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}
@@ -114,7 +114,7 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();
-		String message = "mailto:danifascio02@gmail.com?cc=dev_excale@hotmail.com&subject=%27db_officina%27%20Bug%20Report";
+		String message = "action.reportBug.Mail";
 		URI uri = URI.create(message);
 
 		try {
@@ -128,13 +128,13 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void openSettings(Event event) {
-		Gui.createStage("Impostazioni", "menu.settings", new SettingsPane(), false, Modality.APPLICATION_MODAL).showAndWait();
+		Gui.createStage("menu.settings", "menu.settings", new SettingsPane(), false, Modality.APPLICATION_MODAL).showAndWait();
 	}
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
-		alert.setHeaderText("Pazienta per favore");
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "action.toimplement", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		alert.setHeaderText("menu.patient");
 		alert.showAndWait();
 	}
 

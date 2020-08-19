@@ -21,6 +21,7 @@ import java.io.UncheckedIOException;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 
@@ -34,6 +35,8 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 	private DatePicker datePicker;
 	@FXML
 	private TextArea descrizioneArea;
+
+
 
 	static {
 		icons = new Properties();
@@ -84,7 +87,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 					.setAuto(auto)
 					.build());
 
-			addButton("Cancella", event -> setResult(null));
+			addButton("action.cancel", event -> setResult(null));
 			Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
 
 			ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);

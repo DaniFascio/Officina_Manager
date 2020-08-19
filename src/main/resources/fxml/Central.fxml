@@ -110,7 +110,7 @@
 								styleClass="jfx-icon"
 								onAction="#onEditAuto">
 							<tooltip>
-								<Tooltip text="%auto.edit"/>
+								<Tooltip text="%auto.edit_selected"/>
 							</tooltip>
 						</JFXButton>
 

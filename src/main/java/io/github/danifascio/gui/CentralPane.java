@@ -195,7 +195,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 				}
 
-				alert.setTitle("Modifica auto");
+				alert.setTitle(rb.getString("auto.edit"));
 				alert.showAndWait();
 				onRefreshAuto(event);
 			}

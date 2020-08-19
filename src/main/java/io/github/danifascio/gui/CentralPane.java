@@ -408,14 +408,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		searchAutoButton.setGraphic(GlyphFactory.create("search", Color.DIMGRAY, 18));
 
-		addAutoButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
-		editAutoButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
-		deleteAutoButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		addAutoButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
+		editAutoButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
+		deleteAutoButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
 		refreshAutoButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 
-		addLavorazioneButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
-		editLavorazioneButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
-		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
+		addLavorazioneButton.setGraphic(GlyphFactory.create("action.add", Color.DIMGRAY, 18));
+		editLavorazioneButton.setGraphic(GlyphFactory.create("action.edit", Color.DIMGRAY, 18));
+		deleteLavorazioneButton.setGraphic(GlyphFactory.create("action.delete", Color.DIMGRAY, 18));
 		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
 	}
 

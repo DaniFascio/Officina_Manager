@@ -61,7 +61,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 
 	public AutoDialog(ViewMode viewMode, @Nullable Auto auto) {
 		super(viewMode.equals(ViewMode.ADD) ? "Aggiungi auto" : "Modifica auto",
-				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : "edit"),
+				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "action.add" : "action.edit"),
 				Modality.APPLICATION_MODAL);
 
 		try {

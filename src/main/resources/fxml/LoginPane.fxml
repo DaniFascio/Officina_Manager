@@ -21,16 +21,16 @@
 				<Insets topRightBottomLeft="0"/>
 			</padding>
 
-			<Menu text="%settings">
+			<Menu text="%menu.settings">
 				<MenuItem onAction="#openSettings"
-						text="%settings"/>
+						text="%menu.settings"/>
 				<MenuItem onAction="#quit"
-						text="%quit"/>
+						text="%menu.quit"/>
 			</Menu>
 
-			<Menu text="%misc">
+			<Menu text="%menu.misc">
 				<MenuItem onAction="#reportBug"
-						text="%reportBug"/>
+						text="%menu.report_bug"/>
 			</Menu>
 
 		</MenuBar>
@@ -46,7 +46,7 @@
 				<Insets topRightBottomLeft="30"/>
 			</padding>
 
-			<Label text="%title">
+			<Label text="%login.title">
 				<font>
 					<Font name="Cooper Black"
 							size="32.0"/>
@@ -59,7 +59,7 @@
 			<JFXTextField fx:id="usernameField"
 					focusColor="brown"
 					labelFloat="true"
-					promptText="%username"
+					promptText="%login.username"
 					onKeyPressed="#handleKey"
 					unFocusColor="cadetblue">
 
@@ -71,7 +71,7 @@
 			<JFXPasswordField fx:id="passwordField"
 					focusColor="brown"
 					labelFloat="true"
-					promptText="%password"
+					promptText="%login.password"
 					onKeyPressed="#handleKey"
 					unFocusColor="cadetblue">
 				<font>

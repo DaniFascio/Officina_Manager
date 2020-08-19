@@ -18,42 +18,42 @@
 				<Insets topRightBottomLeft="0"/>
 			</padding>
 
-			<Menu text="%db">
-				<MenuItem text="%update"
+			<Menu text="%menu.primary">
+				<MenuItem text="%action.update"
 						onAction="#onRefreshAuto"/>
-				<MenuItem text="%menu_back"
+				<MenuItem text="%action.backToMenu"
 						onAction="#backToLogin"/>
-				<MenuItem text="%quit"
+				<MenuItem text="%menu.quit"
 						onAction="#quit"/>
 
 			</Menu>
 
-			<Menu text="%auto">
-				<MenuItem text="%add"
+			<Menu text="%menu.auto">
+				<MenuItem text="%action.add"
 						onAction="#onAddAuto"/>
-				<MenuItem text="%edit"
+				<MenuItem text="%action.edit"
 						onAction="#onEditAuto"/>
-				<MenuItem text="%delete"
+				<MenuItem text="%action.delete"
 						onAction="#onDeleteAuto"/>
 				<MenuItem text="%auto.search_criteria"
 						onAction="#onRefreshAuto"/>
 
 			</Menu>
 
-			<Menu text="%lavorazione">
-				<MenuItem text="%add"
+			<Menu text="%menu.lavorazione">
+				<MenuItem text="%action.add"
 						onAction="#onAddLavorazione"/>
-				<MenuItem text="%edit"
+				<MenuItem text="%action.edit"
 						onAction="#onEditLavorazione"/>
-				<MenuItem text="%edit"
+				<MenuItem text="%action.edit"
 						onAction="#onDeleteLavorazione"/>
-				<MenuItem text="%update"
+				<MenuItem text="%action.update"
 						onAction="#onRefreshLavorazione"/>
 			</Menu>
 
-			<Menu text="%misc">
+			<Menu text="%menu.misc">
 				<MenuItem onAction="#reportBug"
-						text="%reportBug"/>
+						text="%menu.report_bug"/>
 			</Menu>
 
 		</MenuBar>

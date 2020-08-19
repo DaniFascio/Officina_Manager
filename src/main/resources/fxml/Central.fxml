@@ -21,7 +21,7 @@
 			<Menu text="%db">
 				<MenuItem text="%update"
 						onAction="#onRefreshAuto"/>
-				<MenuItem text="%back_toMenu"
+				<MenuItem text="%menu_back"
 						onAction="#backToLogin"/>
 				<MenuItem text="%quit"
 						onAction="#quit"/>
@@ -35,7 +35,7 @@
 						onAction="#onEditAuto"/>
 				<MenuItem text="%delete"
 						onAction="#onDeleteAuto"/>
-				<MenuItem text="%find_criteria"
+				<MenuItem text="%auto.search_criteria"
 						onAction="#onRefreshAuto"/>
 
 			</Menu>
@@ -93,7 +93,7 @@
 						<TextField fx:id="searchAutoField"
 								onKeyTyped="#onSearchAuto"
 								HBox.hgrow="ALWAYS"
-								promptText="%find_criteria"/>
+								promptText="%auto.search_criteria"/>
 					</HBox>
 
 					<HBox alignment="CENTER_LEFT">
@@ -166,7 +166,7 @@
 						<VBox GridPane.hgrow="ALWAYS"
 								GridPane.rowIndex="1"
 								GridPane.columnIndex="0">
-							<Label text="Targa"
+							<Label text="%auto.details.targa"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="targaLabel"
 									styleClass="left_border,blank-field"
@@ -176,7 +176,7 @@
 						<VBox GridPane.hgrow="ALWAYS"
 								GridPane.rowIndex="1"
 								GridPane.columnIndex="1">
-							<Label text="Modello"
+							<Label text="%auto.details.modello"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="modelloLabel"
 									styleClass="left_border,blank-field"
@@ -185,7 +185,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="0">
-							<Label text="Km"
+							<Label text="%auto.details.km"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="kmLabel"
 									styleClass="left_border,blank-field"
@@ -194,7 +194,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="1">
-							<Label text="%auto.misura_gomme"
+							<Label text="%auto.details.gomme.misura"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="misuraGommeLabel"
 									styleClass="left_border,blank-field"
@@ -203,7 +203,7 @@
 
 						<VBox GridPane.rowIndex="3"
 								GridPane.columnIndex="0">
-							<Label text="Tipo Gomme"
+							<Label text="%auto.details.gomme.tipo"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="tipoGommeLabel"
 									styleClass="left_border,blank-field"
@@ -213,7 +213,7 @@
 						<VBox GridPane.rowIndex="4"
 								GridPane.columnIndex="0"
 								GridPane.columnSpan="2">
-							<Label text="%note"
+							<Label text="%auto.details.note"
 									styleClass="i,em1_2"/>
 							<TextArea fx:id="noteArea"
 									styleClass="left_border,blank-field"
@@ -242,7 +242,7 @@
 								onAction="#onAddLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="%add_lavorazione"/>
+								<Tooltip text="%lavorazione.add"/>
 							</tooltip>
 						</JFXButton>
 
@@ -250,7 +250,7 @@
 								onAction="#onEditLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="%edit_lavorazione"/>
+								<Tooltip text="%lavorazione.edit"/>
 							</tooltip>
 						</JFXButton>
 
@@ -258,7 +258,7 @@
 								onAction="#onDeleteLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="%remove_lavorazione"/>
+								<Tooltip text="%lavorazione.remove"/>
 							</tooltip>
 						</JFXButton>
 
@@ -266,7 +266,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshLavorazione">
 							<tooltip>
-								<Tooltip text="%update_lavorazioni"/>
+								<Tooltip text="%lavorazione.update"/>
 							</tooltip>
 						</JFXButton>
 

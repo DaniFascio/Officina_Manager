@@ -104,7 +104,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			welcomeLabel.setText(DatabaseManager.getUsername());
 
-			Tooltip.install(searchBox, new Tooltip(rb.getString("find_criteria")));
+			Tooltip.install(searchBox, new Tooltip(rb.getString("auto.search_criteria")));
 
 			listaAutoView.setCellFactory(listView -> new AutoCell());
 			listaAutoView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

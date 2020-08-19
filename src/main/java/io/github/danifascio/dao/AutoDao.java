@@ -30,11 +30,11 @@ public class AutoDao implements Dao<Auto> {
 					key);
 
 			if(rs.next())
-				auto = new Auto.Builder().setTarga(rs.getString("targa"))
-						.setModello(rs.getString("modello"))
+				auto = new Auto.Builder().setTarga(rs.getString("auto.details.targa"))
+						.setModello(rs.getString("auto.details.modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("auto.misura_gomme"))
-						.setNote(rs.getString("note"))
+						.setMisuraGomme(rs.getString("auto.details.gomme.misura"))
+						.setNote(rs.getString("auto.details.note"))
 						.setTipoGomme(TipoGomme.get("tipo_gomme"))
 						.build();
 
@@ -56,11 +56,11 @@ public class AutoDao implements Dao<Auto> {
 					"SELECT targa, modello, km, misura_gomme, note, a.id_tipo_gomme, g.descrizione tipo_gomme FROM auto a LEFT JOIN tipi_gomme g on a.id_tipo_gomme = g.id_tipo_gomme ORDER BY targa ASC");
 
 			while(rs.next())
-				list.add(new Auto.Builder().setTarga(rs.getString("targa"))
-						.setModello(rs.getString("modello"))
+				list.add(new Auto.Builder().setTarga(rs.getString("auto.details.targa"))
+						.setModello(rs.getString("auto.details.modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("auto.misura_gomme"))
-						.setNote(rs.getString("note"))
+						.setMisuraGomme(rs.getString("auto.details.gomme.misura"))
+						.setNote(rs.getString("auto.details.note"))
 						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
 						.build());
 

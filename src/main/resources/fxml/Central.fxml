@@ -18,41 +18,42 @@
 				<Insets topRightBottomLeft="0"/>
 			</padding>
 
-			<Menu text="Database">
-				<MenuItem text="Aggiorna"
+			<Menu text="%db">
+				<MenuItem text="%update"
 						onAction="#onRefreshAuto"/>
-				<MenuItem text="Torna al menu"
+				<MenuItem text="%back_toMenu"
 						onAction="#backToLogin"/>
-				<MenuItem text="Esci"
+				<MenuItem text="%quit"
 						onAction="#quit"/>
 
 			</Menu>
 
-			<Menu text="Auto">
-				<MenuItem text="Aggiungi"
+			<Menu text="%auto">
+				<MenuItem text="%add"
 						onAction="#onAddAuto"/>
-				<MenuItem text="Modifica"
+				<MenuItem text="%edit"
 						onAction="#onEditAuto"/>
-				<MenuItem text="Elimina"
+				<MenuItem text="%delete"
 						onAction="#onDeleteAuto"/>
-				<MenuItem text="Cerca Targa o modello"/>
+				<MenuItem text="%find_criteria"
+						onAction="onRefreshAuto"/>
 
 			</Menu>
 
-			<Menu text="Lavorazione">
-				<MenuItem text="Aggiungi"
+			<Menu text="%lavorazione">
+				<MenuItem text="%add"
 						onAction="#onAddLavorazione"/>
-				<MenuItem text="Modifica"
+				<MenuItem text="%edit"
 						onAction="#onEditLavorazione"/>
-				<MenuItem text="Rimuovi"
+				<MenuItem text="%edit"
 						onAction="#onDeleteLavorazione"/>
-				<MenuItem text="Aggiorna"
+				<MenuItem text="%update"
 						onAction="#onRefreshLavorazione"/>
 			</Menu>
 
-			<Menu text="Altro">
+			<Menu text="%misc">
 				<MenuItem onAction="#reportBug"
-						text="Segnala un problema"/>
+						text="%reportBug"/>
 			</Menu>
 
 		</MenuBar>
@@ -70,7 +71,7 @@
 				</padding>
 
 				<HBox alignment="CENTER">
-					<Label text="Lista Auto"
+					<Label text="%listauto"
 							HBox.hgrow="ALWAYS"
 							styleClass="main-label"/>
 				</HBox>
@@ -117,7 +118,7 @@
 								styleClass="jfx-icon"
 								onAction="#onDeleteAuto">
 							<tooltip>
-								<Tooltip text="Rimuovi l'auto selezionata"/>
+								<Tooltip text="%remove_selectedAuto"/>
 							</tooltip>
 						</JFXButton>
 
@@ -125,7 +126,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshAuto">
 							<tooltip>
-								<Tooltip text="Aggiorna la lista delle auto"/>
+								<Tooltip text="%update_listaAuto"/>
 							</tooltip>
 						</JFXButton>
 
@@ -154,7 +155,7 @@
 							<ColumnConstraints percentWidth="50"/>
 						</columnConstraints>
 
-						<Label text="Dettagli Auto"
+						<Label text="%auto_details"
 								styleClass="main-label"
 								GridPane.rowIndex="0"
 								GridPane.columnIndex="0"
@@ -193,7 +194,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="1">
-							<Label text="Misura Gomme"
+							<Label text="%misura_gomme"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="misuraGommeLabel"
 									styleClass="left_border,blank-field"
@@ -212,7 +213,7 @@
 						<VBox GridPane.rowIndex="4"
 								GridPane.columnIndex="0"
 								GridPane.columnSpan="2">
-							<Label text="Note"
+							<Label text="%note"
 									styleClass="i,em1_2"/>
 							<TextArea fx:id="noteArea"
 									styleClass="left_border,blank-field"
@@ -230,7 +231,7 @@
 						<Insets topRightBottomLeft="20"/>
 					</padding>
 
-					<Label text="Lavorazioni Auto"
+					<Label text="%lavorazioni_auto"
 							styleClass="main-label"/>
 
 					<!-- LISTA LAVORAZIONI CONTROLS -->
@@ -241,7 +242,7 @@
 								onAction="#onAddLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Aggiungi una nuova lavorazione sull'auto corrente"/>
+								<Tooltip text="%add_lavorazione"/>
 							</tooltip>
 						</JFXButton>
 
@@ -249,7 +250,7 @@
 								onAction="#onEditLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Modifica la lavorazione selezionata"/>
+								<Tooltip text="%edit_lavorazione"/>
 							</tooltip>
 						</JFXButton>
 
@@ -257,7 +258,7 @@
 								onAction="#onDeleteLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Rimuovi la lavorazione selezionata"/>
+								<Tooltip text="%remove_lavorazione"/>
 							</tooltip>
 						</JFXButton>
 
@@ -265,7 +266,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshLavorazione">
 							<tooltip>
-								<Tooltip text="Aggiorna la lista delle lavorazioni"/>
+								<Tooltip text="%update_lavorazioni"/>
 							</tooltip>
 						</JFXButton>
 
@@ -288,7 +289,7 @@
 				<padding>
 					<Insets topRightBottomLeft="3"/>
 				</padding>
-				<Label text="Benvenuto, "/>
+				<Label text="%welcome"/>
 				<Label fx:id="welcomeLabel"
 						styleClass="b"/>
 				<Label text="!"/>

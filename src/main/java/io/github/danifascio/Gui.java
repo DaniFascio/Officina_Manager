@@ -1,7 +1,6 @@
 package io.github.danifascio;
 
 import com.jfoenix.controls.JFXDecorator;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.*;
 import javafx.application.Application;
@@ -18,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,25 +31,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Gui extends Application {
 
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
-	public static final Properties ICONS_PATH;
 	public static final int ICON_SIZE = 20;
 
-	private static Stage stage;
+	private static Properties iconsPath;
 	private static ResourceBundle lang;
+	private static Logger logger;
+	private static Stage stage;
 
 	static {
-		ICONS_PATH = new Properties();
-
-		try(InputStream input = AutoDialog.class.getClassLoader().getResourceAsStream("glyphs.xml")) {
-
-			if(input != null)
-				ICONS_PATH.loadFromXML(input);
-			else
-				System.err.println("Couldn't load icons");
-
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) {
@@ -63,27 +53,40 @@ public class Gui extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-		File dir = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DaniFascio\\db_officina");
-		if(!dir.exists())
-			dir.mkdirs();
-
+		logger = LoggerFactory.getLogger(getClass());
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
-			e.printStackTrace();
+			logger.error("Uncaught Exception", e);
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
+
+		File dir = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina");
+		if(!dir.exists())
+			dir.mkdirs();
 
 		lang = ResourceBundle.getBundle("Strings");
 		if(lang == null)
 			new FatalDialog("Fatal Error", "Couldn't get language resources.\nTry to reinstall the program.");
 
+		iconsPath = new Properties();
+		try(InputStream input = getClass().getResourceAsStream("glyphs.xml")) {
+
+			if(input != null)
+				iconsPath.loadFromXML(input);
+			else
+				logger.error("");
+			System.err.println("Couldn't load icons");
+
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 
 		BundleManager.load("glyphs", true);
 		GlyphFactory.init();
 
 		if(BundleManager.get("glyphs") != null)
-			System.out.println("Glyphs bundle loaded");
+			logger.info("Glyphs bundle loaded");
 		else
-			System.err.println("Couldn't load Glyphs bundle");
+			logger.error("Couldn't load Glyphs bundle");
 
 		changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
@@ -96,6 +99,10 @@ public class Gui extends Application {
 		return lang;
 	}
 
+	public static Properties iconPaths() {
+		return iconsPath;
+	}
+
 	public static void changeStage(String title, Region content, boolean resizable) {
 
 		Stage newStage = new Stage();
@@ -104,7 +111,7 @@ public class Gui extends Application {
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
-		SVGGlyph glyph = new SVGGlyph(ICONS_PATH.getProperty("gear-fill"), Color.WHITE);
+		SVGGlyph glyph = new SVGGlyph(iconsPath.getProperty("gear-fill"), Color.WHITE);
 		glyph.setSize(ICON_SIZE);
 
 		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);

@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private PasswordField passwordField;
 
+	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
 	private final ResourceBundle lang;
 
 	public LoginPane() {
@@ -74,7 +77,7 @@ public class LoginPane extends BorderPane {
 				Gui.changeStage(lang.getString("menu.secondary"), new CentralPane(), true);
 
 			} catch(Exception e) {
-				e.printStackTrace();
+				logger.error("Error during login event", e);
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle(lang.getString("action.error"));
 				alert.setHeaderText(lang.getString("menu.connection.error"));

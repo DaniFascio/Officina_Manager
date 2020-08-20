@@ -1,0 +1,26 @@
+<configuration>
+
+	<root level="ERROR">
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="fout"/>
+	</root>
+
+	<!-- Console appender -->
+	<appender name="stdout"
+			class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- File appender -->
+	<appender name="fout"
+			class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/AppData/Roaming/db_officina/db_officina.log</file>
+		<append>false</append>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</pattern>
+		</encoder>
+	</appender>
+
+</configuration>

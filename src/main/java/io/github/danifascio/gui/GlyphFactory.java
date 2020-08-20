@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 public class GlyphFactory {
 
+	// TODO: REFACTOR ResourceBundle INTO Properties
 	private static ResourceBundle paths;
 
 	private GlyphFactory() {

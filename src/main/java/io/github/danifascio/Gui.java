@@ -2,10 +2,7 @@ package io.github.danifascio;
 
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
-import io.github.danifascio.gui.AutoDialog;
-import io.github.danifascio.gui.GlyphFactory;
-import io.github.danifascio.gui.LightDialog;
-import io.github.danifascio.gui.LoginPane;
+import io.github.danifascio.gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
@@ -32,18 +29,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Gui extends Application {
 
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
+	public static final Properties ICONS_PATH;
+	public static final int ICON_SIZE = 20;
 
 	private static Stage stage;
 	private static ResourceBundle lang;
-	private static final Properties icons;
 
 	static {
-		icons = new Properties();
+		ICONS_PATH = new Properties();
 
 		try(InputStream input = AutoDialog.class.getClassLoader().getResourceAsStream("glyphs.xml")) {
 
 			if(input != null)
-				icons.loadFromXML(input);
+				ICONS_PATH.loadFromXML(input);
 			else
 				System.err.println("Couldn't load icons");
 
@@ -74,10 +72,9 @@ public class Gui extends Application {
 		});
 
 		lang = ResourceBundle.getBundle("Strings");
-		if(lang == null) {
-			throw new RuntimeException("Couldn't get String resources");
-			// TODO: CLOSE ON ERROR <--[HERE]
-		}
+		if(lang == null)
+			new FatalDialog("Fatal Error", "Couldn't get language resources.\nTry to reinstall the program.");
+
 
 		BundleManager.load("glyphs", true);
 		GlyphFactory.init();
@@ -106,8 +103,8 @@ public class Gui extends Application {
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
-		SVGGlyph glyph = new SVGGlyph(icons.getProperty("gear-fill"), Color.WHITE);
-		glyph.setSize(18);
+		SVGGlyph glyph = new SVGGlyph(ICONS_PATH.getProperty("gear-fill"), Color.WHITE);
+		glyph.setSize(ICON_SIZE);
 
 		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);
 		decorator.setGraphic(glyph);
@@ -161,7 +158,7 @@ public class Gui extends Application {
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
 		JFXDecorator decorator = new JFXDecorator(stage, rootPane, false, resizable, true);
-		decorator.setGraphic(GlyphFactory.create(icon, Color.WHITE, 18));
+		decorator.setGraphic(GlyphFactory.create(icon, Color.WHITE, ICON_SIZE));
 
 		stage.setScene(new Scene(decorator));
 		stage.initStyle(StageStyle.UNDECORATED);

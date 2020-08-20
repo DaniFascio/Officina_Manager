@@ -8,6 +8,7 @@ import io.github.danifascio.gui.LightDialog;
 import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -29,6 +30,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Gui extends Application {
+
+	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
 	private static Stage stage;
 	private static ResourceBundle lang;

@@ -35,7 +35,7 @@
 						onAction="#onEditAuto"/>
 				<MenuItem text="%action.delete"
 						onAction="#onDeleteAuto"/>
-				<MenuItem text="%auto.search_criteria"
+				<MenuItem text="%action.update"
 						onAction="#onRefreshAuto"/>
 
 			</Menu>

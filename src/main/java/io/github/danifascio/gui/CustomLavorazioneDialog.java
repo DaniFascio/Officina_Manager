@@ -1,5 +1,6 @@
 package io.github.danifascio.gui;
 
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import javafx.beans.value.ChangeListener;
@@ -25,8 +26,6 @@ import java.util.ResourceBundle;
 
 public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 
-	// TODO: MOVE ERROR_PSEUDO_CLASS TO Gui CLASS
-	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	private static final Properties icons;
 
 	@FXML
@@ -35,8 +34,6 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 	private DatePicker datePicker;
 	@FXML
 	private TextArea descrizioneArea;
-
-
 
 	static {
 		icons = new Properties();
@@ -109,7 +106,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 			spesaError = true;
 		}
 
-		spesaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, spesaError);
+		spesaField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, spesaError);
 
 		disableable.setDisable(spesaError);
 	}

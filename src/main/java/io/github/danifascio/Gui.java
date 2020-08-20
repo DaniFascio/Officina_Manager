@@ -2,24 +2,27 @@ package io.github.danifascio;
 
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
-import io.github.danifascio.gui.FatalDialog;
-import io.github.danifascio.gui.GlyphFactory;
-import io.github.danifascio.gui.LightDialog;
 import io.github.danifascio.gui.LoginPane;
+import io.github.danifascio.gui.dialogs.FatalDialog;
+import io.github.danifascio.gui.dialogs.LightDialog;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -165,7 +168,7 @@ public class Gui extends Application {
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
 		JFXDecorator decorator = new JFXDecorator(stage, rootPane, false, resizable, true);
-		decorator.setGraphic(GlyphFactory.create(icon, Color.WHITE, ICON_SIZE));
+		decorator.setGraphic(icon(icon, Color.WHITE, ICON_SIZE));
 
 		stage.setScene(new Scene(decorator));
 		stage.initStyle(StageStyle.UNDECORATED);
@@ -179,6 +182,22 @@ public class Gui extends Application {
 		stage.setWidth(width);
 
 		return stage;
+	}
+
+	public static @Nullable Node icon(String glyph, Paint color, int size) {
+		String path = iconsPath.getProperty(glyph);
+		if(path == null)
+			return null;
+
+		Rectangle rectangle = new Rectangle(size, size);
+		SVGGlyph svgGlyph = new SVGGlyph(path, color);
+		StackPane stackPane = new StackPane(rectangle, svgGlyph);
+
+		rectangle.setVisible(false);
+		stackPane.setMaxSize(size, size);
+		svgGlyph.setSize(size);
+
+		return stackPane;
 	}
 
 }

@@ -1,6 +1,7 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.cells;
 
 import io.github.danifascio.beans.Lavorazione;
+import io.github.danifascio.gui.dialogs.LavorazioneDialog;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

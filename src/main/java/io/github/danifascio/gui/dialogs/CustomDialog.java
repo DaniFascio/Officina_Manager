@@ -1,4 +1,4 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.dialogs;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDecorator;

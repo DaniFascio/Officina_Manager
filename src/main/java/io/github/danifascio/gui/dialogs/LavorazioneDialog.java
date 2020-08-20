@@ -1,8 +1,9 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.dialogs;
 
 import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
+import io.github.danifascio.gui.LoginPane;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

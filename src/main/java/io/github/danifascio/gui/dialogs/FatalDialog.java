@@ -1,4 +1,4 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.dialogs;
 
 import io.github.danifascio.Gui;
 import javafx.application.Platform;

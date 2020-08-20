@@ -9,6 +9,10 @@ import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import io.github.danifascio.dao.AutoDao;
 import io.github.danifascio.dao.LavorazioneDao;
+import io.github.danifascio.gui.cells.AutoCell;
+import io.github.danifascio.gui.cells.LavorazioneCell;
+import io.github.danifascio.gui.dialogs.AutoDialog;
+import io.github.danifascio.gui.dialogs.LavorazioneDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -398,17 +402,17 @@ public class CentralPane extends BorderPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		searchAutoButton.setGraphic(GlyphFactory.create("search", Color.DIMGRAY, 18));
+		searchAutoButton.setGraphic(Gui.icon("search", Color.DIMGRAY, 18));
 
-		addAutoButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
-		editAutoButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
-		deleteAutoButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
-		refreshAutoButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+		addAutoButton.setGraphic(Gui.icon("add", Color.DIMGRAY, 18));
+		editAutoButton.setGraphic(Gui.icon("edit", Color.DIMGRAY, 18));
+		deleteAutoButton.setGraphic(Gui.icon("delete", Color.DIMGRAY, 18));
+		refreshAutoButton.setGraphic(Gui.icon("refresh", Color.DIMGRAY, 18));
 
-		addLavorazioneButton.setGraphic(GlyphFactory.create("add", Color.DIMGRAY, 18));
-		editLavorazioneButton.setGraphic(GlyphFactory.create("edit", Color.DIMGRAY, 18));
-		deleteLavorazioneButton.setGraphic(GlyphFactory.create("delete", Color.DIMGRAY, 18));
-		refreshLavorazioneButton.setGraphic(GlyphFactory.create("refresh", Color.DIMGRAY, 18));
+		addLavorazioneButton.setGraphic(Gui.icon("add", Color.DIMGRAY, 18));
+		editLavorazioneButton.setGraphic(Gui.icon("edit", Color.DIMGRAY, 18));
+		deleteLavorazioneButton.setGraphic(Gui.icon("delete", Color.DIMGRAY, 18));
+		refreshLavorazioneButton.setGraphic(Gui.icon("refresh", Color.DIMGRAY, 18));
 	}
 
 }

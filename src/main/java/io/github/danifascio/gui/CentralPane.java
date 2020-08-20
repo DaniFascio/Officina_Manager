@@ -381,7 +381,6 @@ public class CentralPane extends BorderPane implements Initializable {
 		Gui.changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
 
-	// TODO: mailto message in string bundle
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();

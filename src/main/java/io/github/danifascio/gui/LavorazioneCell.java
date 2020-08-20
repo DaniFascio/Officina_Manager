@@ -62,7 +62,6 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 			if(descrizione.length() > 30)
 				descrizione = descrizione.substring(0, 30);
 
-			// TODO: Aggiungere data lavorazione nel dao
 			dateLabel.setText(LocalDate.now().toString());
 			spesaLabel.setText(item.getSpesa().toString());
 			descrizioneLabel.setText(descrizione);

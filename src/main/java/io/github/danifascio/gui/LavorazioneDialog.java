@@ -1,6 +1,7 @@
 package io.github.danifascio.gui;
 
 import com.jfoenix.controls.JFXDecorator;
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class LavorazioneDialog extends Dialog<Lavorazione> {
 
@@ -26,6 +28,8 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 	private DatePicker datePicker;
 	@FXML
 	private TextArea descrizioneArea;
+
+	private final ResourceBundle lang;
 
 	public LavorazioneDialog(@NotNull Auto auto, @Nullable Lavorazione lavorazione, ViewMode viewMode) {
 
@@ -38,15 +42,17 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneDialog.fxml"));
+			loader.setResources(lang = Gui.lang());
 			loader.setRoot(new AnchorPane());
 			loader.setController(this);
+
 			dialogPane.setContent(new JFXDecorator((Stage) dialogPane.getScene().getWindow(), loader.load(), false, false, true));
 
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
 
-		dialogPane.getButtonTypes().add(new ButtonType("action.cancel2", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dialogPane.getButtonTypes().add(new ButtonType(lang.getString("action.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE));
 
 		setResizable(true);
 		setResultConverter(btnType -> {
@@ -69,13 +75,12 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 		if(!viewMode.equals(ViewMode.NEW)) {
 			spesaField.setText(lavorazione.getSpesa().toString());
-			// TODO: LocalDate from Lavorazione
-			datePicker.setValue(LocalDate.now());
+			datePicker.setValue(lavorazione.getData());
 			descrizioneArea.setText(lavorazione.getDescrizione());
 
 			if(viewMode.equals(ViewMode.EDIT)) {
 				initModality(Modality.WINDOW_MODAL);
-				getDialogPane().getButtonTypes().addAll(new ButtonType("action.edit", ButtonBar.ButtonData.APPLY));
+				getDialogPane().getButtonTypes().addAll(new ButtonType(lang.getString("action.edit"), ButtonBar.ButtonData.APPLY));
 
 			} else {
 				// BUTTON: VIEW
@@ -87,7 +92,7 @@ public class LavorazioneDialog extends Dialog<Lavorazione> {
 
 		} else {
 			// BUTTON: NEW
-			getDialogPane().getButtonTypes().addAll(new ButtonType("Action.edit", ButtonBar.ButtonData.OK_DONE));
+			getDialogPane().getButtonTypes().addAll(new ButtonType(lang.getString("action.edit"), ButtonBar.ButtonData.OK_DONE));
 			initModality(Modality.WINDOW_MODAL);
 		}
 	}

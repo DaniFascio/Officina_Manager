@@ -84,7 +84,6 @@ public class DatabaseManager implements AutoCloseable {
 
 	public Integer executeUpdate(@Language("SQL") String query, Object... params) throws SQLException {
 		preparedStatement = connection.prepareStatement(query);
-		// TODO: SQL TYPE IN OBJECT
 		for(int i = 1; i <= params.length; i++)
 			preparedStatement.setObject(i, params[i - 1]);
 		int result = preparedStatement.executeUpdate();

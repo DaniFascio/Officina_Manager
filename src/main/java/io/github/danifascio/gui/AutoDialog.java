@@ -1,5 +1,6 @@
 package io.github.danifascio.gui;
 
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.TipoGomme;
 import javafx.beans.value.ChangeListener;
@@ -31,7 +32,8 @@ public class AutoDialog extends CustomDialog<Auto> {
 	// TODO: MOVE ERROR_PSEUDO_CLASS TO Gui CLASS
 	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	private static final Properties icons;
-	private ResourceBundle rb;
+
+	private final ResourceBundle lang;
 
 	static {
 		icons = new Properties();
@@ -69,6 +71,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AutoDialog.fxml"));
+			loader.setResources(lang = Gui.lang());
 			loader.setController(this);
 			setContent(loader.load());
 
@@ -109,8 +112,9 @@ public class AutoDialog extends CustomDialog<Auto> {
 				.setTipoGomme(tipoGommeBox.getValue())
 				.build());
 
-		addButton(rb.getString("action.cancel"), event -> setResult(null));
-		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? rb.getString("auto.add") : rb.getString("auto.edit"), event -> done());
+		addButton(lang.getString("action.cancel"), event -> setResult(null));
+		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? lang.getString("action.add") : lang.getString("action.edit"),
+				event -> done());
 
 		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
 		validate(doneButton);

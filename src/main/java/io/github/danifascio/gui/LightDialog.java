@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -26,6 +28,7 @@ public class LightDialog {
 	private final JFXDialogLayout layout;
 	private final JFXDialog dialog;
 	private final StackPane root;
+
 
 	public LightDialog(StackPane rootPane, String heading, String content, boolean unfocusable) {
 		root = rootPane;
@@ -86,6 +89,8 @@ public class LightDialog {
 		return this;
 	}
 
+
+//	TODO FIX
 	public LightDialog onClose(EventHandler<? super JFXDialogEvent> handler) {
 
 		EventHandler<? super JFXDialogEvent> eventHandler = event -> {

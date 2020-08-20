@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +37,10 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 	@FXML
 	private TextArea descrizioneArea;
 
+	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
+
+
+
 	static {
 		icons = new Properties();
 
@@ -43,10 +49,10 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 			if(input != null)
 				icons.loadFromXML(input);
 			else
-				System.err.println("Couldn't load icons properties");
+				logger.error("Couldn't load icons properties");
 
 		} catch(IOException e) {
-			e.printStackTrace();
+			logger.error("Error during loading icons", e);
 		}
 	}
 

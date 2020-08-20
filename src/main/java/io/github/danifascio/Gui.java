@@ -38,6 +38,7 @@ public class Gui extends Application {
 	private static Logger logger;
 	private static Stage stage;
 
+
 	static {
 	}
 
@@ -73,11 +74,10 @@ public class Gui extends Application {
 			if(input != null)
 				iconsPath.loadFromXML(input);
 			else
-				logger.error("");
-			System.err.println("Couldn't load icons");
+				logger.error("Couldn't load icons");
 
 		} catch(IOException e) {
-			e.printStackTrace();
+			logger.error("Error during loading icons",e);
 		}
 
 		BundleManager.load("glyphs", true);

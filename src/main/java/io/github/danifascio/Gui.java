@@ -1,6 +1,7 @@
 package io.github.danifascio;
 
 import com.jfoenix.controls.JFXDecorator;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.gui.*;
 import javafx.application.Application;
@@ -68,7 +69,7 @@ public class Gui extends Application {
 
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
 			e.printStackTrace();
-			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
 
 		lang = ResourceBundle.getBundle("Strings");

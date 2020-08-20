@@ -4,7 +4,6 @@ import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import javafx.beans.value.ChangeListener;
-import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -40,8 +39,6 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
 
 	private static ResourceBundle lang;
-
-
 
 	static {
 		icons = new Properties();

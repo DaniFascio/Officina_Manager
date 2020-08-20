@@ -2,7 +2,10 @@ package io.github.danifascio;
 
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
-import io.github.danifascio.gui.*;
+import io.github.danifascio.gui.FatalDialog;
+import io.github.danifascio.gui.GlyphFactory;
+import io.github.danifascio.gui.LightDialog;
+import io.github.danifascio.gui.LoginPane;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;

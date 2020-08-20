@@ -1,16 +1,12 @@
 package io.github.danifascio.gui;
 
 import com.jfoenix.svg.SVGGlyph;
-import io.github.danifascio.BundleManager;
 import io.github.danifascio.Gui;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 public class GlyphFactory {
 

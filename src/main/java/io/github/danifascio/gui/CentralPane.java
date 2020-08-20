@@ -209,27 +209,27 @@ public class CentralPane extends BorderPane implements Initializable {
 		Auto auto = listaAutoView.getSelectionModel().getSelectedItem();
 		String targa = auto.getTarga();
 
-		new Alert(Alert.AlertType.CONFIRMATION,
-				lang.getString("auto.remove_selected.confirm") + targa + "?",
-				ButtonType.YES,
-				ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
-			Alert alert;
-			AutoDao dao = new AutoDao();
+		new Alert(Alert.AlertType.CONFIRMATION, lang.getString("auto.remove_selected.confirm") + targa + "?", ButtonType.YES, ButtonType.NO)
+				.showAndWait()
+				.filter(ButtonType.YES::equals)
+				.ifPresent(buttonType -> {
+					Alert alert;
+					AutoDao dao = new AutoDao();
 
-			if(dao.delete(auto) == 1) {
-				alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(lang.getString("auto.delete.success"));
-			} else {
-				alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(lang.getString("auto.delete.error"));
-				alert.setContentText(dao.errorMessage());
-			}
+					if(dao.delete(auto) == 1) {
+						alert = new Alert(Alert.AlertType.INFORMATION);
+						alert.setHeaderText(lang.getString("auto.delete.success"));
+					} else {
+						alert = new Alert(Alert.AlertType.ERROR);
+						alert.setHeaderText(lang.getString("auto.delete.error"));
+						alert.setContentText(dao.errorMessage());
+					}
 
-			alert.setTitle(lang.getString("auto.delete"));
-			alert.showAndWait();
-			onRefreshAuto(event);
+					alert.setTitle(lang.getString("auto.delete"));
+					alert.showAndWait();
+					onRefreshAuto(event);
 
-		});
+				});
 	}
 
 	@FXML
@@ -398,12 +398,6 @@ public class CentralPane extends BorderPane implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		GlyphFactory.init();
-
-		ResourceBundle glyphs = BundleManager.get("glyphs");
-		if(glyphs == null)
-			return;
 
 		searchAutoButton.setGraphic(GlyphFactory.create("search", Color.DIMGRAY, 18));
 

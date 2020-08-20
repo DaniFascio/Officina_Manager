@@ -17,7 +17,7 @@ public class DatabaseManager implements AutoCloseable {
 
 	static {
 		properties = new Properties();
-		filePath = System.getProperty("user.home") + "\\AppData\\Roaming\\DaniFascio\\db_officina\\conn.properties";
+		filePath = System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina\\conn.properties";
 
 		try(InputStream input = new FileInputStream(filePath)) {
 

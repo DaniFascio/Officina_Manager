@@ -2,6 +2,7 @@ package io.github.danifascio.gui;
 
 import com.jfoenix.svg.SVGGlyph;
 import io.github.danifascio.BundleManager;
+import io.github.danifascio.Gui;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
@@ -13,27 +14,14 @@ import java.util.ResourceBundle;
 
 public class GlyphFactory {
 
-	// TODO: REFACTOR ResourceBundle INTO Properties
-	private static ResourceBundle paths;
-
 	private GlyphFactory() {
 
 	}
 
-	public static void init() {
-		if(paths == null)
-			paths = BundleManager.load("glyphs", true);
-
-	}
-
 	public static @Nullable Node create(String glyph, Paint color, int size) {
-		String path;
-
-		try {
-			path = paths.getString(glyph);
-		} catch(MissingResourceException e) {
+		String path = Gui.iconPaths().getProperty(glyph);
+		if(path == null)
 			return null;
-		}
 
 		Rectangle rectangle = new Rectangle(size, size);
 		SVGGlyph svgGlyph = new SVGGlyph(path, color);

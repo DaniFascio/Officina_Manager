@@ -29,7 +29,6 @@ public class LightDialog {
 	private final JFXDialog dialog;
 	private final StackPane root;
 
-
 	public LightDialog(StackPane rootPane, String heading, String content, boolean unfocusable) {
 		root = rootPane;
 		actions = new LinkedList<>();
@@ -89,24 +88,13 @@ public class LightDialog {
 		return this;
 	}
 
-
-//	TODO FIX
 	public LightDialog onClose(EventHandler<? super JFXDialogEvent> handler) {
 
-		EventHandler<? super JFXDialogEvent> eventHandler = event -> {
+		dialog.setOnDialogClosed(event -> {
 			dialogMap.remove(root);
-			try {
+			handler.handle(event);
+		});
 
-				Method method = handler.getClass().getMethod("handle", Event.class);
-				method.setAccessible(true);
-				method.invoke(handler, event);
-
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		};
-
-		dialog.setOnDialogClosed(eventHandler);
 		return this;
 	}
 

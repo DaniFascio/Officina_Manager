@@ -31,16 +31,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Gui extends Application {
 
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
+	public static final String DIR = System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina";
 	public static final int ICON_SIZE = 20;
 
 	private static Properties iconsPath;
 	private static ResourceBundle lang;
 	private static Logger logger;
 	private static Stage stage;
-
-
-	static {
-	}
 
 	public static void main(String[] args) {
 		launch();
@@ -60,7 +57,7 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
 
-		File dir = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina");
+		File dir = new File(DIR);
 		if(!dir.exists())
 			dir.mkdirs();
 
@@ -69,7 +66,7 @@ public class Gui extends Application {
 			new FatalDialog("Fatal Error", "Couldn't get language resources.\nTry to reinstall the program.");
 
 		iconsPath = new Properties();
-		try(InputStream input = getClass().getResourceAsStream("glyphs.xml")) {
+		try(InputStream input = getClass().getResourceAsStream("/glyphs.xml")) {
 
 			if(input != null)
 				iconsPath.loadFromXML(input);
@@ -77,11 +74,10 @@ public class Gui extends Application {
 				logger.error("Couldn't load icons");
 
 		} catch(IOException e) {
-			logger.error("Error during loading icons",e);
+			logger.error("Error during loading icons", e);
 		}
 
 		BundleManager.load("glyphs", true);
-		GlyphFactory.init();
 
 		if(BundleManager.get("glyphs") != null)
 			logger.info("Glyphs bundle loaded");

@@ -39,6 +39,8 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
 
+	private static ResourceBundle lang;
+
 
 
 	static {
@@ -64,6 +66,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneDialog.fxml"));
+			loader.setResources(lang = Gui.lang());
 			loader.setRoot(new AnchorPane());
 			loader.setController(this);
 			setContent(loader.load());
@@ -90,7 +93,7 @@ public class CustomLavorazioneDialog extends CustomDialog<Lavorazione> {
 					.setAuto(auto)
 					.build());
 
-			addButton("action.cancel", event -> setResult(null));
+			addButton(lang.getString("action.cancel"), event -> setResult(null));
 			Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
 
 			ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);

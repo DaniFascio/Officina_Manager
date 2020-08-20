@@ -12,7 +12,7 @@ import javafx.stage.WindowEvent;
 public class FatalDialog extends CustomDialog<Void> {
 
 	public FatalDialog(String title, String context) {
-		super(title, Gui.ICONS_PATH.getProperty("warning"), Modality.APPLICATION_MODAL);
+		super(title, Gui.iconPaths().getProperty("warning"), Modality.APPLICATION_MODAL);
 		setOnCloseRequest(event -> Platform.exit());
 		VBox vBox = new VBox();
 		vBox.setPadding(new Insets(10));

@@ -45,7 +45,7 @@
 						onAction="#onAddLavorazione"/>
 				<MenuItem text="%action.edit"
 						onAction="#onEditLavorazione"/>
-				<MenuItem text="%action.edit"
+				<MenuItem text="%action.delete"
 						onAction="#onDeleteLavorazione"/>
 				<MenuItem text="%action.update"
 						onAction="#onRefreshLavorazione"/>

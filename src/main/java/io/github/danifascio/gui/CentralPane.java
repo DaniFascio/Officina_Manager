@@ -85,9 +85,9 @@ public class CentralPane extends BorderPane implements Initializable {
 	@FXML
 	private Button refreshLavorazioneButton;
 
+	private final ResourceBundle lang;
 	private final List<Auto> autoList;
 	private Auto selectedAuto;
-	private ResourceBundle rb;
 
 	public CentralPane() {
 		super();
@@ -97,14 +97,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Central.fxml"));
-			loader.setResources(rb = Gui.bundle());
+			loader.setResources(lang = Gui.lang());
 			loader.setController(this);
 			loader.setRoot(this);
 			loader.load();
 
 			welcomeLabel.setText(DatabaseManager.getUsername());
 
-			Tooltip.install(searchBox, new Tooltip(rb.getString("auto.search_criteria")));
+			Tooltip.install(searchBox, new Tooltip(lang.getString("auto.search_criteria")));
 
 			listaAutoView.setCellFactory(listView -> new AutoCell());
 			listaAutoView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -142,7 +142,7 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(autoDao.save(auto) == 1) {
 
 					dialog = new Alert(Alert.AlertType.INFORMATION);
-					dialog.setHeaderText(rb.getString("auto.add.success"));
+					dialog.setHeaderText(lang.getString("auto.add.success"));
 
 				} else {
 
@@ -152,12 +152,12 @@ public class CentralPane extends BorderPane implements Initializable {
 						message = message.substring(index);
 
 					dialog = new Alert(Alert.AlertType.ERROR);
-					dialog.setHeaderText(rb.getString("auto.add.error"));
-					dialog.setContentText(rb.getString("auto.add.error_Targa"));
+					dialog.setHeaderText(lang.getString("auto.add.error"));
+					dialog.setContentText(lang.getString("auto.add.error_Targa"));
 
 				}
 
-				dialog.setTitle(rb.getString("auto.add2"));
+				dialog.setTitle(lang.getString("auto.add2"));
 				dialog.showAndWait();
 
 				onRefreshAuto(event);
@@ -180,22 +180,22 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(!dao.error()) {
 
 					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText(rb.getString("auto.edit.success"));
+					alert.setHeaderText(lang.getString("auto.edit.success"));
 
 				} else {
 
 					String message = dao.errorMessage();
-					int index = message.indexOf(rb.getString("menu.details"));
+					int index = message.indexOf(lang.getString("menu.details"));
 					if(index != -1)
 						message = message.substring(index);
 
 					alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText(rb.getString("auto.edit.error"));
-					alert.setContentText(rb.getString("auto.add.error_Targa"));
+					alert.setHeaderText(lang.getString("auto.edit.error"));
+					alert.setContentText(lang.getString("auto.add.error_Targa"));
 
 				}
 
-				alert.setTitle(rb.getString("auto.edit"));
+				alert.setTitle(lang.getString("auto.edit"));
 				alert.showAndWait();
 				onRefreshAuto(event);
 			}
@@ -210,7 +210,7 @@ public class CentralPane extends BorderPane implements Initializable {
 		String targa = auto.getTarga();
 
 		new Alert(Alert.AlertType.CONFIRMATION,
-				rb.getString("auto.remove_selected.confirm") + targa + "?",
+				lang.getString("auto.remove_selected.confirm") + targa + "?",
 				ButtonType.YES,
 				ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 			Alert alert;
@@ -218,14 +218,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			if(dao.delete(auto) == 1) {
 				alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(rb.getString("auto.delete.success"));
+				alert.setHeaderText(lang.getString("auto.delete.success"));
 			} else {
 				alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(rb.getString("auto.delete.error"));
+				alert.setHeaderText(lang.getString("auto.delete.error"));
 				alert.setContentText(dao.errorMessage());
 			}
 
-			alert.setTitle(rb.getString("auto.delete"));
+			alert.setTitle(lang.getString("auto.delete"));
 			alert.showAndWait();
 			onRefreshAuto(event);
 
@@ -239,8 +239,8 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		if(dao.error()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle(rb.getString("action.error"));
-			alert.setHeaderText(rb.getString("auto.update.error"));
+			alert.setTitle(lang.getString("action.error"));
+			alert.setHeaderText(lang.getString("auto.update.error"));
 			alert.setContentText(dao.errorMessage());
 		}
 
@@ -310,7 +310,7 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(rb.getString(
+			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
 					"auto.lavorazioni.select"))));
 
 		else
@@ -321,9 +321,9 @@ public class CentralPane extends BorderPane implements Initializable {
 
 					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
 					if(dao.update(selectedLavorazione, lavorazione.values()) == 1)
-						toastLayout = new JFXSnackbarLayout(rb.getString("auto.lavorazioni.update.success"));
+						toastLayout = new JFXSnackbarLayout(lang.getString("auto.lavorazioni.update.success"));
 					else
-						toastLayout = new JFXSnackbarLayout(rb.getString("auto.lavorazioni.update.error"));
+						toastLayout = new JFXSnackbarLayout(lang.getString("auto.lavorazioni.update.error"));
 
 					if(dao.error())
 						throw new RuntimeException(dao.errorMessage());
@@ -341,12 +341,12 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, rb.getString("auto.lavorazioni.select")).showAndWait();
+			new Alert(Alert.AlertType.INFORMATION, lang.getString("auto.lavorazioni.select")).showAndWait();
 		else
 
 
 			new Alert(Alert.AlertType.CONFIRMATION,
-					rb.getString("auto.lavorazioni.confirm_remove"),
+					lang.getString("auto.lavorazioni.confirm_remove"),
 					ButtonType.YES,
 					ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 				Alert alert;
@@ -354,14 +354,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 				if(dao.delete(selectedLavorazione) == 1) {
 					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText(rb.getString("auto.lavorazioni.remove_success"));
+					alert.setHeaderText(lang.getString("auto.lavorazioni.remove_success"));
 				} else {
 					alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText(rb.getString("auto.lavorazioni.remove_error"));
+					alert.setHeaderText(lang.getString("auto.lavorazioni.remove_error"));
 					alert.setContentText(dao.errorMessage());
 				}
 
-				alert.setTitle(rb.getString("auto.lavorazioni.remove"));
+				alert.setTitle(lang.getString("auto.lavorazioni.remove"));
 				alert.showAndWait();
 				onRefreshAuto(event);
 
@@ -378,14 +378,14 @@ public class CentralPane extends BorderPane implements Initializable {
 
 	@FXML
 	private void backToLogin(Event event) {
-		Gui.changeStage(rb.getString("menu.secondary"), new LoginPane(), false);
+		Gui.changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
 
 	// TODO: mailto message in string bundle
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();
-		String message = rb.getString("action.reportBug.Mail");
+		String message = lang.getString("action.reportBug.Mail");
 		URI uri = URI.create(message);
 
 		try {

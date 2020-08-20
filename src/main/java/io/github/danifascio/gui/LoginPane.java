@@ -34,7 +34,7 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private PasswordField passwordField;
 
-	private final ResourceBundle rb;
+	private final ResourceBundle lang;
 
 	public LoginPane() {
 		super();
@@ -43,7 +43,7 @@ public class LoginPane extends BorderPane {
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/LoginPane.fxml"));
-			loader.setResources(rb = Gui.bundle());
+			loader.setResources(lang = Gui.lang());
 			loader.setController(this);
 			loader.setRoot(this);
 			loader.load();
@@ -71,14 +71,14 @@ public class LoginPane extends BorderPane {
 			try {
 
 				TipoGomme.reload();
-				Gui.changeStage(rb.getString("menu.secondary"), new CentralPane(), true);
+				Gui.changeStage(lang.getString("menu.secondary"), new CentralPane(), true);
 
 			} catch(Exception e) {
 				e.printStackTrace();
 				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle(rb.getString("action.error"));
-				alert.setHeaderText(rb.getString("menu.connection.error"));
-				alert.setContentText(rb.getString("menu.credentials.error"));
+				alert.setTitle(lang.getString("action.error"));
+				alert.setHeaderText(lang.getString("menu.connection.error"));
+				alert.setContentText(lang.getString("menu.credentials.error"));
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}
@@ -117,7 +117,7 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();
-		String message = rb.getString("action.reportBug.Mail");
+		String message = lang.getString("action.reportBug.Mail");
 		URI uri = URI.create(message);
 
 		try {
@@ -131,16 +131,19 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void openSettings(Event event) {
-		Gui.createStage(rb.getString("menu.settings"), rb.getString("menu.settings"), new SettingsPane(), false, Modality.APPLICATION_MODAL)
-				.showAndWait();
+		Gui.createStage(lang.getString("menu.settings"),
+				lang.getString("menu.settings"),
+				new SettingsPane(),
+				false,
+				Modality.APPLICATION_MODAL).showAndWait();
 	}
 
 	@FXML
 	private void toImplement(Event event) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION,
-				rb.getString("action.toimplement"),
+				lang.getString("action.toimplement"),
 				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
-		alert.setHeaderText(rb.getString("menu.patient"));
+		alert.setHeaderText(lang.getString("menu.patient"));
 		alert.showAndWait();
 	}
 

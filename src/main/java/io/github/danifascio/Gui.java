@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Gui extends Application {
 
 	private static Stage stage;
-	private static ResourceBundle strings;
+	private static ResourceBundle lang;
 	private static final Properties icons;
 
 	static {
@@ -42,7 +42,7 @@ public class Gui extends Application {
 			if(input != null)
 				icons.loadFromXML(input);
 			else
-				System.err.println("Couldn't load icons properties");
+				System.err.println("Couldn't load icons");
 
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -70,8 +70,8 @@ public class Gui extends Application {
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
 		});
 
-		strings = ResourceBundle.getBundle("Strings");
-		if(strings == null) {
+		lang = ResourceBundle.getBundle("Strings");
+		if(lang == null) {
 			throw new RuntimeException("Couldn't get String resources");
 			// TODO: CLOSE ON ERROR <--[HERE]
 		}
@@ -84,15 +84,15 @@ public class Gui extends Application {
 		else
 			System.err.println("Couldn't load Glyphs bundle");
 
-		changeStage(strings.getString("menu.secondary"), new LoginPane(), false);
+		changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
 
 	public static Stage stage() {
 		return stage;
 	}
 
-	public static ResourceBundle bundle() {
-		return strings;
+	public static ResourceBundle lang() {
+		return lang;
 	}
 
 	public static void changeStage(String title, Region content, boolean resizable) {
@@ -119,8 +119,8 @@ public class Gui extends Application {
 			AtomicReference<Button> buttonReference = new AtomicReference<>(), yesButton = new AtomicReference<>();
 
 			LightDialog lightDialog = new LightDialog(rootPane, true);
-			lightDialog.heading(strings.getString("menu.close"))
-					.content(strings.getString("menu.exit_request.confirm"))
+			lightDialog.heading(lang.getString("menu.close"))
+					.content(lang.getString("menu.exit_request.confirm"))
 					.onClose(event1 -> Optional.ofNullable(buttonReference.get())
 							.filter(yesButton.get()::equals)
 							.ifPresent(button -> Platform.exit()))

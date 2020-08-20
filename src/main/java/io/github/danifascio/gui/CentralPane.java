@@ -3,7 +3,6 @@ package io.github.danifascio.gui;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXSnackbarLayout;
-import io.github.danifascio.BundleManager;
 import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
@@ -289,7 +288,7 @@ public class CentralPane extends BorderPane implements Initializable {
 	@FXML
 	private void onAddLavorazione(ActionEvent event) {
 
-		new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.ADD, selectedAuto, null).onResult(lavorazione -> {
+		new LavorazioneDialog(LavorazioneDialog.ViewMode.ADD, selectedAuto, null).onResult(lavorazione -> {
 			if(lavorazione != null) {
 
 				LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
@@ -314,7 +313,7 @@ public class CentralPane extends BorderPane implements Initializable {
 					"auto.lavorazioni.select"))));
 
 		else
-			new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
+			new LavorazioneDialog(LavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
 
 				if(lavorazione != null) {
 					JFXSnackbarLayout toastLayout;

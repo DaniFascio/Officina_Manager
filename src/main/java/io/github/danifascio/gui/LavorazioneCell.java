@@ -40,7 +40,7 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 					.filter(MouseButton.PRIMARY::equals)
 					.filter(mouseButton -> event.getClickCount() == 2)
 					.flatMap(mouseButton -> Optional.ofNullable(lavorazioneReference.get()))
-					.ifPresent(lavorazione -> new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.VIEW,
+					.ifPresent(lavorazione -> new LavorazioneDialog(LavorazioneDialog.ViewMode.VIEW,
 							lavorazione.getAuto(),
 							lavorazione).show()));
 

@@ -124,16 +124,60 @@ public class CentralPane extends BorderPane implements Initializable {
 				tipoGommeLabel.setText(newValue.getTipoGomme().getDescrizione());
 				noteArea.setText(newValue.getNote());
 
-				onRefreshLavorazione(null);
+				refreshLavorazione();
 			});
 
 			listaLavorazioniView.setCellFactory(listView -> new LavorazioneCell());
 
-			onRefreshAuto(null);
+			refreshAuto();
 			Platform.runLater(() -> rootPane = (StackPane) getScene().lookup("#rootPane"));
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
+	}
+
+	private boolean refreshAuto() {
+		AutoDao dao = new AutoDao();
+		List<Auto> list = dao.getAll();
+		boolean b;
+
+		autoList.clear();
+		autoList.addAll(list);
+		listaAutoView.getItems().clear();
+		listaAutoView.getItems().addAll(list);
+
+		if(b = dao.error()) {
+
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle(lang.getString("action.error"));
+			alert.setHeaderText(lang.getString("auto.refresh.error"));
+			alert.setContentText(dao.errorMessage());
+			alert.showAndWait();
+
+		}
+
+		if(listaAutoView.getSelectionModel().getSelectedItem() == null && listaAutoView.getItems().size() != 0)
+			Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
+		return !b;
+	}
+
+	private boolean refreshLavorazione() {
+		LavorazioneDao dao = new LavorazioneDao(selectedAuto);
+		boolean b;
+
+		listaLavorazioniView.getItems().clear();
+		listaLavorazioniView.getItems().addAll(dao.getAll());
+
+		if(b = dao.error()) {
+
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle(lang.getString("action.error"));
+			alert.setHeaderText(lang.getString("lavorazione.refresh.error"));
+			alert.setContentText(dao.errorMessage());
+			alert.showAndWait();
+
+		}
+		return !b;
 	}
 
 	@FXML
@@ -155,7 +199,7 @@ public class CentralPane extends BorderPane implements Initializable {
 					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.add.success")),
 							Duration.seconds(Gui.TOAST_DURATION)));
 
-				onRefreshAuto(event);
+				refreshAuto();
 			}
 		}).showAndWait();
 
@@ -182,7 +226,7 @@ public class CentralPane extends BorderPane implements Initializable {
 					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.edit.success")),
 							Duration.seconds(Gui.TOAST_DURATION)));
 
-				onRefreshAuto(event);
+				refreshAuto();
 			}
 		}).showAndWait();
 
@@ -216,32 +260,16 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			}
 
-			onRefreshAuto(event);
+			refreshAuto();
 		});
 	}
 
 	@FXML
-	private void onRefreshAuto(ActionEvent event) {
-		AutoDao dao = new AutoDao();
-		List<Auto> list = dao.getAll();
+	private void onRefreshAuto(Event event) {
 
-		autoList.clear();
-		autoList.addAll(list);
-		listaAutoView.getItems().clear();
-		listaAutoView.getItems().addAll(list);
+		if(refreshAuto())
+			new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.refresh.success"))));
 
-		if(dao.error()) {
-
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle(lang.getString("action.error"));
-			alert.setHeaderText(lang.getString("auto.refresh.error"));
-			alert.setContentText(dao.errorMessage());
-			alert.showAndWait();
-
-		}
-
-		if(listaAutoView.getSelectionModel().getSelectedItem() == null && listaAutoView.getItems().size() != 0)
-			Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
 	}
 
 	@FXML
@@ -263,24 +291,6 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		});
 
-	}
-
-	@FXML
-	private void onRefreshLavorazione(ActionEvent event) {
-		LavorazioneDao dao = new LavorazioneDao(selectedAuto);
-
-		listaLavorazioniView.getItems().clear();
-		listaLavorazioniView.getItems().addAll(dao.getAll());
-
-		if(dao.error()) {
-
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle(lang.getString("action.error"));
-			alert.setHeaderText(lang.getString("lavorazione.refresh.error"));
-			alert.setContentText(dao.errorMessage());
-			alert.showAndWait();
-
-		}
 	}
 
 	@FXML
@@ -307,7 +317,7 @@ public class CentralPane extends BorderPane implements Initializable {
 			}
 		}).showAndWait();
 
-		onRefreshLavorazione(event);
+		refreshLavorazione();
 	}
 
 	@FXML
@@ -368,8 +378,16 @@ public class CentralPane extends BorderPane implements Initializable {
 					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.delete.success")),
 							Duration.seconds(Gui.TOAST_DURATION)));
 
-				onRefreshAuto(event);
+				refreshAuto();
 			});
+	}
+
+	@FXML
+	private void onRefreshLavorazione(Event event) {
+
+		if(refreshLavorazione())
+			new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.refresh.success"))));
+
 	}
 
 	@FXML

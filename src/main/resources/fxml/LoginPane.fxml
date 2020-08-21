@@ -82,12 +82,10 @@
 
 
 			<JFXButton alignment="CENTER"
-					buttonType="RAISED"
 					contentDisplay="CENTER"
 					onAction="#login"
 					onKeyPressed="#login"
-					ripplerFill="#558bf8"
-					style="-fx-background-color: #11a7cd; -fx-text-fill: white;"
+					styleClass="button-raised"
 					text="_ACCEDI">
 				<font>
 					<Font size="16.0"/>

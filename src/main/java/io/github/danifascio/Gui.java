@@ -40,6 +40,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
+// TODO: EDIT RIPPLER FOR ALL
+// TODO: FOCUS COLOR
 public class Gui extends Application {
 
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
@@ -112,13 +114,6 @@ public class Gui extends Application {
 			logger.error("Error during loading icons", e);
 		}
 
-		BundleManager.load("glyphs", true);
-
-		if(BundleManager.get("glyphs") != null)
-			logger.info("Glyphs bundle loaded");
-		else
-			logger.error("Couldn't load Glyphs bundle");
-
 		changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
 
@@ -138,7 +133,6 @@ public class Gui extends Application {
 
 		Stage newStage = new Stage();
 		StackPane rootPane = new StackPane(content);
-		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
@@ -148,7 +142,10 @@ public class Gui extends Application {
 		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);
 		decorator.setGraphic(glyph);
 
-		newStage.setScene(new Scene(decorator));
+		Scene scene = new Scene(decorator);
+		scene.getStylesheets().add("/css/Root.css");
+
+		newStage.setScene(scene);
 		newStage.initStyle(StageStyle.UNDECORATED);
 		newStage.setResizable(resizable);
 		newStage.setTitle(title);
@@ -192,14 +189,16 @@ public class Gui extends Application {
 
 		Stage stage = new Stage();
 		StackPane rootPane = new StackPane(content);
-		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
 		JFXDecorator decorator = new JFXDecorator(stage, rootPane, false, resizable, true);
 		decorator.setGraphic(icon(icon, Color.WHITE, ICON_SIZE));
 
-		stage.setScene(new Scene(decorator));
+		Scene scene = new Scene(decorator);
+		scene.getStylesheets().add("/css/Root.css");
+
+		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.initModality(modality);
 		stage.setResizable(false);

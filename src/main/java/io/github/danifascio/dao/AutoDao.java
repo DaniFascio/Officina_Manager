@@ -1,6 +1,7 @@
 package io.github.danifascio.dao;
 
 import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.TipoGomme;
 import org.jetbrains.annotations.NotNull;
@@ -44,10 +45,12 @@ public class AutoDao implements Dao<Auto> {
 						.build();
 
 		} catch(SQLException e) {
-			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
-			logger.error("[Error Code " + e.getSQLState() + "] " + errorMessage, e);
+
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
+
 		} catch(IOException e) {
-			logger.error("[Error Code -1] IOException", e);
+			logger.error("[Error Code -1]", e);
 			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 

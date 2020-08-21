@@ -143,13 +143,7 @@ public class CentralPane extends BorderPane implements Initializable {
 			if(auto != null) {
 				AutoDao autoDao = new AutoDao();
 
-				if(autoDao.save(auto) == 1) {
-
-					// TODO: REFACTOR ALERT (INFO) INTO TOAST (SNACKBAR)
-					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.add.success")),
-							Duration.seconds(Gui.TOAST_DURATION)));
-
-				} else {
+				if(autoDao.save(auto) == 0) {
 
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setTitle(lang.getString("auto.add2"));
@@ -157,7 +151,9 @@ public class CentralPane extends BorderPane implements Initializable {
 					alert.setContentText(autoDao.errorMessage());
 					alert.showAndWait();
 
-				}
+				} else
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.add.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
 
 				onRefreshAuto(event);
 			}

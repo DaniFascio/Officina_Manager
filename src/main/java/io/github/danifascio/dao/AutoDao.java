@@ -79,7 +79,7 @@ public class AutoDao implements Dao<Auto> {
 		} catch(SQLException e) {
 
 			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
-			logger.error("Error Code " + e.getSQLState(), e);
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -117,7 +117,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
-				logger.error("Error Code " + e.getSQLState(), e);
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
 			errorMessage = DatabaseManager.errorCodeResponse("-1");
@@ -145,7 +145,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
-				logger.error("Error Code " + e.getSQLState(), e);
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 
 		return res;
@@ -164,7 +164,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
-				logger.error("Error Code " + e.getSQLState(), e);
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 
 		return res;

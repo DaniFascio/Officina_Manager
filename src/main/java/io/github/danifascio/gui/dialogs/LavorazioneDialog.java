@@ -1,5 +1,6 @@
 package io.github.danifascio.gui.dialogs;
 
+import com.jfoenix.controls.JFXDatePicker;
 import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
@@ -9,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +34,7 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 	@FXML
 	private TextField spesaField;
 	@FXML
-	private DatePicker datePicker;
+	private JFXDatePicker datePicker;
 	@FXML
 	private TextArea descrizioneArea;
 
@@ -101,9 +102,15 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 			addButton("Chiudi", event -> setResult(null));
 
 			spesaField.setEditable(false);
-			// TODO: FIX EDITABLE DATEPICKER WHEN UNEDITABLE
-			datePicker.setEditable(false);
 			descrizioneArea.setEditable(false);
+			datePicker.setEditable(false);
+			datePicker.setDayCellFactory(datePicker -> new DateCell() {
+				@Override
+				public void updateItem(LocalDate item, boolean empty) {
+					super.updateItem(item, empty);
+					setDisable(true);
+				}
+			});
 		}
 	}
 

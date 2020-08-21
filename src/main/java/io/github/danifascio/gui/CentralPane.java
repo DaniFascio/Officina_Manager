@@ -150,9 +150,6 @@ public class CentralPane extends BorderPane implements Initializable {
 					new JFXSnackbar((Pane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
 							"auto.add.success")), Duration.seconds(3)));
 
-					dialog = new Alert(Alert.AlertType.INFORMATION);
-					dialog.setHeaderText(lang.getString("auto.add.success"));
-
 				} else {
 
 					String message = autoDao.errorMessage();
@@ -163,11 +160,10 @@ public class CentralPane extends BorderPane implements Initializable {
 					dialog = new Alert(Alert.AlertType.ERROR);
 					dialog.setHeaderText(lang.getString("auto.add.error"));
 					dialog.setContentText(lang.getString("auto.add.error_Targa"));
+					dialog.setTitle(lang.getString("auto.add2"));
+					dialog.showAndWait();
 
 				}
-
-				dialog.setTitle(lang.getString("auto.add2"));
-				dialog.showAndWait();
 
 				onRefreshAuto(event);
 			}

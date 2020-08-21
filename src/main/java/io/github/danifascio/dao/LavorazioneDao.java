@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -46,7 +47,9 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build();
 
-		} catch(Exception e) {
+		}catch(SQLException e){
+			logger.error("Error during LavorazioneDao.get - Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
 			logger.error("Error during LavorazioneDao.get",e);
 		}
 
@@ -74,7 +77,9 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build());
 
-		} catch(Exception e) {
+		}catch(SQLException e){
+			logger.error("Error during LavorazioneDao.getAll - Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
 			logger.error("Error during LavorazioneDao.getAll",e);
 		}
 
@@ -105,7 +110,9 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					lavorazione.getData(),
 					auto.getTarga());
 
-		} catch(Exception e) {
+		}catch(SQLException e) {
+			logger.error("Error during LavorazioneDao.save - Error Code " + e.getSQLState(), e);
+		}catch(IOException e) {
 			logger.error("Error during LavorazioneDao.save",e);
 		}
 
@@ -134,8 +141,10 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					params[3],
 					id);
 
-		} catch(Exception e) {
-			logger.error("Error during LavorazioneDao.update",e);
+		} catch(SQLException e) {
+			logger.error("Error during LavorazioneDao.update - Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
+			logger.error("Error during LavorazioneDao.update", e);
 		}
 
 		return res;
@@ -153,7 +162,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione.getId());
 
 		} catch(SQLException e) {
-			logger.error("Error during LavorazioneDao.delete",e);
+			logger.error("Error during LavorazioneDao.delete - Error Code " + e.getSQLState(), e);
 		}
 
 		return res;

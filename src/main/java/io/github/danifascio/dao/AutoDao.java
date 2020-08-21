@@ -69,7 +69,9 @@ public class AutoDao implements Dao<Auto> {
 						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
 						.build());
 
-		} catch(Exception e) {
+		} catch(SQLException e) {
+			logger.error("Error during AutoDao.getAll - Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
 			logger.error("Error during AutoDao.getAll", e);
 
 		}
@@ -103,10 +105,14 @@ public class AutoDao implements Dao<Auto> {
 					auto.getTipoGomme().getId(),
 					auto.getMisuraGomme());
 
-		} catch(Exception e) {
-			logger.error("Error during AutoDao.save", e);
-
 		}
+
+		catch(SQLException e) {
+			logger.error("Error during AutoDao.save - Error Code " + e.getSQLState(), e);
+		}   catch(IOException e) {
+			logger.error("Error during AutoDao.save", e);
+		}
+
 
 		return res;
 	}
@@ -128,8 +134,7 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.update", e);
-
+			logger.error("Error during AutoDao.update - Error Code " + e.getSQLState(), e);
 		}
 
 
@@ -145,9 +150,9 @@ public class AutoDao implements Dao<Auto> {
 		try {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
-		} catch(SQLException e) {
-			logger.error("Error during AutoDao.delete", e);
-
+		}
+		catch(SQLException e) {
+			logger.error("Error during AutoDao.delete - Error Code " + e.getSQLState(), e);
 		}
 
 		return res;

@@ -1,6 +1,8 @@
 package io.github.danifascio;
 
+import io.github.danifascio.dao.AutoDao;
 import org.intellij.lang.annotations.Language;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
@@ -16,6 +18,8 @@ public class DatabaseManager implements AutoCloseable {
 	private static final String filePath;
 	private static final Properties errorCodes;
 	private static final Properties dbProperties;
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
+
 
 	static {
 		dbProperties = new Properties();
@@ -29,7 +33,7 @@ public class DatabaseManager implements AutoCloseable {
 			dbProperties.load(dbInput);
 
 		} catch(Exception e) {
-			LoggerFactory.getLogger(DatabaseManager.class).error("Error while loading resources", e);
+			logger.error("Error while loading resources", e);
 		}
 	}
 
@@ -120,6 +124,7 @@ public class DatabaseManager implements AutoCloseable {
 	}
 
 	public static void save() {
+
 		try(PrintWriter printWriter = new PrintWriter(filePath)) {
 
 			String username = dbProperties.getProperty("db.username");
@@ -135,7 +140,8 @@ public class DatabaseManager implements AutoCloseable {
 				dbProperties.put("db.password", password);
 
 		} catch(IOException e) {
-			throw new RuntimeException(e);
+			logger.error("[Error Code -1]", e);
+
 		}
 	}
 

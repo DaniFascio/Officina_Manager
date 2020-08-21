@@ -77,10 +77,12 @@ public class AutoDao implements Dao<Auto> {
 						.build());
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.getAll - Error Code " + e.getSQLState(), e);
-			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			logger.error("Error Code " + e.getSQLState(), e);
+
 		} catch(IOException e) {
-			logger.error("Error during AutoDao.getAll - Error Code -1", e);
+			logger.error("[Error Code -1]", e);
 			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
@@ -114,10 +116,10 @@ public class AutoDao implements Dao<Auto> {
 					auto.getMisuraGomme());
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.save - Error Code " + e.getSQLState(), e);
-			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
 		} catch(IOException e) {
-			logger.error("Error during AutoDao.save - Error Code -1", e);
+			logger.error("[Error Code -1]", e);
 			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
@@ -142,8 +144,8 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.update - Error Code " + e.getSQLState(), e);
-			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
 		}
 
 		return res;
@@ -161,8 +163,8 @@ public class AutoDao implements Dao<Auto> {
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.delete - Error Code " + e.getSQLState(), e);
-			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
 		}
 
 		return res;

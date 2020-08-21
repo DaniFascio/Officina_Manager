@@ -4,10 +4,7 @@ import org.intellij.lang.annotations.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
@@ -22,13 +19,20 @@ public class DatabaseManager implements AutoCloseable {
 	static {
 		dbProperties = new Properties();
 		errorCodes = new Properties();
-		filePath = System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina\\conn.properties";
+		filePath = System.getenv("APPDATA") + "\\Officina Manager\\conn.properties";
 
-		try(InputStream dbInput = new FileInputStream(filePath); InputStream ecInput = DatabaseManager.class.getResourceAsStream(
-				"/SQLErrorCodes.properties")) {
+		try(InputStream input = new FileInputStream(filePath)) {
 
-			errorCodes.load(ecInput);
-			dbProperties.load(dbInput);
+			dbProperties.load(input);
+
+		} catch(FileNotFoundException ignored) {
+		} catch(IOException e) {
+			logger.error("Error while loading resources", e);
+		}
+
+		try(InputStream input = DatabaseManager.class.getResourceAsStream("/SQLErrorCodes.properties")) {
+
+			errorCodes.load(input);
 
 		} catch(Exception e) {
 			logger.error("Error while loading resources", e);

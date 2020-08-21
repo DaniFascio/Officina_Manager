@@ -46,7 +46,8 @@
 				<Insets topRightBottomLeft="30"/>
 			</padding>
 
-			<Label text="%login.title">
+			<Label text="%login.title"
+					wrapText="true">
 				<font>
 					<Font name="Cooper Black"
 							size="32.0"/>
@@ -57,7 +58,7 @@
 			</Label>
 
 			<JFXTextField fx:id="usernameField"
-					focusColor="brown"
+					focusColor="darkgreen"
 					labelFloat="true"
 					promptText="%login.username"
 					onKeyPressed="#handleKey"
@@ -69,7 +70,7 @@
 			</JFXTextField>
 
 			<JFXPasswordField fx:id="passwordField"
-					focusColor="brown"
+					focusColor="darkgreen"
 					labelFloat="true"
 					promptText="%login.password"
 					onKeyPressed="#handleKey"

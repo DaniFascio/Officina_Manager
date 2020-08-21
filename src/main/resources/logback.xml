@@ -14,7 +14,7 @@
 	<!-- File appender -->
 	<appender name="fout"
 			class="ch.qos.logback.core.FileAppender">
-		<file>${user.home}\AppData\Roaming\db_officina\${CurrentDate} - db_officina.log</file>
+		<file>${APPDATA}\Officina Manager\${CurrentDate} - db_officina.log</file>
 		<append>true</append>
 		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %msg%n</pattern>

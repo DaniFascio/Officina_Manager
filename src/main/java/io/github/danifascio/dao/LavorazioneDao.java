@@ -5,6 +5,8 @@ import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +17,8 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 	private final Auto auto;
 	private String errorMessage;
+	private static Logger logger = LoggerFactory.getLogger(LavorazioneDao.class);
+
 
 	public LavorazioneDao(Auto auto) {
 		this.auto = auto;
@@ -43,8 +47,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.build();
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during LavorazioneDao.get",e);
 		}
 
 		return lavorazione;
@@ -72,8 +75,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.build());
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during LavorazioneDao.getAll",e);
 		}
 
 		return list;
@@ -104,8 +106,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					auto.getTarga());
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during LavorazioneDao.save",e);
 		}
 
 		return res;
@@ -134,8 +135,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					id);
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during LavorazioneDao.update",e);
 		}
 
 		return res;
@@ -153,8 +153,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione.getId());
 
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during LavorazioneDao.delete",e);
 		}
 
 		return res;

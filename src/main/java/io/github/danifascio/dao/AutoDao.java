@@ -4,15 +4,19 @@ import io.github.danifascio.DatabaseManager;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.TipoGomme;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class AutoDao implements Dao<Auto> {
 
 	private String errorMessage;
+	private static final Logger logger = LoggerFactory.getLogger(AutoDao.class);
 
 	public AutoDao() {
 		errorMessage = "";
@@ -39,8 +43,8 @@ public class AutoDao implements Dao<Auto> {
 						.build();
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during AutoDao.get",e);
+
 		}
 
 		return auto;
@@ -65,8 +69,8 @@ public class AutoDao implements Dao<Auto> {
 						.build());
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during AutoDao.getAll",e);
+
 		}
 
 		return list;
@@ -99,8 +103,8 @@ public class AutoDao implements Dao<Auto> {
 					auto.getMisuraGomme());
 
 		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during AutoDao.save",e);
+
 		}
 
 		return res;
@@ -123,8 +127,8 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during AutoDao.update",e);
+
 		}
 
 
@@ -141,8 +145,8 @@ public class AutoDao implements Dao<Auto> {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			logger.error("Error during AutoDao.delete",e);
+
 		}
 
 		return res;

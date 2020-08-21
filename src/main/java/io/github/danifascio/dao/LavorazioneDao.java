@@ -49,7 +49,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.build();
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("Error Code " + e.getSQLState(), e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -81,7 +81,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.build());
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("Error Code " + e.getSQLState(), e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -116,7 +116,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					auto.getTarga());
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("Error Code " + e.getSQLState(), e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -149,7 +149,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					id);
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -171,7 +171,7 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione.getId());
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 

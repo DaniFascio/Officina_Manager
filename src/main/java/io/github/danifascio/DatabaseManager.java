@@ -1,6 +1,5 @@
 package io.github.danifascio;
 
-import io.github.danifascio.dao.AutoDao;
 import org.intellij.lang.annotations.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ public class DatabaseManager implements AutoCloseable {
 	private static final Properties errorCodes;
 	private static final Properties dbProperties;
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
-
 
 	static {
 		dbProperties = new Properties();

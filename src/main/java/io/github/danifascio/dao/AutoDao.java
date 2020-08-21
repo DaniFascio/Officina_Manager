@@ -46,7 +46,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 
 		} catch(IOException e) {
@@ -78,7 +78,7 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 
 		} catch(IOException e) {
@@ -116,7 +116,7 @@ public class AutoDao implements Dao<Auto> {
 					auto.getMisuraGomme());
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
@@ -144,7 +144,7 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 
@@ -163,7 +163,7 @@ public class AutoDao implements Dao<Auto> {
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
 
 		} catch(SQLException e) {
-			if(DatabaseManager.errorCodeResponse(e.getSQLState()).equals(Gui.lang().getString("unknown_error")))
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
 				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 

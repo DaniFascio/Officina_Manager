@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -59,7 +60,12 @@ public class Gui extends Application {
 
 		logger = LoggerFactory.getLogger(getClass());
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
-			logger.error("Uncaught Exception", e);
+
+			if(e instanceof SQLException)
+				logger.error("Uncaught SQLException - Error Code " + ((SQLException) e).getSQLState(), e);
+			else
+				logger.error("Uncaught Exception", e);
+
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
 

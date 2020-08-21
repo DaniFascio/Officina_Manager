@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -41,9 +42,10 @@ public class AutoDao implements Dao<Auto> {
 						.setTipoGomme(TipoGomme.get("tipo_gomme"))
 						.build();
 
-		} catch(Exception e) {
+		} catch(SQLException e) {
+			logger.error("Error during AutoDao.get - Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
 			logger.error("Error during AutoDao.get", e);
-
 		}
 
 		return auto;

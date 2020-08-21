@@ -208,6 +208,8 @@ public class CentralPane extends BorderPane implements Initializable {
 	@FXML
 	private void onEditAuto(ActionEvent event) {
 		Auto selectedAuto = listaAutoView.getSelectionModel().getSelectedItem();
+		if(selectedAuto == null)
+			return;
 
 		new AutoDialog(AutoDialog.ViewMode.EDIT, selectedAuto).onResult(auto -> {
 
@@ -236,6 +238,9 @@ public class CentralPane extends BorderPane implements Initializable {
 	private void onDeleteAuto(ActionEvent event) {
 
 		Auto auto = listaAutoView.getSelectionModel().getSelectedItem();
+		if(auto == null)
+			return;
+
 		String targa = auto.getTarga();
 
 		new Alert(Alert.AlertType.CONFIRMATION,
@@ -311,8 +316,8 @@ public class CentralPane extends BorderPane implements Initializable {
 					alert.showAndWait();
 
 				} else
-					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.add.success")),
-							Duration.seconds(Gui.TOAST_DURATION)));
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
+							"lavorazione.add.success")), Duration.seconds(Gui.TOAST_DURATION)));
 
 			}
 		}).showAndWait();
@@ -343,8 +348,8 @@ public class CentralPane extends BorderPane implements Initializable {
 						alert.showAndWait();
 
 					} else
-						new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.edit.success")),
-								Duration.seconds(Gui.TOAST_DURATION)));
+						new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
+								"lavorazione.edit.success")), Duration.seconds(Gui.TOAST_DURATION)));
 				}
 
 			}).showAndWait();
@@ -375,8 +380,8 @@ public class CentralPane extends BorderPane implements Initializable {
 					alert.showAndWait();
 
 				} else
-					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.delete.success")),
-							Duration.seconds(Gui.TOAST_DURATION)));
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
+							"lavorazione.delete.success")), Duration.seconds(Gui.TOAST_DURATION)));
 
 				refreshAuto();
 			});
@@ -420,17 +425,17 @@ public class CentralPane extends BorderPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		searchAutoButton.setGraphic(Gui.icon("search", Color.DIMGRAY, 18));
+		searchAutoButton.setGraphic(Gui.icon("search", Color.DARKGREEN, 18));
 
-		addAutoButton.setGraphic(Gui.icon("add", Color.DIMGRAY, 18));
-		editAutoButton.setGraphic(Gui.icon("edit", Color.DIMGRAY, 18));
-		deleteAutoButton.setGraphic(Gui.icon("delete", Color.DIMGRAY, 18));
-		refreshAutoButton.setGraphic(Gui.icon("refresh", Color.DIMGRAY, 18));
+		addAutoButton.setGraphic(Gui.icon("add", Color.DARKGREEN, 18));
+		editAutoButton.setGraphic(Gui.icon("edit", Color.DARKGREEN, 18));
+		deleteAutoButton.setGraphic(Gui.icon("delete", Color.DARKGREEN, 18));
+		refreshAutoButton.setGraphic(Gui.icon("refresh", Color.DARKGREEN, 18));
 
-		addLavorazioneButton.setGraphic(Gui.icon("add", Color.DIMGRAY, 18));
-		editLavorazioneButton.setGraphic(Gui.icon("edit", Color.DIMGRAY, 18));
-		deleteLavorazioneButton.setGraphic(Gui.icon("delete", Color.DIMGRAY, 18));
-		refreshLavorazioneButton.setGraphic(Gui.icon("refresh", Color.DIMGRAY, 18));
+		addLavorazioneButton.setGraphic(Gui.icon("add", Color.DARKGREEN, 18));
+		editLavorazioneButton.setGraphic(Gui.icon("edit", Color.DARKGREEN, 18));
+		deleteLavorazioneButton.setGraphic(Gui.icon("delete", Color.DARKGREEN, 18));
+		refreshLavorazioneButton.setGraphic(Gui.icon("refresh", Color.DARKGREEN, 18));
 	}
 
 }

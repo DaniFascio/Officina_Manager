@@ -4,6 +4,12 @@
 	-color-secondary: darkslategray;
 	-color-background: #f4f4f4;
 
+	-fx-focus-color: #006400;
+	-fx-faint-focus-color: #00640022;
+
+	-fx-selection-bar: darkgreen;
+	-fx-selection-bar-non-focused: darkslategray;
+
 }
 
 .custom-textfield {
@@ -52,7 +58,7 @@
 
 .left_border {
 
-	-fx-border-color: darkslategray;
+	-fx-border-color: darkgreen;
 	-fx-border-width: 0 0 0 2;
 	-fx-padding: 0 0 0 6;
 
@@ -77,7 +83,7 @@
 }
 
 .jfx-snackbar-content {
-	-fx-background-color: #323232;
+	-fx-background-color: darkslategray;
 }
 
 .jfx-snackbar-toast {
@@ -86,7 +92,7 @@
 }
 
 .jfx-snackbar-action {
-	-fx-text-fill: darkslategray;
+	-fx-text-fill: white;
 }
 
 /* DECORATOR */
@@ -105,17 +111,23 @@
 	-fx-border-width: 0 2 2 2;
 }
 
-/* */
+/* ICON-BUTTON */
 
 .jfx-icon {
 
 	-fx-padding: 6;
 	-fx-border-radius: 0;
 
-	-jfx-button-type: FLAT;
-	-jfx-rippler-fill: #c8c8c8;
-	-jfx-rippler-recenter: true;
+}
 
+.jfx-icon .jfx-rippler {
+	-jfx-button-type: FLAT;
+	-jfx-rippler-recenter: true;
+	-jfx-rippler-fill: darkslategray;
+}
+
+.jfx-icon .jfx-svg-glyph:hover {
+	-fx-background-color: darkslategray;
 }
 
 /*noinspection CssInvalidPseudoSelector*/

@@ -134,9 +134,11 @@ public class AutoDialog extends CustomDialog<Auto> {
 		boolean modelloError;
 		boolean misuraGommeError;
 
-		targaField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, targaError = !targaPattern.matcher(targaField.getText()).matches());
+		targaField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS,
+				targaError = !targaPattern.matcher(targaField.getText()).matches());
 		kmField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, kmError = !kmPattern.matcher(kmField.getText()).matches());
-		modelloField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, modelloError = !anyPattern.matcher(modelloField.getText()).matches());
+		modelloField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS,
+				modelloError = !anyPattern.matcher(modelloField.getText()).matches());
 		misuraGommeField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS,
 				misuraGommeError = !anyPattern.matcher(misuraGommeField.getText()).matches());
 

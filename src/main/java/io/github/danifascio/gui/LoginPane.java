@@ -139,11 +139,8 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void openSettings(Event event) {
-		Gui.createStage(lang.getString("menu.settings"),
-				lang.getString("menu.settings"),
-				new SettingsPane(),
-				false,
-				Modality.APPLICATION_MODAL).showAndWait();
+		Gui.createStage(lang.getString("menu.settings"), "settings", new SettingsPane(), false, Modality.APPLICATION_MODAL)
+				.showAndWait();
 	}
 
 	@FXML

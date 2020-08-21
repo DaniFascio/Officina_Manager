@@ -174,12 +174,7 @@ public class CentralPane extends BorderPane implements Initializable {
 			if(auto != null) {
 				AutoDao dao = new AutoDao();
 
-				if(!dao.error()) {
-
-					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.edit.success")),
-							Duration.seconds(Gui.TOAST_DURATION)));
-
-				} else {
+				if(dao.update(selectedAuto, auto.values()) == 0) {
 
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setTitle(lang.getString("auto.edit"));
@@ -187,7 +182,9 @@ public class CentralPane extends BorderPane implements Initializable {
 					alert.setContentText(dao.errorMessage());
 					alert.showAndWait();
 
-				}
+				} else
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.edit.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
 
 				onRefreshAuto(event);
 			}

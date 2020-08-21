@@ -58,7 +58,7 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 
 	public LavorazioneDialog(ViewMode viewMode, Auto auto, @Nullable Lavorazione lavorazione) {
 		super((viewMode.equals(ViewMode.ADD) ? "Aggiungi" : viewMode.equals(ViewMode.EDIT) ? "Modifica" : "Visualizza") + " lavorazione",
-				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "action.add" : viewMode.equals(ViewMode.EDIT) ? "action.edit" : "view"),
+				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : viewMode.equals(ViewMode.EDIT) ? "edit" : "view"),
 				viewMode.equals(ViewMode.ADD) || viewMode.equals(ViewMode.EDIT) ? Modality.APPLICATION_MODAL : Modality.NONE);
 
 		try {

@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -44,6 +45,7 @@ public class Gui extends Application {
 
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	public static final String DIR = System.getenv("APPDATA") + "\\Officina Manager";
+	public static final Image ICON = new Image(Gui.class.getResourceAsStream("/icon.png"));
 	public static final int ICON_SIZE = 20;
 	public static final int TOAST_DURATION = 3;
 
@@ -112,13 +114,6 @@ public class Gui extends Application {
 			logger.error("Error during loading icons", e);
 		}
 
-		BundleManager.load("glyphs", true);
-
-		if(BundleManager.get("glyphs") != null)
-			logger.info("Glyphs bundle loaded");
-		else
-			logger.error("Couldn't load Glyphs bundle");
-
 		changeStage(lang.getString("menu.secondary"), new LoginPane(), false);
 	}
 
@@ -138,7 +133,6 @@ public class Gui extends Application {
 
 		Stage newStage = new Stage();
 		StackPane rootPane = new StackPane(content);
-		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
@@ -148,7 +142,10 @@ public class Gui extends Application {
 		JFXDecorator decorator = new JFXDecorator(newStage, rootPane, false, resizable, true);
 		decorator.setGraphic(glyph);
 
-		newStage.setScene(new Scene(decorator));
+		Scene scene = new Scene(decorator);
+		scene.getStylesheets().add("/css/Root.css");
+
+		newStage.setScene(scene);
 		newStage.initStyle(StageStyle.UNDECORATED);
 		newStage.setResizable(resizable);
 		newStage.setTitle(title);
@@ -176,6 +173,7 @@ public class Gui extends Application {
 					})
 					.show();
 		});
+		newStage.getIcons().add(ICON);
 		newStage.setMinHeight(height);
 		newStage.setMinWidth(width);
 		newStage.setHeight(height);
@@ -192,14 +190,17 @@ public class Gui extends Application {
 
 		Stage stage = new Stage();
 		StackPane rootPane = new StackPane(content);
-		rootPane.getStylesheets().add("/css/Root.css");
 		rootPane.setId("rootPane");
 
 		double height = content.getMinHeight() + 36, width = content.getMinWidth() + 8;
 		JFXDecorator decorator = new JFXDecorator(stage, rootPane, false, resizable, true);
 		decorator.setGraphic(icon(icon, Color.WHITE, ICON_SIZE));
 
-		stage.setScene(new Scene(decorator));
+		Scene scene = new Scene(decorator);
+		scene.getStylesheets().add("/css/Root.css");
+
+		stage.setScene(scene);
+		stage.getIcons().add(ICON);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.initModality(modality);
 		stage.setResizable(false);

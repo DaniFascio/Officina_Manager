@@ -11,7 +11,9 @@ public class MenuBarController {
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "action.toimplement", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"action.toimplement",
+				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
 		alert.setHeaderText("menu.patient");
 		alert.showAndWait();
 	}

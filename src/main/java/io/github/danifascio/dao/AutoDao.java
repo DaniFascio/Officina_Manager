@@ -15,8 +15,9 @@ import java.util.List;
 
 public class AutoDao implements Dao<Auto> {
 
-	private String errorMessage;
 	private static final Logger logger = LoggerFactory.getLogger(AutoDao.class);
+
+	private String errorMessage;
 
 	public AutoDao() {
 		errorMessage = "";
@@ -43,9 +44,11 @@ public class AutoDao implements Dao<Auto> {
 						.build();
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.get - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+			logger.error("[Error Code " + e.getSQLState() + "] " + errorMessage, e);
 		} catch(IOException e) {
-			logger.error("Error during AutoDao.get", e);
+			logger.error("[Error Code -1] IOException", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return auto;
@@ -53,6 +56,7 @@ public class AutoDao implements Dao<Auto> {
 
 	@Override
 	public @NotNull List<Auto> getAll() {
+
 		List<Auto> list = new LinkedList<>();
 		errorMessage = "";
 
@@ -71,9 +75,10 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 			logger.error("Error during AutoDao.getAll - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		} catch(IOException e) {
-			logger.error("Error during AutoDao.getAll", e);
-
+			logger.error("Error during AutoDao.getAll - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return list;
@@ -105,12 +110,12 @@ public class AutoDao implements Dao<Auto> {
 					auto.getTipoGomme().getId(),
 					auto.getMisuraGomme());
 
-		}
-
-		catch(SQLException e) {
+		} catch(SQLException e) {
 			logger.error("Error during AutoDao.save - Error Code " + e.getSQLState(), e);
-		}   catch(IOException e) {
-			logger.error("Error during AutoDao.save", e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+		} catch(IOException e) {
+			logger.error("Error during AutoDao.save - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 
@@ -135,8 +140,8 @@ public class AutoDao implements Dao<Auto> {
 
 		} catch(SQLException e) {
 			logger.error("Error during AutoDao.update - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		}
-
 
 		return res;
 	}
@@ -148,11 +153,13 @@ public class AutoDao implements Dao<Auto> {
 		int res = 0;
 
 		try {
+
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
-		}
-		catch(SQLException e) {
+
+		} catch(SQLException e) {
 			logger.error("Error during AutoDao.delete - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		}
 
 		return res;

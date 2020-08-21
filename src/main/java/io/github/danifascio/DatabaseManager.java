@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 @SuppressWarnings("unused")
 public class DatabaseManager implements AutoCloseable {
@@ -122,8 +121,20 @@ public class DatabaseManager implements AutoCloseable {
 
 	public static void save() {
 		try(PrintWriter printWriter = new PrintWriter(filePath)) {
-			dbProperties.store(printWriter, "");
-		} catch(Exception e) {
+
+			String username = dbProperties.getProperty("db.username");
+			String password = dbProperties.getProperty("db.password");
+			dbProperties.remove("db.username");
+			dbProperties.remove("db.password");
+
+			dbProperties.store(printWriter, null);
+
+			if(username != null)
+				dbProperties.put("db.username", username);
+			if(password != null)
+				dbProperties.put("db.password", password);
+
+		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

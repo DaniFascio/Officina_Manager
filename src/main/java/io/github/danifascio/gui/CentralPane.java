@@ -142,7 +142,6 @@ public class CentralPane extends BorderPane implements Initializable {
 		new AutoDialog(AutoDialog.ViewMode.ADD, null).onResult(auto -> {
 			if(auto != null) {
 				AutoDao autoDao = new AutoDao();
-				Dialog<ButtonType> dialog;
 
 				if(autoDao.save(auto) == 1) {
 
@@ -152,14 +151,9 @@ public class CentralPane extends BorderPane implements Initializable {
 
 				} else {
 
-					String message = autoDao.errorMessage();
-					int index = message.indexOf("Detail");
-					if(index != -1)
-						message = message.substring(index);
-
-					dialog = new Alert(Alert.AlertType.ERROR);
+					Dialog<ButtonType> dialog = new Alert(Alert.AlertType.ERROR);
 					dialog.setHeaderText(lang.getString("auto.add.error"));
-					dialog.setContentText(lang.getString("auto.add.error_Targa"));
+					dialog.setContentText(autoDao.errorMessage());
 					dialog.setTitle(lang.getString("auto.add2"));
 					dialog.showAndWait();
 
@@ -196,7 +190,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 					alert = new Alert(Alert.AlertType.ERROR);
 					alert.setHeaderText(lang.getString("auto.edit.error"));
-					alert.setContentText(lang.getString("auto.add.error_Targa"));
+					alert.setContentText(lang.getString("auto.add.error_targa"));
 
 				}
 

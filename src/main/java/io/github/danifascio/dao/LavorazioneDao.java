@@ -16,10 +16,10 @@ import java.util.List;
 
 public class LavorazioneDao implements Dao<Lavorazione> {
 
+	private static final Logger logger = LoggerFactory.getLogger(LavorazioneDao.class);
+
 	private final Auto auto;
 	private String errorMessage;
-	private static Logger logger = LoggerFactory.getLogger(LavorazioneDao.class);
-
 
 	public LavorazioneDao(Auto auto) {
 		this.auto = auto;
@@ -47,10 +47,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build();
 
-		}catch(SQLException e){
+		} catch(SQLException e) {
 			logger.error("Error during LavorazioneDao.get - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		} catch(IOException e) {
-			logger.error("Error during LavorazioneDao.get",e);
+			logger.error("Error during LavorazioneDao.get - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return lavorazione;
@@ -77,10 +79,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build());
 
-		}catch(SQLException e){
+		} catch(SQLException e) {
 			logger.error("Error during LavorazioneDao.getAll - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		} catch(IOException e) {
-			logger.error("Error during LavorazioneDao.getAll",e);
+			logger.error("Error during LavorazioneDao.getAll - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return list;
@@ -110,10 +114,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					lavorazione.getData(),
 					auto.getTarga());
 
-		}catch(SQLException e) {
+		} catch(SQLException e) {
 			logger.error("Error during LavorazioneDao.save - Error Code " + e.getSQLState(), e);
-		}catch(IOException e) {
-			logger.error("Error during LavorazioneDao.save",e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
+		} catch(IOException e) {
+			logger.error("Error during LavorazioneDao.save - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return res;
@@ -143,8 +149,10 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 
 		} catch(SQLException e) {
 			logger.error("Error during LavorazioneDao.update - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		} catch(IOException e) {
-			logger.error("Error during LavorazioneDao.update", e);
+			logger.error("Error during LavorazioneDao.update - Error Code -1", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return res;
@@ -162,7 +170,8 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione.getId());
 
 		} catch(SQLException e) {
-			logger.error("Error during LavorazioneDao.delete - Error Code " + e.getSQLState(), e);
+			logger.error("Error during LavorazioneDao.get - Error Code " + e.getSQLState(), e);
+			errorMessage = DatabaseManager.errorCodeResponse(e.getSQLState());
 		}
 
 		return res;

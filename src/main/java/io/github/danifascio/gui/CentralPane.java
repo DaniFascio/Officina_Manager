@@ -250,7 +250,6 @@ public class CentralPane extends BorderPane implements Initializable {
 
 		if(listaAutoView.getSelectionModel().getSelectedItem() == null && listaAutoView.getItems().size() != 0)
 			Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
-
 	}
 
 	@FXML

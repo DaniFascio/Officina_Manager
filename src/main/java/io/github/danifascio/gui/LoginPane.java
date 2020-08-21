@@ -79,7 +79,9 @@ public class LoginPane extends BorderPane {
 
 			} catch(SQLException e) {
 				String errorResponse = DatabaseManager.errorCodeResponse(e.getSQLState());
-				logger.error("[Error Code " + e.getSQLState() + "] " + errorResponse, e);
+
+				if(errorResponse.equals(Gui.lang().getString("unknown_error")))
+					logger.error("[Error Code " + e.getSQLState() + "]", e);
 
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle(lang.getString("action.error"));

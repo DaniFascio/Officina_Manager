@@ -67,7 +67,7 @@ public class Gui extends Application {
 		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
 
 			if(e instanceof SQLException)
-				logger.error("Uncaught SQLException - Error Code " + ((SQLException) e).getSQLState(), e);
+				logger.error("Uncaught SQLE[Error Code " + ((SQLException) e).getSQLState() + "]", e);
 			else
 				logger.error("Uncaught Exception", e);
 

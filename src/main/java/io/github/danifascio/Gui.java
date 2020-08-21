@@ -30,10 +30,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 public class Gui extends Application {
 
@@ -72,6 +77,23 @@ public class Gui extends Application {
 		File dir = new File(DIR);
 		if(!dir.exists())
 			dir.mkdirs();
+
+		// DELETE OLD LOGS
+		long currentMillis = new Date().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		Stream.of(dir.listFiles((dir1, name) -> {
+			boolean b = false;
+
+			try {
+				if(name.endsWith(".log")) {
+					long millis = currentMillis - sdf.parse(name.split("-")[0].trim()).getTime();
+					b = TimeUnit.DAYS.convert(millis, TimeUnit.MILLISECONDS) > 30;
+				}
+			} catch(ParseException ignored) {
+			}
+
+			return b;
+		})).forEach(File::delete);
 
 		lang = ResourceBundle.getBundle("Strings");
 		if(lang == null)

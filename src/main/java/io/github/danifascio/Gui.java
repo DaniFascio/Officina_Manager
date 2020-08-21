@@ -45,6 +45,7 @@ public class Gui extends Application {
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	public static final String DIR = System.getProperty("user.home") + "\\AppData\\Roaming\\db_officina";
 	public static final int ICON_SIZE = 20;
+	public static final int TOAST_DURATION = 3;
 
 	private static Properties iconsPath;
 	private static ResourceBundle lang;

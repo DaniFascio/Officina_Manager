@@ -20,14 +20,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -92,6 +90,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 	private final ResourceBundle lang;
 	private final List<Auto> autoList;
+	private StackPane rootPane;
 	private Auto selectedAuto;
 
 	public CentralPane() {
@@ -109,7 +108,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			welcomeLabel.setText(DatabaseManager.getUsername());
 
-			Tooltip.install(searchBox, new Tooltip(lang.getString("auto.search_criteria")));
+			Tooltip.install(searchBox, new Tooltip(lang.getString("auto.search.criteria")));
 
 			listaAutoView.setCellFactory(listView -> new AutoCell());
 			listaAutoView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -131,6 +130,7 @@ public class CentralPane extends BorderPane implements Initializable {
 			listaLavorazioniView.setCellFactory(listView -> new LavorazioneCell());
 
 			onRefreshAuto(null);
+			Platform.runLater(() -> rootPane = (StackPane) getScene().lookup("#rootPane"));
 		} catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
@@ -146,16 +146,16 @@ public class CentralPane extends BorderPane implements Initializable {
 				if(autoDao.save(auto) == 1) {
 
 					// TODO: REFACTOR ALERT (INFO) INTO TOAST (SNACKBAR)
-					new JFXSnackbar((Pane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
-							"auto.add.success")), Duration.seconds(3)));
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.add.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
 
 				} else {
 
-					Dialog<ButtonType> dialog = new Alert(Alert.AlertType.ERROR);
-					dialog.setHeaderText(lang.getString("auto.add.error"));
-					dialog.setContentText(autoDao.errorMessage());
-					dialog.setTitle(lang.getString("auto.add2"));
-					dialog.showAndWait();
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle(lang.getString("auto.add2"));
+					alert.setHeaderText(lang.getString("auto.add.error"));
+					alert.setContentText(autoDao.errorMessage());
+					alert.showAndWait();
 
 				}
 
@@ -173,29 +173,22 @@ public class CentralPane extends BorderPane implements Initializable {
 
 			if(auto != null) {
 				AutoDao dao = new AutoDao();
-				System.out.println(dao.update(selectedAuto, auto.values()));
-				Alert alert;
 
 				if(!dao.error()) {
 
-					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText(lang.getString("auto.edit.success"));
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.edit.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
 
 				} else {
 
-					String message = dao.errorMessage();
-					int index = message.indexOf(lang.getString("menu.details"));
-					if(index != -1)
-						message = message.substring(index);
-
-					alert = new Alert(Alert.AlertType.ERROR);
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle(lang.getString("auto.edit"));
 					alert.setHeaderText(lang.getString("auto.edit.error"));
-					alert.setContentText(lang.getString("auto.add.error_targa"));
+					alert.setContentText(dao.errorMessage());
+					alert.showAndWait();
 
 				}
 
-				alert.setTitle(lang.getString("auto.edit"));
-				alert.showAndWait();
 				onRefreshAuto(event);
 			}
 		}).showAndWait();
@@ -208,27 +201,30 @@ public class CentralPane extends BorderPane implements Initializable {
 		Auto auto = listaAutoView.getSelectionModel().getSelectedItem();
 		String targa = auto.getTarga();
 
-		new Alert(Alert.AlertType.CONFIRMATION, lang.getString("auto.remove_selected.confirm") + targa + "?", ButtonType.YES, ButtonType.NO)
-				.showAndWait()
-				.filter(ButtonType.YES::equals)
-				.ifPresent(buttonType -> {
-					Alert alert;
-					AutoDao dao = new AutoDao();
+		new Alert(Alert.AlertType.CONFIRMATION,
+				String.format(lang.getString("auto.delete.confirm"), targa),
+				ButtonType.YES,
+				ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
 
-					if(dao.delete(auto) == 1) {
-						alert = new Alert(Alert.AlertType.INFORMATION);
-						alert.setHeaderText(lang.getString("auto.delete.success"));
-					} else {
-						alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText(lang.getString("auto.delete.error"));
-						alert.setContentText(dao.errorMessage());
-					}
+			AutoDao dao = new AutoDao();
 
-					alert.setTitle(lang.getString("auto.delete"));
-					alert.showAndWait();
-					onRefreshAuto(event);
+			if(dao.delete(auto) == 1) {
 
-				});
+				new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("auto.delete.success")),
+						Duration.seconds(Gui.TOAST_DURATION)));
+
+			} else {
+
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle(lang.getString("auto.delete"));
+				alert.setHeaderText(lang.getString("auto.delete.error"));
+				alert.setContentText(dao.errorMessage());
+				alert.showAndWait();
+
+			}
+
+			onRefreshAuto(event);
+		});
 	}
 
 	@FXML
@@ -236,17 +232,20 @@ public class CentralPane extends BorderPane implements Initializable {
 		AutoDao dao = new AutoDao();
 		List<Auto> list = dao.getAll();
 
-		if(dao.error()) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle(lang.getString("action.error"));
-			alert.setHeaderText(lang.getString("auto.update.error"));
-			alert.setContentText(dao.errorMessage());
-		}
-
 		autoList.clear();
 		autoList.addAll(list);
 		listaAutoView.getItems().clear();
 		listaAutoView.getItems().addAll(list);
+
+		if(dao.error()) {
+
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle(lang.getString("action.error"));
+			alert.setHeaderText(lang.getString("auto.refresh.error"));
+			alert.setContentText(dao.errorMessage());
+			alert.showAndWait();
+
+		}
 
 		if(listaAutoView.getSelectionModel().getSelectedItem() == null && listaAutoView.getItems().size() != 0)
 			Platform.runLater(() -> listaAutoView.getSelectionModel().select(0));
@@ -280,8 +279,15 @@ public class CentralPane extends BorderPane implements Initializable {
 		listaLavorazioniView.getItems().clear();
 		listaLavorazioniView.getItems().addAll(dao.getAll());
 
-		if(dao.error())
-			new Alert(Alert.AlertType.ERROR, dao.errorMessage()).showAndWait();
+		if(dao.error()) {
+
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle(lang.getString("action.error"));
+			alert.setHeaderText(lang.getString("lavorazione.refresh.error"));
+			alert.setContentText(dao.errorMessage());
+			alert.showAndWait();
+
+		}
 	}
 
 	@FXML
@@ -293,8 +299,17 @@ public class CentralPane extends BorderPane implements Initializable {
 				LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
 				dao.save(lavorazione);
 
-				if(dao.error())
-					throw new RuntimeException(dao.errorMessage());
+				if(dao.error()) {
+
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle(lang.getString("action.error"));
+					alert.setHeaderText(lang.getString("lavorazione.add.error"));
+					alert.setContentText(dao.errorMessage());
+					alert.showAndWait();
+
+				} else
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.add.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
 
 			}
 		}).showAndWait();
@@ -308,29 +323,28 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
-					"auto.lavorazioni.select"))));
+			new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.select_first"))));
 
 		else
 			new LavorazioneDialog(LavorazioneDialog.ViewMode.EDIT, selectedAuto, selectedLavorazione).onResult(lavorazione -> {
 
 				if(lavorazione != null) {
-					JFXSnackbarLayout toastLayout;
-
 					LavorazioneDao dao = new LavorazioneDao(lavorazione.getAuto());
-					if(dao.update(selectedLavorazione, lavorazione.values()) == 1)
-						toastLayout = new JFXSnackbarLayout(lang.getString("auto.lavorazioni.update.success"));
-					else
-						toastLayout = new JFXSnackbarLayout(lang.getString("auto.lavorazioni.update.error"));
 
-					if(dao.error())
-						throw new RuntimeException(dao.errorMessage());
+					if(dao.update(selectedLavorazione, lavorazione.values()) == 0) {
 
-					new JFXSnackbar((StackPane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(toastLayout));
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setTitle(lang.getString("action.error"));
+						alert.setHeaderText(lang.getString("lavorazione.edit.error"));
+						alert.setContentText(dao.errorMessage());
+						alert.showAndWait();
+
+					} else
+						new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.edit.success")),
+								Duration.seconds(Gui.TOAST_DURATION)));
 				}
 
 			}).showAndWait();
-
 	}
 
 	@FXML
@@ -339,32 +353,30 @@ public class CentralPane extends BorderPane implements Initializable {
 		Lavorazione selectedLavorazione = listaLavorazioniView.getSelectionModel().getSelectedItem();
 
 		if(selectedLavorazione == null)
-			new Alert(Alert.AlertType.INFORMATION, lang.getString("auto.lavorazioni.select")).showAndWait();
+			new Alert(Alert.AlertType.INFORMATION, lang.getString("lavorazione.select_first")).showAndWait();
+
 		else
-
-
 			new Alert(Alert.AlertType.CONFIRMATION,
-					lang.getString("auto.lavorazioni.confirm_remove"),
+					lang.getString("lavorazione.delete.confirm"),
 					ButtonType.YES,
 					ButtonType.NO).showAndWait().filter(ButtonType.YES::equals).ifPresent(buttonType -> {
-				Alert alert;
+
 				LavorazioneDao dao = new LavorazioneDao(selectedAuto);
 
-				if(dao.delete(selectedLavorazione) == 1) {
-					alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText(lang.getString("auto.lavorazioni.remove_success"));
-				} else {
-					alert = new Alert(Alert.AlertType.ERROR);
-					alert.setHeaderText(lang.getString("auto.lavorazioni.remove_error"));
+				if(dao.delete(selectedLavorazione) == 0) {
+
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle(lang.getString("lavorazione.delete"));
+					alert.setHeaderText(lang.getString("lavorazione.delete.error"));
 					alert.setContentText(dao.errorMessage());
-				}
+					alert.showAndWait();
 
-				alert.setTitle(lang.getString("auto.lavorazioni.remove"));
-				alert.showAndWait();
+				} else
+					new JFXSnackbar(rootPane).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString("lavorazione.delete.success")),
+							Duration.seconds(Gui.TOAST_DURATION)));
+
 				onRefreshAuto(event);
-
 			});
-
 	}
 
 	@FXML

@@ -33,6 +33,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
 	private static final Properties icons;
 
+	@SuppressWarnings("FieldCanBeLocal")
 	private final ResourceBundle lang;
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
@@ -67,7 +68,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 
 	public AutoDialog(ViewMode viewMode, @Nullable Auto auto) {
 		super(viewMode.equals(ViewMode.ADD) ? "Aggiungi auto" : "Modifica auto",
-				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "action.add" : "action.edit"),
+				icons.getProperty(viewMode.equals(ViewMode.ADD) ? "add" : "edit"),
 				Modality.APPLICATION_MODAL);
 
 		try {

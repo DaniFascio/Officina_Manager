@@ -19,7 +19,7 @@
 			</padding>
 
 			<Menu text="%menu.primary">
-				<MenuItem text="%action.update"
+				<MenuItem text="%action.refresh"
 						onAction="#onRefreshAuto"/>
 				<MenuItem text="%action.backToMenu"
 						onAction="#backToLogin"/>
@@ -35,7 +35,7 @@
 						onAction="#onEditAuto"/>
 				<MenuItem text="%action.delete"
 						onAction="#onDeleteAuto"/>
-				<MenuItem text="%action.update"
+				<MenuItem text="%action.refresh"
 						onAction="#onRefreshAuto"/>
 
 			</Menu>
@@ -47,7 +47,7 @@
 						onAction="#onEditLavorazione"/>
 				<MenuItem text="%action.delete"
 						onAction="#onDeleteLavorazione"/>
-				<MenuItem text="%action.update"
+				<MenuItem text="%action.refresh"
 						onAction="#onRefreshLavorazione"/>
 			</Menu>
 
@@ -93,7 +93,7 @@
 						<TextField fx:id="searchAutoField"
 								onKeyTyped="#onSearchAuto"
 								HBox.hgrow="ALWAYS"
-								promptText="%auto.search_criteria"/>
+								promptText="%auto.search.criteria"/>
 					</HBox>
 
 					<HBox alignment="CENTER_LEFT">
@@ -110,7 +110,7 @@
 								styleClass="jfx-icon"
 								onAction="#onEditAuto">
 							<tooltip>
-								<Tooltip text="%auto.edit_selected"/>
+								<Tooltip text="%auto.edit.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -118,7 +118,7 @@
 								styleClass="jfx-icon"
 								onAction="#onDeleteAuto">
 							<tooltip>
-								<Tooltip text="%auto.remove_selected"/>
+								<Tooltip text="%auto.delete.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -126,7 +126,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshAuto">
 							<tooltip>
-								<Tooltip text="%auto.update"/>
+								<Tooltip text="%auto.refresh"/>
 							</tooltip>
 						</JFXButton>
 
@@ -231,7 +231,7 @@
 						<Insets topRightBottomLeft="20"/>
 					</padding>
 
-					<Label text="%auto.lavorazioni"
+					<Label text="%lavorazione.list"
 							styleClass="main-label"/>
 
 					<!-- LISTA LAVORAZIONI CONTROLS -->
@@ -258,7 +258,7 @@
 								onAction="#onDeleteLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="%lavorazione.remove"/>
+								<Tooltip text="%lavorazione.delete.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -266,7 +266,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshLavorazione">
 							<tooltip>
-								<Tooltip text="%lavorazione.update"/>
+								<Tooltip text="%lavorazione.refresh"/>
 							</tooltip>
 						</JFXButton>
 

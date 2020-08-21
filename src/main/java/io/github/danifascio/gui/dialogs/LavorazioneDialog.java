@@ -38,8 +38,7 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 	private TextArea descrizioneArea;
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
-
-	private static ResourceBundle lang;
+	private static final ResourceBundle lang = Gui.lang();
 
 	static {
 		icons = new Properties();
@@ -64,9 +63,9 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LavorazioneDialog.fxml"));
-			loader.setResources(lang = Gui.lang());
 			loader.setRoot(new AnchorPane());
 			loader.setController(this);
+			loader.setResources(lang);
 			setContent(loader.load());
 
 		} catch(IOException e) {
@@ -99,8 +98,12 @@ public class LavorazioneDialog extends CustomDialog<Lavorazione> {
 			spesaField.textProperty().addListener(listener);
 
 		} else {
-			// TODO: UNEDITABLE FIELDS FOR VIEW VIEWMODE
 			addButton("Chiudi", event -> setResult(null));
+
+			spesaField.setEditable(false);
+			// TODO: FIX EDITABLE DATEPICKER WHEN UNEDITABLE
+			datePicker.setEditable(false);
+			descrizioneArea.setEditable(false);
 		}
 	}
 

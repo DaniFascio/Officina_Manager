@@ -27,10 +27,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.IOException;
@@ -143,6 +145,10 @@ public class CentralPane extends BorderPane implements Initializable {
 				Dialog<ButtonType> dialog;
 
 				if(autoDao.save(auto) == 1) {
+
+					// TODO: REFACTOR ALERT (INFO) INTO TOAST (SNACKBAR)L
+					new JFXSnackbar((Pane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
+							"auto.add.success")), Duration.seconds(3)));
 
 					dialog = new Alert(Alert.AlertType.INFORMATION);
 					dialog.setHeaderText(lang.getString("auto.add.success"));

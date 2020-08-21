@@ -95,7 +95,7 @@ public class Gui extends Application {
 			return b;
 		})).forEach(File::delete);
 
-		lang = ResourceBundle.getBundle("Strings");
+		lang = ResourceBundle.getBundle("lang");
 		if(lang == null)
 			new FatalDialog("Fatal Error", "Couldn't get language resources.\nTry to reinstall the program.");
 

@@ -145,7 +145,7 @@ public class CentralPane extends BorderPane implements Initializable {
 
 				if(autoDao.save(auto) == 1) {
 
-					// TODO: REFACTOR ALERT (INFO) INTO TOAST (SNACKBAR)L
+					// TODO: REFACTOR ALERT (INFO) INTO TOAST (SNACKBAR)
 					new JFXSnackbar((Pane) getScene().lookup("#rootPane")).enqueue(new SnackbarEvent(new JFXSnackbarLayout(lang.getString(
 							"auto.add.success")), Duration.seconds(3)));
 

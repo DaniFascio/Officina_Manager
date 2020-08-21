@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class AutoDao implements Dao<Auto> {
 
 	private String errorMessage;
@@ -43,7 +42,7 @@ public class AutoDao implements Dao<Auto> {
 						.build();
 
 		} catch(Exception e) {
-			logger.error("Error during AutoDao.get",e);
+			logger.error("Error during AutoDao.get", e);
 
 		}
 
@@ -69,7 +68,7 @@ public class AutoDao implements Dao<Auto> {
 						.build());
 
 		} catch(Exception e) {
-			logger.error("Error during AutoDao.getAll",e);
+			logger.error("Error during AutoDao.getAll", e);
 
 		}
 
@@ -103,7 +102,7 @@ public class AutoDao implements Dao<Auto> {
 					auto.getMisuraGomme());
 
 		} catch(Exception e) {
-			logger.error("Error during AutoDao.save",e);
+			logger.error("Error during AutoDao.save", e);
 
 		}
 
@@ -127,7 +126,7 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.update",e);
+			logger.error("Error during AutoDao.update", e);
 
 		}
 
@@ -145,7 +144,7 @@ public class AutoDao implements Dao<Auto> {
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
 		} catch(SQLException e) {
-			logger.error("Error during AutoDao.delete",e);
+			logger.error("Error during AutoDao.delete", e);
 
 		}
 

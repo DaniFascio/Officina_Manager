@@ -25,6 +25,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginPane extends BorderPane {
@@ -76,12 +77,14 @@ public class LoginPane extends BorderPane {
 				TipoGomme.reload();
 				Gui.changeStage(lang.getString("menu.secondary"), new CentralPane(), true);
 
-			} catch(Exception e) {
-				logger.error("Error during login event", e);
+			} catch(SQLException e) {
+				String errorResponse = DatabaseManager.errorCodeResponse(e.getSQLState());
+				logger.error(errorResponse, e);
+
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle(lang.getString("action.error"));
-				alert.setHeaderText(lang.getString("menu.connection.error"));
-				alert.setContentText(lang.getString("menu.credentials.error"));
+				alert.setHeaderText(lang.getString("login.error"));
+				alert.setContentText(errorResponse);
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}

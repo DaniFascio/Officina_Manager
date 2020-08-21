@@ -6,7 +6,7 @@
 
 	<groupId>io.github.DaniFascio</groupId>
 	<artifactId>db_officina</artifactId>
-	<version>2020.8.DEVELOP</version>
+	<version>2020.8.15</version>
 	<packaging>jar</packaging>
 
 	<properties>

@@ -6,7 +6,8 @@
 
 	<groupId>io.github.DaniFascio</groupId>
 	<artifactId>db_officina</artifactId>
-	<version>2020.8.DEVELOP</version>
+	<version>2020.9.DEVELOP</version>
+	<name>Officina Manager</name>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -75,6 +76,14 @@
 	</dependencies>
 
 	<build>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 
 			<plugin>
@@ -101,6 +110,7 @@
 			</plugin>
 
 		</plugins>
+
 	</build>
 
 </project>

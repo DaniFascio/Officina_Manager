@@ -27,7 +27,7 @@ public class DatabaseManager implements AutoCloseable {
 		else
 			os = System.getenv("HOME");
 
-		filePath = os + "/OfficinaManager";
+		filePath = os + "/OfficinaManager/conn.properties";
 
 		try(InputStream input = new FileInputStream(filePath)) {
 
@@ -154,7 +154,8 @@ public class DatabaseManager implements AutoCloseable {
 
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
-
+		} catch(Exception e) {
+			logger.error(e.getMessage(), e);
 		}
 	}
 

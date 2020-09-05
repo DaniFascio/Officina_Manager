@@ -63,6 +63,7 @@ public class Gui extends Application {
 
 	private static Properties iconsPath;
 	private static ResourceBundle lang;
+	private static String version;
 	private static Logger logger;
 	private static Stage stage;
 
@@ -88,6 +89,18 @@ public class Gui extends Application {
 
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
+
+		try(InputStream input = getClass().getResourceAsStream("/project.properties")) {
+
+			Properties properties = new Properties();
+			properties.load(input);
+
+			version = properties.getProperty("version", "VERSION_MISSING");
+
+		} catch(Exception e) {
+			logger.warn("Cannot load version", e);
+			version = "VERSION_ERROR";
+		}
 
 		File dir = new File(DIR);
 		if(!dir.exists())
@@ -131,6 +144,10 @@ public class Gui extends Application {
 
 	public static Stage stage() {
 		return stage;
+	}
+
+	public static String version() {
+		return version;
 	}
 
 	public static ResourceBundle lang() {

@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,15 +40,28 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Gui extends Application {
 
+	public static final String DIR;
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	public static final String DIR = System.getenv("APPDATA") + "\\Officina Manager";
 	public static final Image ICON = new Image(Gui.class.getResourceAsStream("/icon.png"));
 	public static final int ICON_SIZE = 20;
 	public static final int TOAST_DURATION = 3;
+
+	static {
+		String os = SystemUtils.OS_NAME.toLowerCase();
+
+		if(os.contains("windows"))
+			os = System.getenv("APPDATA");
+		else
+			os = System.getenv("HOME");
+
+		DIR = os + "/OfficinaManager";
+	}
 
 	private static Properties iconsPath;
 	private static ResourceBundle lang;

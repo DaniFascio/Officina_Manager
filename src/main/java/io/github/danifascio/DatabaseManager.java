@@ -32,8 +32,11 @@ public class DatabaseManager implements AutoCloseable {
 		try(InputStream input = new FileInputStream(filePath)) {
 
 			dbProperties.load(input);
+			if(dbProperties.getProperty("db.port") == null)
+				dbProperties.setProperty("db.port", "5432");
 
 		} catch(FileNotFoundException ignored) {
+			dbProperties.setProperty("db.port", "5432");
 		} catch(IOException e) {
 			logger.error("Error while loading resources", e);
 		}
@@ -59,7 +62,6 @@ public class DatabaseManager implements AutoCloseable {
 	public static DatabaseManager fromConfig(boolean autoCommit) throws SQLException {
 		String dbhost, dbport, dbuser, dbpass;
 
-		// TODO: default port 54321
 		dbhost = dbProperties.getProperty("db.host");
 		dbport = dbProperties.getProperty("db.port");
 		dbuser = dbProperties.getProperty("db.username");

@@ -1,5 +1,6 @@
 package io.github.danifascio;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.intellij.lang.annotations.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,14 @@ public class DatabaseManager implements AutoCloseable {
 	static {
 		dbProperties = new Properties();
 		errorCodes = new Properties();
-		filePath = System.getenv("APPDATA") + "\\Officina Manager\\conn.properties";
+
+		String os = SystemUtils.OS_NAME.toLowerCase();
+		if(os.contains("windows"))
+			os = System.getenv("APPDATA");
+		else
+			os = System.getenv("HOME");
+
+		filePath = os + "/OfficinaManager";
 
 		try(InputStream input = new FileInputStream(filePath)) {
 
@@ -51,6 +59,7 @@ public class DatabaseManager implements AutoCloseable {
 	public static DatabaseManager fromConfig(boolean autoCommit) throws SQLException {
 		String dbhost, dbport, dbuser, dbpass;
 
+		// TODO: default port 54321
 		dbhost = dbProperties.getProperty("db.host");
 		dbport = dbProperties.getProperty("db.port");
 		dbuser = dbProperties.getProperty("db.username");

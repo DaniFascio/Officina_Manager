@@ -40,14 +40,12 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Gui extends Application {
 
 	public static final String DIR;
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
-	public static final String DIR = System.getenv("APPDATA") + "\\Officina Manager";
 	public static final Image ICON = new Image(Gui.class.getResourceAsStream("/icon.png"));
 	public static final int ICON_SIZE = 20;
 	public static final int TOAST_DURATION = 3;

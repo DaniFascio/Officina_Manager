@@ -1,9 +1,10 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.dialogs;
 
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.TipoGomme;
+import io.github.danifascio.gui.LoginPane;
 import javafx.beans.value.ChangeListener;
-import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,12 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class AutoDialog extends CustomDialog<Auto> {
@@ -27,9 +31,12 @@ public class AutoDialog extends CustomDialog<Auto> {
 	private static final Pattern targaPattern = Pattern.compile("[a-zA-Z]{2} *\\d{3}[a-zA-Z]{2}");
 	private static final Pattern kmPattern = Pattern.compile("\\d+");
 	private static final Pattern anyPattern = Pattern.compile(".{3,}");
-	// TODO: MOVE ERROR_PSEUDO_CLASS TO Gui CLASS
-	private static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 	private static final Properties icons;
+
+	@SuppressWarnings("FieldCanBeLocal")
+	private final ResourceBundle lang;
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
 
 	static {
 		icons = new Properties();
@@ -39,10 +46,10 @@ public class AutoDialog extends CustomDialog<Auto> {
 			if(input != null)
 				icons.loadFromXML(input);
 			else
-				System.err.println("Couldn't load icons properties");
+				logger.error("Couldn't load icons properties");
 
 		} catch(IOException e) {
-			e.printStackTrace();
+			logger.error("Error during loading icons", e);
 		}
 	}
 
@@ -67,6 +74,7 @@ public class AutoDialog extends CustomDialog<Auto> {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AutoDialog.fxml"));
+			loader.setResources(lang = Gui.lang());
 			loader.setController(this);
 			setContent(loader.load());
 
@@ -107,8 +115,9 @@ public class AutoDialog extends CustomDialog<Auto> {
 				.setTipoGomme(tipoGommeBox.getValue())
 				.build());
 
-		addButton("Cancella", event -> setResult(null));
-		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? "Aggiungi" : "Modifica", event -> done());
+		addButton(lang.getString("action.cancel"), event -> setResult(null));
+		Button doneButton = addButton(viewMode.equals(ViewMode.ADD) ? lang.getString("action.add") : lang.getString("action.edit"),
+				event -> done());
 
 		ChangeListener<String> listener = (observable, oldValue, newValue) -> validate(doneButton);
 		validate(doneButton);
@@ -125,10 +134,10 @@ public class AutoDialog extends CustomDialog<Auto> {
 		boolean modelloError;
 		boolean misuraGommeError;
 
-		targaField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, targaError = !targaPattern.matcher(targaField.getText()).matches());
-		kmField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, kmError = !kmPattern.matcher(kmField.getText()).matches());
-		modelloField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, modelloError = !anyPattern.matcher(modelloField.getText()).matches());
-		misuraGommeField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS,
+		targaField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, targaError = !targaPattern.matcher(targaField.getText()).matches());
+		kmField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, kmError = !kmPattern.matcher(kmField.getText()).matches());
+		modelloField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS, modelloError = !anyPattern.matcher(modelloField.getText()).matches());
+		misuraGommeField.pseudoClassStateChanged(Gui.ERROR_PSEUDO_CLASS,
 				misuraGommeError = !anyPattern.matcher(misuraGommeField.getText()).matches());
 
 		disableable.setDisable(targaError || kmError || modelloError || misuraGommeError);

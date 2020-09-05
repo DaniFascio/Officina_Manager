@@ -1,16 +1,22 @@
 package io.github.danifascio.dao;
 
 import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.TipoGomme;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class AutoDao implements Dao<Auto> {
+
+	private static final Logger logger = LoggerFactory.getLogger(AutoDao.class);
 
 	private String errorMessage;
 
@@ -30,17 +36,22 @@ public class AutoDao implements Dao<Auto> {
 					key);
 
 			if(rs.next())
-				auto = new Auto.Builder().setTarga(rs.getString("targa"))
-						.setModello(rs.getString("modello"))
+				auto = new Auto.Builder().setTarga(rs.getString("auto.details.targa"))
+						.setModello(rs.getString("auto.details.modello"))
 						.setKm(rs.getInt("km"))
-						.setMisuraGomme(rs.getString("misura_gomme"))
-						.setNote(rs.getString("note"))
+						.setMisuraGomme(rs.getString("auto.details.gomme.misura"))
+						.setNote(rs.getString("auto.details.note"))
 						.setTipoGomme(TipoGomme.get("tipo_gomme"))
 						.build();
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
+
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return auto;
@@ -48,6 +59,7 @@ public class AutoDao implements Dao<Auto> {
 
 	@Override
 	public @NotNull List<Auto> getAll() {
+
 		List<Auto> list = new LinkedList<>();
 		errorMessage = "";
 
@@ -64,9 +76,14 @@ public class AutoDao implements Dao<Auto> {
 						.setTipoGomme(TipoGomme.get(rs.getString("tipo_gomme")))
 						.build());
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
+
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return list;
@@ -98,10 +115,14 @@ public class AutoDao implements Dao<Auto> {
 					auto.getTipoGomme().getId(),
 					auto.getMisuraGomme());
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
+
 
 		return res;
 	}
@@ -123,10 +144,9 @@ public class AutoDao implements Dao<Auto> {
 					objects);
 
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
-
 
 		return res;
 	}
@@ -138,11 +158,13 @@ public class AutoDao implements Dao<Auto> {
 		int res = 0;
 
 		try {
+
 			DatabaseManager databaseManager = DatabaseManager.fromConfig(true);
 			res = databaseManager.executeUpdate("DELETE FROM auto WHERE targa = ?", auto.getTarga());
+
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 
 		return res;

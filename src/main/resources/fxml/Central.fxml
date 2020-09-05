@@ -18,41 +18,42 @@
 				<Insets topRightBottomLeft="0"/>
 			</padding>
 
-			<Menu text="Database">
-				<MenuItem text="Aggiorna"
+			<Menu text="%menu.primary">
+				<MenuItem text="%action.refresh"
 						onAction="#onRefreshAuto"/>
-				<MenuItem text="Torna al menu"
+				<MenuItem text="%action.backToMenu"
 						onAction="#backToLogin"/>
-				<MenuItem text="Esci"
+				<MenuItem text="%menu.quit"
 						onAction="#quit"/>
 
 			</Menu>
 
-			<Menu text="Auto">
-				<MenuItem text="Aggiungi"
+			<Menu text="%menu.auto">
+				<MenuItem text="%action.add"
 						onAction="#onAddAuto"/>
-				<MenuItem text="Modifica"
+				<MenuItem text="%action.edit"
 						onAction="#onEditAuto"/>
-				<MenuItem text="Elimina"
+				<MenuItem text="%action.delete"
 						onAction="#onDeleteAuto"/>
-				<MenuItem text="Cerca Targa o modello"/>
+				<MenuItem text="%action.refresh"
+						onAction="#onRefreshAuto"/>
 
 			</Menu>
 
-			<Menu text="Lavorazione">
-				<MenuItem text="Aggiungi"
+			<Menu text="%menu.lavorazione">
+				<MenuItem text="%action.add"
 						onAction="#onAddLavorazione"/>
-				<MenuItem text="Modifica"
+				<MenuItem text="%action.edit"
 						onAction="#onEditLavorazione"/>
-				<MenuItem text="Rimuovi"
+				<MenuItem text="%action.delete"
 						onAction="#onDeleteLavorazione"/>
-				<MenuItem text="Aggiorna"
+				<MenuItem text="%action.refresh"
 						onAction="#onRefreshLavorazione"/>
 			</Menu>
 
-			<Menu text="Altro">
+			<Menu text="%menu.misc">
 				<MenuItem onAction="#reportBug"
-						text="Segnala un problema"/>
+						text="%menu.report_bug"/>
 			</Menu>
 
 		</MenuBar>
@@ -70,7 +71,7 @@
 				</padding>
 
 				<HBox alignment="CENTER">
-					<Label text="Lista Auto"
+					<Label text="%auto.list"
 							HBox.hgrow="ALWAYS"
 							styleClass="main-label"/>
 				</HBox>
@@ -92,7 +93,7 @@
 						<TextField fx:id="searchAutoField"
 								onKeyTyped="#onSearchAuto"
 								HBox.hgrow="ALWAYS"
-								promptText="Cerca per targa o per modello"/>
+								promptText="%auto.search.criteria"/>
 					</HBox>
 
 					<HBox alignment="CENTER_LEFT">
@@ -101,7 +102,7 @@
 								styleClass="jfx-icon"
 								onAction="#onAddAuto">
 							<tooltip>
-								<Tooltip text="Aggiungi una nuova auto"/>
+								<Tooltip text="%auto.add"/>
 							</tooltip>
 						</JFXButton>
 
@@ -109,7 +110,7 @@
 								styleClass="jfx-icon"
 								onAction="#onEditAuto">
 							<tooltip>
-								<Tooltip text="Modifica l'auto selezionata"/>
+								<Tooltip text="%auto.edit.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -117,7 +118,7 @@
 								styleClass="jfx-icon"
 								onAction="#onDeleteAuto">
 							<tooltip>
-								<Tooltip text="Rimuovi l'auto selezionata"/>
+								<Tooltip text="%auto.delete.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -125,7 +126,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshAuto">
 							<tooltip>
-								<Tooltip text="Aggiorna la lista delle auto"/>
+								<Tooltip text="%auto.refresh"/>
 							</tooltip>
 						</JFXButton>
 
@@ -154,7 +155,7 @@
 							<ColumnConstraints percentWidth="50"/>
 						</columnConstraints>
 
-						<Label text="Dettagli Auto"
+						<Label text="%auto.details"
 								styleClass="main-label"
 								GridPane.rowIndex="0"
 								GridPane.columnIndex="0"
@@ -165,7 +166,7 @@
 						<VBox GridPane.hgrow="ALWAYS"
 								GridPane.rowIndex="1"
 								GridPane.columnIndex="0">
-							<Label text="Targa"
+							<Label text="%auto.details.targa"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="targaLabel"
 									styleClass="left_border,blank-field"
@@ -175,7 +176,7 @@
 						<VBox GridPane.hgrow="ALWAYS"
 								GridPane.rowIndex="1"
 								GridPane.columnIndex="1">
-							<Label text="Modello"
+							<Label text="%auto.details.modello"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="modelloLabel"
 									styleClass="left_border,blank-field"
@@ -184,7 +185,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="0">
-							<Label text="Km"
+							<Label text="%auto.details.km"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="kmLabel"
 									styleClass="left_border,blank-field"
@@ -193,7 +194,7 @@
 
 						<VBox GridPane.rowIndex="2"
 								GridPane.columnIndex="1">
-							<Label text="Misura Gomme"
+							<Label text="%auto.details.gomme.misura"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="misuraGommeLabel"
 									styleClass="left_border,blank-field"
@@ -202,7 +203,7 @@
 
 						<VBox GridPane.rowIndex="3"
 								GridPane.columnIndex="0">
-							<Label text="Tipo Gomme"
+							<Label text="%auto.details.gomme.tipo"
 									styleClass="i,em1_2"/>
 							<TextField fx:id="tipoGommeLabel"
 									styleClass="left_border,blank-field"
@@ -212,7 +213,7 @@
 						<VBox GridPane.rowIndex="4"
 								GridPane.columnIndex="0"
 								GridPane.columnSpan="2">
-							<Label text="Note"
+							<Label text="%auto.details.note"
 									styleClass="i,em1_2"/>
 							<TextArea fx:id="noteArea"
 									styleClass="left_border,blank-field"
@@ -230,7 +231,7 @@
 						<Insets topRightBottomLeft="20"/>
 					</padding>
 
-					<Label text="Lavorazioni Auto"
+					<Label text="%lavorazione.list"
 							styleClass="main-label"/>
 
 					<!-- LISTA LAVORAZIONI CONTROLS -->
@@ -241,7 +242,7 @@
 								onAction="#onAddLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Aggiungi una nuova lavorazione sull'auto corrente"/>
+								<Tooltip text="%lavorazione.add"/>
 							</tooltip>
 						</JFXButton>
 
@@ -249,7 +250,7 @@
 								onAction="#onEditLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Modifica la lavorazione selezionata"/>
+								<Tooltip text="%lavorazione.edit"/>
 							</tooltip>
 						</JFXButton>
 
@@ -257,7 +258,7 @@
 								onAction="#onDeleteLavorazione"
 								styleClass="jfx-icon">
 							<tooltip>
-								<Tooltip text="Rimuovi la lavorazione selezionata"/>
+								<Tooltip text="%lavorazione.delete.selected"/>
 							</tooltip>
 						</JFXButton>
 
@@ -265,7 +266,7 @@
 								styleClass="jfx-icon"
 								onAction="#onRefreshLavorazione">
 							<tooltip>
-								<Tooltip text="Aggiorna la lista delle lavorazioni"/>
+								<Tooltip text="%lavorazione.refresh"/>
 							</tooltip>
 						</JFXButton>
 
@@ -288,7 +289,7 @@
 				<padding>
 					<Insets topRightBottomLeft="3"/>
 				</padding>
-				<Label text="Benvenuto, "/>
+				<Label text="%welcome"/>
 				<Label fx:id="welcomeLabel"
 						styleClass="b"/>
 				<Label text="!"/>

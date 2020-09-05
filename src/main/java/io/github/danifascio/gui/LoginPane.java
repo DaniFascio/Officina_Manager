@@ -18,11 +18,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class LoginPane extends BorderPane {
 
@@ -33,6 +37,9 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private PasswordField passwordField;
 
+	private static final Logger logger = LoggerFactory.getLogger(LoginPane.class);
+	private final ResourceBundle lang;
+
 	public LoginPane() {
 		super();
 
@@ -40,8 +47,9 @@ public class LoginPane extends BorderPane {
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/LoginPane.fxml"));
-			loader.setRoot(this);
+			loader.setResources(lang = Gui.lang());
 			loader.setController(this);
+			loader.setRoot(this);
 			loader.load();
 
 		} catch(IOException e) {
@@ -67,14 +75,18 @@ public class LoginPane extends BorderPane {
 			try {
 
 				TipoGomme.reload();
-				Gui.changeStage("Officina Manager", new CentralPane(), true);
+				Gui.changeStage(lang.getString("menu.secondary"), new CentralPane(), true);
 
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch(SQLException e) {
+				String errorResponse = DatabaseManager.errorCodeResponse(e.getSQLState());
+
+				if(errorResponse.equals(Gui.lang().getString("unknown_error")))
+					logger.error("[Error Code " + e.getSQLState() + "]", e);
+
 				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Errore");
-				alert.setHeaderText("Impossibile connettersi al database");
-				alert.setContentText("Inserire correttamente le credenziali");
+				alert.setTitle(lang.getString("action.error"));
+				alert.setHeaderText(lang.getString("login.error"));
+				alert.setContentText(errorResponse);
 				alert.showAndWait();
 				formPane.setDisable(false);
 			}
@@ -113,7 +125,7 @@ public class LoginPane extends BorderPane {
 	@FXML
 	private void reportBug(Event event) {
 		Desktop desktop = Desktop.getDesktop();
-		String message = "mailto:danifascio02@gmail.com?cc=dev_excale@hotmail.com&subject=%27db_officina%27%20Bug%20Report";
+		String message = lang.getString("action.reportBug.Mail");
 		URI uri = URI.create(message);
 
 		try {
@@ -127,13 +139,19 @@ public class LoginPane extends BorderPane {
 
 	@FXML
 	private void openSettings(Event event) {
-		Gui.createStage("Impostazioni", "settings", new SettingsPane(), false, Modality.APPLICATION_MODAL).showAndWait();
+		Gui.createStage(lang.getString("menu.settings"),
+				lang.getString("menu.settings"),
+				new SettingsPane(),
+				false,
+				Modality.APPLICATION_MODAL).showAndWait();
 	}
 
 	@FXML
 	private void toImplement(Event event) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Da implementare", new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
-		alert.setHeaderText("Pazienta per favore");
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				lang.getString("action.toimplement"),
+				new ButtonType("Oke", ButtonBar.ButtonData.OK_DONE));
+		alert.setHeaderText(lang.getString("menu.patient"));
 		alert.showAndWait();
 	}
 

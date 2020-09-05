@@ -1,11 +1,10 @@
 package io.github.danifascio;
 
 import org.intellij.lang.annotations.Language;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
@@ -13,17 +12,30 @@ import java.util.Properties;
 public class DatabaseManager implements AutoCloseable {
 
 	private static final String filePath;
-	private static final Properties properties;
+	private static final Properties errorCodes;
+	private static final Properties dbProperties;
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
 
 	static {
-		properties = new Properties();
-		filePath = System.getProperty("user.home") + "\\AppData\\Roaming\\DaniFascio\\db_officina\\conn.properties";
+		dbProperties = new Properties();
+		errorCodes = new Properties();
+		filePath = System.getenv("APPDATA") + "\\Officina Manager\\conn.properties";
 
 		try(InputStream input = new FileInputStream(filePath)) {
 
-			properties.load(input);
+			dbProperties.load(input);
 
-		} catch(Exception ignored) {
+		} catch(FileNotFoundException ignored) {
+		} catch(IOException e) {
+			logger.error("Error while loading resources", e);
+		}
+
+		try(InputStream input = DatabaseManager.class.getResourceAsStream("/SQLErrorCodes.properties")) {
+
+			errorCodes.load(input);
+
+		} catch(Exception e) {
+			logger.error("Error while loading resources", e);
 		}
 	}
 
@@ -32,13 +44,17 @@ public class DatabaseManager implements AutoCloseable {
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 
+	public static String errorCodeResponse(String errorCode) {
+		return errorCodes.getProperty(errorCode, Gui.lang().getString("unknown_error") + " - Error Code " + errorCode);
+	}
+
 	public static DatabaseManager fromConfig(boolean autoCommit) throws SQLException {
 		String dbhost, dbport, dbuser, dbpass;
 
-		dbhost = properties.getProperty("db.host");
-		dbport = properties.getProperty("db.port");
-		dbuser = properties.getProperty("db.username");
-		dbpass = properties.getProperty("db.password");
+		dbhost = dbProperties.getProperty("db.host");
+		dbport = dbProperties.getProperty("db.port");
+		dbuser = dbProperties.getProperty("db.username");
+		dbpass = dbProperties.getProperty("db.password");
 
 		return new DatabaseManager("jdbc:postgresql://" + dbhost + ":" + dbport + "/db_officina", dbuser, dbpass, autoCommit);
 	}
@@ -84,7 +100,6 @@ public class DatabaseManager implements AutoCloseable {
 
 	public Integer executeUpdate(@Language("SQL") String query, Object... params) throws SQLException {
 		preparedStatement = connection.prepareStatement(query);
-		// TODO: SQL TYPE IN OBJECT
 		for(int i = 1; i <= params.length; i++)
 			preparedStatement.setObject(i, params[i - 1]);
 		int result = preparedStatement.executeUpdate();
@@ -111,42 +126,56 @@ public class DatabaseManager implements AutoCloseable {
 	}
 
 	public static void save() {
+
 		try(PrintWriter printWriter = new PrintWriter(filePath)) {
-			properties.store(printWriter, "");
-		} catch(Exception e) {
-			throw new RuntimeException(e);
+
+			String username = dbProperties.getProperty("db.username");
+			String password = dbProperties.getProperty("db.password");
+			dbProperties.remove("db.username");
+			dbProperties.remove("db.password");
+
+			dbProperties.store(printWriter, null);
+
+			if(username != null)
+				dbProperties.put("db.username", username);
+			if(password != null)
+				dbProperties.put("db.password", password);
+
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+
 		}
 	}
 
 	public static String getUsername() {
-		String str = properties.getProperty("db.username");
+		String str = dbProperties.getProperty("db.username");
 		return str != null ? str : "";
 	}
 
 	public static String getHostname() {
-		String str = properties.getProperty("db.host");
+		String str = dbProperties.getProperty("db.host");
 		return str != null ? str : "";
 	}
 
 	public static String getPort() {
-		String str = properties.getProperty("db.port");
+		String str = dbProperties.getProperty("db.port");
 		return str != null ? str : "";
 	}
 
 	public static void setHostname(String hostname) {
-		properties.setProperty("db.host", hostname);
+		dbProperties.setProperty("db.host", hostname);
 	}
 
 	public static void setPort(String port) {
-		properties.setProperty("db.port", port);
+		dbProperties.setProperty("db.port", port);
 	}
 
 	public static void setUsername(String username) {
-		properties.setProperty("db.username", username);
+		dbProperties.setProperty("db.username", username);
 	}
 
 	public static void setPassword(String password) {
-		properties.setProperty("db.password", password);
+		dbProperties.setProperty("db.password", password);
 	}
 
 }

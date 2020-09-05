@@ -1,17 +1,23 @@
 package io.github.danifascio.dao;
 
 import io.github.danifascio.DatabaseManager;
+import io.github.danifascio.Gui;
 import io.github.danifascio.beans.Auto;
 import io.github.danifascio.beans.Lavorazione;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class LavorazioneDao implements Dao<Lavorazione> {
+
+	private static final Logger logger = LoggerFactory.getLogger(LavorazioneDao.class);
 
 	private final Auto auto;
 	private String errorMessage;
@@ -42,9 +48,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build();
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return lavorazione;
@@ -71,9 +80,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 						.setData(rs.getDate("data").toLocalDate())
 						.build());
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return list;
@@ -103,9 +115,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					lavorazione.getData(),
 					auto.getTarga());
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("Error Code " + e.getSQLState(), e);
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return res;
@@ -133,9 +148,12 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 					params[3],
 					id);
 
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+		} catch(SQLException e) {
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
+		} catch(IOException e) {
+			logger.error("[Error Code -1]", e);
+			errorMessage = DatabaseManager.errorCodeResponse("-1");
 		}
 
 		return res;
@@ -153,8 +171,8 @@ public class LavorazioneDao implements Dao<Lavorazione> {
 			res = databaseManager.executeUpdate("DELETE FROM lavorazioni WHERE id_tipo_lavorazione = ?", lavorazione.getId());
 
 		} catch(SQLException e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
+			if(DatabaseManager.errorCodeResponse(e.getSQLState()).contains(Gui.lang().getString("unknown_error")))
+				logger.error("[Error Code " + e.getSQLState() + "]", e);
 		}
 
 		return res;

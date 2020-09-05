@@ -1,7 +1,7 @@
 .root {
 
 	-color-primary: #f4f4f4;
-	-color-secondary: #4949ea;
+	-color-secondary: #000;
 	-color-background: #f4f4f4;
 
 }
@@ -21,7 +21,7 @@
 .custom-textfield:focused {
 
 	-fx-border-width: 0 0 2;
-	-fx-border-color: #4949ea;
+	-fx-border-color: #000;
 
 }
 
@@ -52,7 +52,7 @@
 
 .left_border {
 
-	-fx-border-color: #4949ea;
+	-fx-border-color: #000;
 	-fx-border-width: 0 0 0 2;
 	-fx-padding: 0 0 0 6;
 

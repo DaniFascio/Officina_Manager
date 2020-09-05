@@ -1,4 +1,4 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.dialogs;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -6,14 +6,12 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Function;
 
@@ -88,20 +86,11 @@ public class LightDialog {
 
 	public LightDialog onClose(EventHandler<? super JFXDialogEvent> handler) {
 
-		EventHandler<? super JFXDialogEvent> eventHandler = event -> {
+		dialog.setOnDialogClosed(event -> {
 			dialogMap.remove(root);
-			try {
+			handler.handle(event);
+		});
 
-				Method method = handler.getClass().getMethod("handle", Event.class);
-				method.setAccessible(true);
-				method.invoke(handler, event);
-
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		};
-
-		dialog.setOnDialogClosed(eventHandler);
 		return this;
 	}
 

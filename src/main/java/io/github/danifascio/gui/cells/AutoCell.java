@@ -1,4 +1,4 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.cells;
 
 import io.github.danifascio.beans.Auto;
 import javafx.fxml.FXML;

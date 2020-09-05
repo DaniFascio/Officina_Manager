@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <fx:root xmlns="http://javafx.com/javafx"
 		xmlns:fx="http://javafx.com/fxml"
+		stylesheets="/css/Root.css"
 		type="AnchorPane">
 
 	<GridPane AnchorPane.bottomAnchor="10"
@@ -23,7 +24,8 @@
 				GridPane.columnIndex="0"
 				GridPane.columnSpan="1">
 			<Label text="Spesa"/>
-			<TextField fx:id="spesaField"/>
+			<TextField styleClass="left_border,blank-field"
+					fx:id="spesaField"/>
 		</VBox>
 
 		<VBox GridPane.rowIndex="0"

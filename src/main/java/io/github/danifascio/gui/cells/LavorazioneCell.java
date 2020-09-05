@@ -1,6 +1,7 @@
-package io.github.danifascio.gui;
+package io.github.danifascio.gui.cells;
 
 import io.github.danifascio.beans.Lavorazione;
+import io.github.danifascio.gui.dialogs.LavorazioneDialog;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -40,7 +41,7 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 					.filter(MouseButton.PRIMARY::equals)
 					.filter(mouseButton -> event.getClickCount() == 2)
 					.flatMap(mouseButton -> Optional.ofNullable(lavorazioneReference.get()))
-					.ifPresent(lavorazione -> new CustomLavorazioneDialog(CustomLavorazioneDialog.ViewMode.VIEW,
+					.ifPresent(lavorazione -> new LavorazioneDialog(LavorazioneDialog.ViewMode.VIEW,
 							lavorazione.getAuto(),
 							lavorazione).show()));
 
@@ -62,7 +63,6 @@ public class LavorazioneCell extends ListCell<Lavorazione> {
 			if(descrizione.length() > 30)
 				descrizione = descrizione.substring(0, 30);
 
-			// TODO: Aggiungere data lavorazione nel dao
 			dateLabel.setText(LocalDate.now().toString());
 			spesaLabel.setText(item.getSpesa().toString());
 			descrizioneLabel.setText(descrizione);

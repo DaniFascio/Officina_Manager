@@ -50,7 +50,7 @@
 					wrapText="true">
 				<font>
 					<Font name="Cooper Black"
-							size="32.0"/>
+							size="28.0"/>
 				</font>
 				<padding>
 					<Insets topRightBottomLeft="20"/>

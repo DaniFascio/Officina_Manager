@@ -4,9 +4,10 @@
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.github.DaniFascio</groupId>
+	<groupId>io.github.danifascio</groupId>
 	<artifactId>db_officina</artifactId>
 	<version>2020.8.21</version>
+	<name>Officina Manager</name>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -66,14 +67,36 @@
 			<version>16.0.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
+
+		<resources>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources-filtered</directory>
+				<filtering>true</filtering>
+			</resource>
+
+		</resources>
+
 		<plugins>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -86,15 +109,16 @@
 									<mainClass>io.github.danifascio.Gui</mainClass>
 								</manifest>
 							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
+							<descriptors>
+								<descriptor>src/assembly/deps.xml</descriptor>
+							</descriptors>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
 		</plugins>
+
 	</build>
 
 </project>

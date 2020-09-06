@@ -1,5 +1,6 @@
 package io.github.danifascio;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.intellij.lang.annotations.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +20,23 @@ public class DatabaseManager implements AutoCloseable {
 	static {
 		dbProperties = new Properties();
 		errorCodes = new Properties();
-		filePath = System.getenv("APPDATA") + "\\Officina Manager\\conn.properties";
+
+		String os = SystemUtils.OS_NAME.toLowerCase();
+		if(os.contains("windows"))
+			os = System.getenv("APPDATA");
+		else
+			os = System.getenv("HOME");
+
+		filePath = os + "/OfficinaManager/conn.properties";
 
 		try(InputStream input = new FileInputStream(filePath)) {
 
 			dbProperties.load(input);
+			if(dbProperties.getProperty("db.port") == null)
+				dbProperties.setProperty("db.port", "5432");
 
 		} catch(FileNotFoundException ignored) {
+			dbProperties.setProperty("db.port", "5432");
 		} catch(IOException e) {
 			logger.error("Error while loading resources", e);
 		}
@@ -143,7 +154,8 @@ public class DatabaseManager implements AutoCloseable {
 
 		} catch(IOException e) {
 			logger.error("[Error Code -1]", e);
-
+		} catch(Exception e) {
+			logger.error(e.getMessage(), e);
 		}
 	}
 

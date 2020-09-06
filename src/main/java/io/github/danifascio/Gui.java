@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,14 +44,26 @@ import java.util.stream.Stream;
 
 public class Gui extends Application {
 
+	public static final String DIR;
 	public static final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
-	public static final String DIR = System.getenv("APPDATA") + "\\Officina Manager";
 	public static final Image ICON = new Image(Gui.class.getResourceAsStream("/icon.png"));
 	public static final int ICON_SIZE = 20;
 	public static final int TOAST_DURATION = 3;
 
+	static {
+		String os = SystemUtils.OS_NAME.toLowerCase();
+
+		if(os.contains("windows"))
+			os = System.getenv("APPDATA");
+		else
+			os = System.getenv("HOME");
+
+		DIR = os + "/OfficinaManager";
+	}
+
 	private static Properties iconsPath;
 	private static ResourceBundle lang;
+	private static String version;
 	private static Logger logger;
 	private static Stage stage;
 
@@ -76,6 +89,18 @@ public class Gui extends Application {
 
 			new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 		});
+
+		try(InputStream input = getClass().getResourceAsStream("/project.properties")) {
+
+			Properties properties = new Properties();
+			properties.load(input);
+
+			version = properties.getProperty("version", "VERSION_MISSING");
+
+		} catch(Exception e) {
+			logger.warn("Cannot load version", e);
+			version = "VERSION_ERROR";
+		}
 
 		File dir = new File(DIR);
 		if(!dir.exists())
@@ -119,6 +144,10 @@ public class Gui extends Application {
 
 	public static Stage stage() {
 		return stage;
+	}
+
+	public static String version() {
+		return version;
 	}
 
 	public static ResourceBundle lang() {

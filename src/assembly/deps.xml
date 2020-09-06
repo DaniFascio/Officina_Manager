@@ -1,0 +1,38 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+
+	<id>deps</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<fileSets>
+
+		<fileSet>
+			<outputDirectory>/</outputDirectory>
+			<directory>${project.build.outputDirectory}</directory>
+			<excludes>
+				<exclude>launch4j.xml</exclude>
+			</excludes>
+		</fileSet>
+
+	</fileSets>
+
+	<dependencySets>
+
+		<dependencySet>
+			<scope>runtime</scope>
+			<unpack>true</unpack>
+			<unpackOptions>
+				<excludes>
+					<exclude>META-INF/maven/**</exclude>
+				</excludes>
+			</unpackOptions>
+			<useProjectArtifact>false</useProjectArtifact>
+		</dependencySet>
+
+	</dependencySets>
+
+</assembly>

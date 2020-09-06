@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+	<dontWrapJar>false</dontWrapJar>
+	<headerType>gui</headerType>
+	<jar>${project.build.directory}/${project.build.finalName}-deps.jar</jar>
+	<outfile>${project.build.directory}/Officina Manager.exe</outfile>
+	<errTitle>Questo programma necessita Java per funzionare. Scaricalo ora!</errTitle>
+	<cmdLine/>
+	<chdir>.</chdir>
+	<priority>normal</priority>
+	<downloadUrl>https://www.java.com/it/download/</downloadUrl>
+	<supportUrl/>
+	<stayAlive>false</stayAlive>
+	<restartOnCrash>true</restartOnCrash>
+	<manifest/>
+	<icon>${project.basedir}/src/main/resources/Officina Manager.ico</icon>
+	<singleInstance>
+		<mutexName>db_officina</mutexName>
+		<windowTitle>Officina Manager</windowTitle>
+	</singleInstance>
+	<jre>
+		<path/>
+		<bundledJre64Bit>false</bundledJre64Bit>
+		<bundledJreAsFallback>false</bundledJreAsFallback>
+		<minVersion>1.8</minVersion>
+		<maxVersion/>
+		<jdkPreference>preferJre</jdkPreference>
+		<runtimeBits>64/32</runtimeBits>
+	</jre>
+	<splash>
+		<file>${project.basedir}/src/main/resources/splash.bmp</file>
+		<waitForWindow>true</waitForWindow>
+		<timeout>30</timeout>
+		<timeoutErr>true</timeoutErr>
+	</splash>
+</launch4jConfig>

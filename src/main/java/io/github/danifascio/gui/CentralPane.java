@@ -51,6 +51,8 @@ public class CentralPane extends BorderPane implements Initializable {
 	@FXML
 	private ListView<Lavorazione> listaLavorazioniView;
 	@FXML
+	private Label versionLabel;
+	@FXML
 	private Label welcomeLabel;
 	@FXML
 	private TextField targaLabel;
@@ -106,6 +108,7 @@ public class CentralPane extends BorderPane implements Initializable {
 			loader.setRoot(this);
 			loader.load();
 
+			versionLabel.setText(Gui.version());
 			welcomeLabel.setText(DatabaseManager.getUsername());
 
 			Tooltip.install(searchBox, new Tooltip(lang.getString("auto.search.criteria")));

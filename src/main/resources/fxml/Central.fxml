@@ -284,12 +284,22 @@
 	<bottom>
 		<AnchorPane minWidth="720">
 
+			<HBox AnchorPane.leftAnchor="0"
+					alignment="CENTER_LEFT">
+				<padding>
+					<Insets topRightBottomLeft="3"/>
+				</padding>
+				<Label text="%version_label"/>
+				<Label fx:id="versionLabel"
+						styleClass="b"/>
+			</HBox>
+
 			<HBox AnchorPane.rightAnchor="0"
 					alignment="CENTER_RIGHT">
 				<padding>
 					<Insets topRightBottomLeft="3"/>
 				</padding>
-				<Label text="%welcome"/>
+				<Label text="%welcome_label"/>
 				<Label fx:id="welcomeLabel"
 						styleClass="b"/>
 				<Label text="!"/>

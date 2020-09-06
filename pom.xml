@@ -6,7 +6,7 @@
 
 	<groupId>io.github.danifascio</groupId>
 	<artifactId>db_officina</artifactId>
-	<version>2020.8.21</version>
+	<version>2020.9.6</version>
 	<name>Officina Manager</name>
 	<packaging>jar</packaging>
 

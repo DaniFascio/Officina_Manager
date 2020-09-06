@@ -11,7 +11,6 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

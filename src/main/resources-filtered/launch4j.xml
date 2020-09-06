@@ -2,28 +2,28 @@
 <launch4jConfig>
 	<dontWrapJar>false</dontWrapJar>
 	<headerType>gui</headerType>
-	<jar>${project.build.directory}/${project.build.finalName}.jar</jar>
+	<jar>${project.build.directory}/${project.build.finalName}-deps.jar</jar>
 	<outfile>${project.build.directory}/Officina Manager.exe</outfile>
 	<errTitle>Questo programma necessita Java per funzionare. Scaricalo ora!</errTitle>
-	<cmdLine></cmdLine>
+	<cmdLine/>
 	<chdir>.</chdir>
 	<priority>normal</priority>
 	<downloadUrl>https://www.java.com/it/download/</downloadUrl>
-	<supportUrl></supportUrl>
+	<supportUrl/>
 	<stayAlive>false</stayAlive>
 	<restartOnCrash>true</restartOnCrash>
-	<manifest></manifest>
+	<manifest/>
 	<icon>${project.basedir}/src/main/resources/Officina Manager.ico</icon>
 	<singleInstance>
 		<mutexName>db_officina</mutexName>
 		<windowTitle>Officina Manager</windowTitle>
 	</singleInstance>
 	<jre>
-		<path></path>
+		<path/>
 		<bundledJre64Bit>false</bundledJre64Bit>
 		<bundledJreAsFallback>false</bundledJreAsFallback>
 		<minVersion>1.8</minVersion>
-		<maxVersion></maxVersion>
+		<maxVersion/>
 		<jdkPreference>preferJre</jdkPreference>
 		<runtimeBits>64/32</runtimeBits>
 	</jre>

@@ -3,15 +3,15 @@
 	<dontWrapJar>false</dontWrapJar>
 	<headerType>gui</headerType>
 	<jar>${project.build.directory}/${project.build.finalName}-deps.jar</jar>
-	<outfile>${project.build.directory}/Officina Manager.exe</outfile>
+	<outfile>${project.build.directory}/Officina Manager-${project.version}.exe</outfile>
 	<errTitle>Questo programma necessita Java per funzionare. Scaricalo ora!</errTitle>
 	<cmdLine/>
-	<chdir>.</chdir>
+	<chdir>%APPDATA%/OfficinaManager</chdir>
 	<priority>normal</priority>
 	<downloadUrl>https://www.java.com/it/download/</downloadUrl>
 	<supportUrl/>
-	<stayAlive>false</stayAlive>
-	<restartOnCrash>true</restartOnCrash>
+	<stayAlive>true</stayAlive>
+	<restartOnCrash>false</restartOnCrash>
 	<manifest/>
 	<icon>${project.basedir}/src/main/resources/Officina Manager.ico</icon>
 	<singleInstance>
@@ -22,15 +22,22 @@
 		<path/>
 		<bundledJre64Bit>false</bundledJre64Bit>
 		<bundledJreAsFallback>false</bundledJreAsFallback>
-		<minVersion>1.8</minVersion>
-		<maxVersion/>
-		<jdkPreference>preferJre</jdkPreference>
+		<minVersion>1.8.0</minVersion>
+		<maxVersion>1.8.0_500</maxVersion>
+		<jdkPreference>jreOnly</jdkPreference>
 		<runtimeBits>64/32</runtimeBits>
 	</jre>
 	<splash>
 		<file>${project.basedir}/src/main/resources/splash.bmp</file>
 		<waitForWindow>true</waitForWindow>
-		<timeout>30</timeout>
+		<timeout>8</timeout>
 		<timeoutErr>true</timeoutErr>
 	</splash>
+	<messages>
+		<startupErr>Un errore è avvenuto durante l&apos;avvio. Se il problema persiste, contattare lo sviluppatore.</startupErr>
+		<bundledJreErr>Java Runtime Environment integrato mancante o danneggiato.</bundledJreErr>
+		<jreVersionErr>Questo software richiede un Java Runtime Environment versione 8.</jreVersionErr>
+		<launcherErr>Il registro non ha trovato riferimento ad un Java Runtime Environment o il launcher è danneggiato.</launcherErr>
+		<instanceAlreadyExistsMsg>Un&apos;instanza dello stesso software è già in esecuzione.</instanceAlreadyExistsMsg>
+	</messages>
 </launch4jConfig>
